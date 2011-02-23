@@ -1,6 +1,7 @@
 package cga.scenegraph.graph;
 
-import cga.scenegraph.cga.scenegraph.shape.Renderable;
+import cga.scenegraph.graph.visitor.Visitor;
+import cga.scenegraph.shape.Renderable;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
@@ -34,10 +35,17 @@ public class Node {
         return this;
     }
 
+    @NotNull
     public boolean removeNode(String label) {
         return false;
     }
 
+    @NotNull
     public void addShape(Renderable newShape) {
+    }
+
+    @NotNull
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }

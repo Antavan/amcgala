@@ -1,6 +1,6 @@
 package cga.scenegraph.camera;
 
-import cga.scenegraph.Renderer.Pixel;
+import cga.scenegraph.renderer.Pixel;
 
 public class OrthoCamera extends Camera {
     @Override

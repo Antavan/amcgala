@@ -1,4 +1,4 @@
-package cga.scenegraph.Renderer;
+package cga.scenegraph.renderer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -8,5 +8,15 @@ package cga.scenegraph.Renderer;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class Renderer {
+    private int width;
+    private int height;
+
+    protected Renderer(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
     public abstract void putPixel(Pixel pixel);
+
+    public abstract void show();
 }

@@ -1,8 +1,9 @@
 package cga.scenegraph.scene;
 
-import cga.scenegraph.Renderer.Renderer;
 import cga.scenegraph.camera.Camera;
 import cga.scenegraph.graph.SceneGraph;
+import cga.scenegraph.graph.visitor.RenderVisitor;
+import cga.scenegraph.renderer.Renderer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,12 +16,20 @@ abstract class Scene {
     private Camera camera;
     private Renderer renderer;
     private SceneGraph scenegraph;
+    private RenderVisitor renderVisitor;
 
-    protected Scene(Camera camera, Renderer renderer, SceneGraph scenegraph) {
+    protected Scene(Camera camera, RenderVisitor renderVisitor, SceneGraph scenegraph) {
         this.camera = camera;
-        this.renderer = renderer;
+        this.renderVisitor = renderVisitor;
+        this.renderer = renderVisitor.getRenderer();
         this.scenegraph = scenegraph;
     }
 
-    public abstract void show();
+    public void update() {
+        scenegraph.accept(renderVisitor);
+    }
+
+    public void show() {
+        renderer.show();
+    }
 }

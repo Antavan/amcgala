@@ -1,10 +1,8 @@
 package cga.scenegraph.graph;
 
-import cga.scenegraph.Renderer.Renderer;
-import cga.scenegraph.camera.Camera;
-import cga.scenegraph.cga.scenegraph.shape.Renderable;
-import cga.scenegraph.graph.Node;
-import com.sun.istack.internal.Nullable;
+import cga.scenegraph.graph.visitor.Visitor;
+import cga.scenegraph.shape.Renderable;
+import com.sun.istack.internal.NotNull;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,21 +14,26 @@ import com.sun.istack.internal.Nullable;
 public class SceneGraph {
     private Node root = new Node("root");
 
+    @NotNull
     public void addNode(Node node) {
     }
 
+    @NotNull
     public void removeNode(Node node) {
     }
 
-    @Nullable
+    @NotNull
     public Node findNode(String label) {
         return null;
     }
 
+    @NotNull
     public void addGeometry(String label, Renderable renderable) {
 
     }
 
-    public void render(Camera camera, Renderer renderer) {
+    @NotNull
+    public void accept(Visitor visitor) {
+        root.accept(visitor);
     }
 }
