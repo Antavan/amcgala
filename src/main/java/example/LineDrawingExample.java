@@ -13,7 +13,7 @@ import cga.scenegraph.shape.Line2d;
 public class LineDrawingExample {
     public static void main(String[] args) {
         SceneGraph sg = new SceneGraph();
-        sg.addGeometry("root", new Line2d());
+        sg.addGeometry(new Line2d());
 
         Scene2d s2d = new Scene2d(new RenderJ2dVisitor(new OrthoCamera(), new RendererJ2d(800, 600)), sg);
         s2d.update();

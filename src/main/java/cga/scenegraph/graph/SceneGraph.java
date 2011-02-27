@@ -2,7 +2,6 @@ package cga.scenegraph.graph;
 
 import cga.scenegraph.graph.visitor.Visitor;
 import cga.scenegraph.shape.Renderable;
-import com.sun.istack.internal.NotNull;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,25 +13,24 @@ import com.sun.istack.internal.NotNull;
 public class SceneGraph {
     private Node root = new Node("root");
 
-    @NotNull
     public void addNode(Node node) {
     }
 
-    @NotNull
     public void removeNode(Node node) {
     }
 
-    @NotNull
     public Node findNode(String label) {
-        return null;
+        return root.findNode(label);
     }
 
-    @NotNull
     public void addGeometry(String label, Renderable renderable) {
-
+        root.addShape(label, renderable);
     }
 
-    @NotNull
+    public void addGeometry(Renderable renderable) {
+        addGeometry("root", renderable);
+    }
+
     public void accept(Visitor visitor) {
         root.accept(visitor);
     }
