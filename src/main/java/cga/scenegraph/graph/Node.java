@@ -20,7 +20,7 @@ public class Node {
 
     public Node(String label) {
         this.label = label;
-    }
+    } //To change body of implemented methods use File | Settings | File Templates.
 
     public Node(String label, Node parent) {
         this.label = label;
@@ -72,5 +72,28 @@ public class Node {
 
     public void accept(Visitor visitor) {
         visitor.visit(this);
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public Collection<Node> getChildren() {
+        return children;
+    }
+
+    public Collection<Renderable> getGeometry() {
+        return geometry;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "label='" + label + '\'' +
+                '}';
     }
 }

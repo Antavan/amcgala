@@ -6,11 +6,7 @@ import cga.scenegraph.graph.visitor.RenderVisitor;
 import cga.scenegraph.renderer.Renderer;
 
 /**
- * Created by IntelliJ IDEA.
- * User: lichtsprung
- * Date: 2/22/11
- * Time: 3:45 PM
- * To change this template use File | Settings | File Templates.
+ * @author Robert Giacinto
  */
 abstract class Scene {
     private Camera camera;

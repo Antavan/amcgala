@@ -3,6 +3,7 @@ package cga.scenegraph.graph.visitor;
 import cga.scenegraph.camera.Camera;
 import cga.scenegraph.graph.Node;
 import cga.scenegraph.renderer.RendererJ2d;
+import cga.scenegraph.shape.Renderable;
 
 public class RenderJ2dVisitor extends RenderVisitor {
 
@@ -12,6 +13,10 @@ public class RenderJ2dVisitor extends RenderVisitor {
 
     @Override
     public void visit(Node node) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        System.out.println("Visiting: " + node);
+        for (Renderable renderable : node.getGeometry()) {
+            System.out.println("Rendering: " + renderable);
+            renderable.render(getCamera(), getRenderer());
+        }
     }
 }

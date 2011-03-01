@@ -8,8 +8,8 @@ package cga.scenegraph.renderer;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class Renderer {
-    private int width;
-    private int height;
+    protected int width;
+    protected int height;
 
     protected Renderer(int width, int height) {
         this.width = width;

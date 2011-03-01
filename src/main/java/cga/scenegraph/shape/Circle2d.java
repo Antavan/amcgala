@@ -1,5 +1,8 @@
 package cga.scenegraph.shape;
 
+import cga.scenegraph.camera.Camera;
+import cga.scenegraph.renderer.Renderer;
+
 /**
  * Created by IntelliJ IDEA.
  * User: lichtsprung
@@ -10,6 +13,7 @@ package cga.scenegraph.shape;
 public class Circle2d implements Renderable {
 
     @Override
-    public void render() {
+    public void render(Camera camera, Renderer renderer) {
+
     }
 }

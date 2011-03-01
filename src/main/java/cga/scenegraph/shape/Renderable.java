@@ -1,5 +1,8 @@
 package cga.scenegraph.shape;
 
+import cga.scenegraph.camera.Camera;
+import cga.scenegraph.renderer.Renderer;
+
 /**
  * Created by IntelliJ IDEA.
  * User: lichtsprung
@@ -8,5 +11,5 @@ package cga.scenegraph.shape;
  * To change this template use File | Settings | File Templates.
  */
 public interface Renderable {
-    void render();
+    void render(Camera camera, Renderer renderer);
 }
