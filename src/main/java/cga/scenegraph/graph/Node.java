@@ -6,12 +6,7 @@ import cga.scenegraph.shape.Renderable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by IntelliJ IDEA.
- * User: lichtsprung
- * Date: 2/22/11
- * Time: 2:40 AM
- */
+
 public class Node {
     protected String label = "none";
     private Node parent;
@@ -20,7 +15,7 @@ public class Node {
 
     public Node(String label) {
         this.label = label;
-    } //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     public Node(String label, Node parent) {
         this.label = label;

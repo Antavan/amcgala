@@ -1,5 +1,6 @@
 package cga.scenegraph.scene;
 
+import cga.scenegraph.animation.Timer;
 import cga.scenegraph.camera.Camera;
 import cga.scenegraph.graph.SceneGraph;
 import cga.scenegraph.graph.visitor.RenderVisitor;
@@ -11,9 +12,9 @@ abstract class Scene {
   private Renderer renderer;
   private SceneGraph scenegraph;
   private RenderVisitor renderVisitor;
+  private Timer timer;
 
-  protected Scene(SceneGraph scenegraph) {
-    this.scenegraph = scenegraph;
+  protected Scene() {
   }
 
   public void setCamera(Camera camera) {
@@ -22,6 +23,14 @@ abstract class Scene {
 
   public void setRenderer(Renderer renderer) {
     this.renderer = renderer;
+  }
+
+  public void setScenegraph(SceneGraph scenegraph) {
+    this.scenegraph = scenegraph;
+  }
+
+  public void setTimer(Timer timer) {
+    this.timer = timer;
   }
 
   public void setRenderVisitor(RenderVisitor renderVisitor) {
