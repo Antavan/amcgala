@@ -1,22 +1,35 @@
 package cga.scenegraph.graph.visitor;
 
 import cga.scenegraph.camera.Camera;
+import cga.scenegraph.graph.Node;
 import cga.scenegraph.renderer.Renderer;
+import cga.scenegraph.shape.Renderable;
 
-public abstract class RenderVisitor implements Visitor {
-    private Renderer renderer;
-    private Camera camera;
+public class RenderVisitor implements Visitor {
+  private Renderer renderer;
+  private Camera camera;
 
-    protected RenderVisitor(Camera camera, Renderer renderer) {
-        this.camera = camera;
-        this.renderer = renderer;
+  public void setRenderer(Renderer renderer) {
+    this.renderer = renderer;
+  }
+
+  public void setCamera(Camera camera) {
+    this.camera = camera;
+  }
+
+  public Renderer getRenderer() {
+    return renderer;
+  }
+
+  public Camera getCamera() {
+    return camera;
+  }
+
+  @Override
+  public void visit(Node node) {
+    // System.out.println("Visiting: " + node);
+    for (Renderable renderable : node.getGeometry()) {
+      renderable.render(getCamera(), getRenderer());
     }
-
-    public Renderer getRenderer() {
-        return renderer;
-    }
-
-    public Camera getCamera() {
-        return camera;
-    }
+  }
 }

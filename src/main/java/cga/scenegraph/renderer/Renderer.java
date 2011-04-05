@@ -8,15 +8,15 @@ package cga.scenegraph.renderer;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class Renderer {
-    protected int width;
-    protected int height;
+  protected int width;
+  protected int height;
 
-    protected Renderer(int width, int height) {
-        this.width = width;
-        this.height = height;
-    }
+  protected Renderer(int width, int height) {
+    this.width = width;
+    this.height = height;
+  }
 
-    public abstract void putPixel(Pixel pixel);
+  public abstract void putPixel(Pixel pixel);
 
-    public abstract void show();
+  public abstract void show();
 }
