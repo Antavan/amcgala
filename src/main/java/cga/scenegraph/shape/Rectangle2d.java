@@ -4,7 +4,7 @@ import cga.scenegraph.camera.Camera;
 import cga.scenegraph.renderer.Renderer;
 
 
-public class Rectangle2d implements Renderable {
+public class Rectangle2d extends Renderable {
   public Line2d a, b, c, d;
 
   public Rectangle2d(Line2d a, Line2d b, Line2d c, Line2d d) {

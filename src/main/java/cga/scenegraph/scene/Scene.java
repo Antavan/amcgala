@@ -1,18 +1,21 @@
 package cga.scenegraph.scene;
 
-import cga.scenegraph.animation.Timer;
+import cga.scenegraph.animation.Animator;
 import cga.scenegraph.camera.Camera;
 import cga.scenegraph.graph.SceneGraph;
+import cga.scenegraph.graph.visitor.AnimationVisitor;
 import cga.scenegraph.graph.visitor.RenderVisitor;
 import cga.scenegraph.renderer.Renderer;
 
 
-abstract class Scene {
+public abstract class Scene {
   private Camera camera;
   private Renderer renderer;
   private SceneGraph scenegraph;
   private RenderVisitor renderVisitor;
-  private Timer timer;
+  private AnimationVisitor animationVisitor;
+
+  private Animator animator;
 
   protected Scene() {
   }
@@ -29,8 +32,9 @@ abstract class Scene {
     this.scenegraph = scenegraph;
   }
 
-  public void setTimer(Timer timer) {
-    this.timer = timer;
+  public void setAnimator(Animator animator) {
+    this.animator = animator;
+    animationVisitor = new AnimationVisitor();
   }
 
   public void setRenderVisitor(RenderVisitor renderVisitor) {
@@ -42,12 +46,23 @@ abstract class Scene {
   public void update() {
     if (camera != null) {
       scenegraph.accept(renderVisitor);
+      scenegraph.accept(animationVisitor);
     }
   }
 
   public void show() {
     if (renderer != null) {
       renderer.show();
+    }
+  }
+
+  public void start() {
+    if (animator == null) {
+      update();
+      show();
+    } else {
+      animator.setScene(this);
+      animator.start();
     }
   }
 }

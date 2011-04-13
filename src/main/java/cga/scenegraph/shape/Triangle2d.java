@@ -4,7 +4,7 @@ import cga.scenegraph.camera.Camera;
 import cga.scenegraph.renderer.Renderer;
 
 
-public class Triangle2d implements Renderable {
+public class Triangle2d extends Renderable {
   public Line2d a, b, c;
 
   public Triangle2d(Line2d a, Line2d b, Line2d c) {

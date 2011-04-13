@@ -11,7 +11,7 @@ import cga.scenegraph.renderer.Renderer;
  *
  * @author Robert Giacinto<
  */
-public class Line2d implements Renderable {
+public class Line2d extends Renderable {
   public double x1, y1;
   public double x2, y2;
 

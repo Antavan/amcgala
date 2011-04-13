@@ -10,10 +10,11 @@ import cga.scenegraph.renderer.Renderer;
  * Time: 3:59 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Circle2d implements Renderable {
+public class Circle2d extends Renderable {
 
-    @Override
-    public void render(Camera camera, Renderer renderer) {
+  @Override
+  public void render(Camera camera, Renderer renderer) {
 
-    }
+  }
+
 }
