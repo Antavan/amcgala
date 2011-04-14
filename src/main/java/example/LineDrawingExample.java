@@ -15,7 +15,7 @@ public class LineDrawingExample {
     SceneGraph sceneGraph = new SceneGraph();
     Line2d line = new Line2d(400, 400, 450, 400);
 
-    line.setAnimation(new Animation<Line2d>(line) {
+    line.setAnimation(new Animation<Line2d>() {
       private int x;
 
       @Override

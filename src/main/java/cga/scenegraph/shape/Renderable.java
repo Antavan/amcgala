@@ -12,6 +12,7 @@ public abstract class Renderable {
 
   public void setAnimation(Animation animation) {
     this.animation = animation;
+    this.animation.setShape(this);
   }
 
   public Animation getAnimation() {
