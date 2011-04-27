@@ -13,6 +13,12 @@ public abstract class Camera {
   private Vector3d up;
   private Matrix projection;
 
+  /**
+   * Konstruktor erzeugt eine neue Kamera.
+   * @param position die Position der Kamera
+   * @param eye die Blickrictung der Kamera
+   * @param up der "oben"-Vektor der Kamera
+   */
   protected Camera(Vector3d position, Vector3d eye, Vector3d up) {
     this.position = position;
     this.eye = eye;

@@ -10,6 +10,13 @@ public class OrthoCamera extends Camera {
     super(new Vector3d(0, 0, 1), new Vector3d(0, 0, 0), new Vector3d(0, 1, 0));
   }
 
+  /**
+   * Erzeugt eine neue Parallelprojektion.
+   *
+   * @param position Position der Kamera
+   * @param eye      Blickrichtung der Kamera
+   * @param up       "oben"-Vektor der Kamera
+   */
   public OrthoCamera(Vector3d position, Vector3d eye, Vector3d up) {
     super(position, eye, up);
   }
@@ -28,6 +35,14 @@ public class OrthoCamera extends Camera {
       0, 0, 0, 0,
       0, 0, 0, 1
     };
+
+    Matrix p = getEye().sub(getPosition()).toMatrix();
+
+    Matrix n = p.times(-1);
+    Vector3d tmp = getUp().cross(getPosition().times(-1));
+
+
+    Matrix vd = new Matrix(vals, 4);
     setProjection(new Matrix(vals, 4));
   }
 }
