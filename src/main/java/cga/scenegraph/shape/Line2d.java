@@ -30,8 +30,8 @@ public class Line2d extends Renderable {
       this.y2 = y2;
     }
 
-    v1 = new Vector3d(x1, y1, 0);
-    v2 = new Vector3d(x2, y2, 0);
+    v1 = new Vector3d(x1, y1, 1);
+    v2 = new Vector3d(x2, y2, 1);
   }
 
   @Override

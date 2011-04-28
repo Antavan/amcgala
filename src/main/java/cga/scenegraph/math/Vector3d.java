@@ -103,6 +103,11 @@ public class Vector3d {
   }
 
 
+  /**
+   * Gibt den Vektor normalisiert zurück.
+   *
+   * @return der normalisierte Vektor
+   */
   public Vector3d normalize() {
     return this.times(1 / length());
   }
