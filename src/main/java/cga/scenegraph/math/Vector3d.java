@@ -4,7 +4,7 @@ package cga.scenegraph.math;
  * Repräsentation von 3D-Vektoren.
  */
 public class Vector3d {
-  private double x, y, z;
+  public double x, y, z;
 
   /**
    * Erzeugt einen neuen 3D-Vektor.

@@ -12,15 +12,15 @@ import cga.scenegraph.shape.Line2d;
 public class LineDrawingExample {
   public static void main(String[] args) {
     SceneGraph sceneGraph = new SceneGraph();
-    Line2d line = new Line2d(0, 50, 40, 50);
+    Line2d line = new Line2d(0, 0, 40, 50);
 
     line.setAnimation(new Animation<Line2d>() {
-      private int x;
+
 
       @Override
       public void animate() {
-        if (x++ < 100) {
-          getShape().y2--;
+        if (getShape().y2 > -50) {
+          getShape().y2 -= 0.2;
         }
       }
     });
@@ -29,13 +29,13 @@ public class LineDrawingExample {
     //sceneGraph.addGeometry(new Triangle2d(50, 200, 200, 200, 125, 50));
 
     RenderVisitor visitor = new RenderVisitor();
-    visitor.setRenderer(new RendererJ2d(800, 600));
+    visitor.setRenderer(new RendererJ2d(1600, 800));
 
     Scene2d scene2d = new Scene2d();
     scene2d.setScenegraph(sceneGraph);
     scene2d.setRenderVisitor(visitor);
 
-    Animator animator = new Animator(1);
+    Animator animator = new Animator(25);
     scene2d.setAnimator(animator);
 
     scene2d.start();

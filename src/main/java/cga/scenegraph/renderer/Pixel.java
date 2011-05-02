@@ -1,19 +1,19 @@
 package cga.scenegraph.renderer;
 
 public class Pixel {
-  protected double x;
-  protected double y;
+  public int x;
+  public int y;
 
-  public Pixel(double x, double y) {
+  public Pixel(int x, int y) {
     this.x = x;
     this.y = y;
   }
 
-  public double getX() {
+  public int getX() {
     return x;
   }
 
-  public double getY() {
+  public int getY() {
     return y;
   }
 

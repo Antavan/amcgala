@@ -1,6 +1,7 @@
 package cga.scenegraph.shape;
 
 
+import cga.scenegraph.camera.CVPoint;
 import cga.scenegraph.camera.Camera;
 import cga.scenegraph.math.Vector3d;
 import cga.scenegraph.renderer.Pixel;
@@ -36,25 +37,34 @@ public class Line2d extends Renderable {
 
   @Override
   public void render(Camera camera, Renderer renderer) {
-    double dx = x2 - x1;
-    double dy = y2 - y1;
-    double m = dy / dx;
-    double y = y1;
-    for (int x = (int) x1; x <= x2; x++) {
-      Vector3d vector3d = new Vector3d(x, y, 1);
-      Pixel p = camera.project(vector3d);
-      renderer.putPixel(p);
+
+    CVPoint cvStart = camera.project(new Vector3d(x1, y1, 1));
+    CVPoint cvEnd = camera.project(new Vector3d(x2, y2, 1));
+
+    Pixel start = renderer.toPixel(cvStart);
+    Pixel end = renderer.toPixel(cvEnd);
+
+    int dx = end.x - start.x;
+    int dy = end.y - start.y;
+    double m = (dy / (double) dx);
+    double y = start.y;
+
+    for (int x = start.x; x <= end.x; x++) {
+      Pixel pixel = new Pixel(x, (int) y);
+      renderer.putPixel(pixel);
       y += m;
     }
+
+
   }
 
   @Override
   public String toString() {
     return "Line2d{" +
-      "x1=" + x1 +
-      ", y1=" + y1 +
-      ", x2=" + x2 +
-      ", y2=" + y2 +
-      '}';
+        "x1=" + x1 +
+        ", y1=" + y1 +
+        ", x2=" + x2 +
+        ", y2=" + y2 +
+        '}';
   }
 }
