@@ -4,17 +4,21 @@ import cga.scenegraph.camera.Camera;
 import cga.scenegraph.renderer.Renderer;
 
 /**
- * Created by IntelliJ IDEA.
- * User: lichtsprung
- * Date: 2/22/11
- * Time: 3:59 PM
- * To change this template use File | Settings | File Templates.
+ * Ein zweidimensionaler Kreis.
  */
 public class Circle2d extends Renderable {
 
+  private int segments;
+  private double radius;
+
+  public Circle2d(int segments, double radius) {
+    this.segments = segments;
+    this.radius = radius;
+  }
+
   @Override
   public void render(Camera camera, Renderer renderer) {
-
+    //TODO rendering des kreises implementieren
   }
 
 }

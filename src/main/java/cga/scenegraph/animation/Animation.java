@@ -10,7 +10,7 @@ public abstract class Animation<T extends Renderable> {
     return shape;
   }
 
-  public void setShape(T shape){
+  public void setShape(T shape) {
     this.shape = shape;
   }
 

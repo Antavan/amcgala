@@ -38,9 +38,9 @@ public class Vector3d {
    */
   public Vector3d cross(Vector3d that) {
     return new Vector3d(
-      this.y * that.z - this.z * that.y,
-      this.z * that.x - this.x * that.z,
-      this.x * that.y - this.y * that.x);
+        this.y * that.z - this.z * that.y,
+        this.z * that.x - this.x * that.z,
+        this.x * that.y - this.y * that.x);
   }
 
   /**
@@ -51,9 +51,9 @@ public class Vector3d {
    */
   public Vector3d sub(Vector3d that) {
     return new Vector3d(
-      this.x - that.x,
-      this.y - that.y,
-      this.z - that.z
+        this.x - that.x,
+        this.y - that.y,
+        this.z - that.z
     );
   }
 
@@ -65,9 +65,9 @@ public class Vector3d {
    */
   public Vector3d add(Vector3d that) {
     return new Vector3d(
-      this.x + that.x,
-      this.y + that.y,
-      this.z + that.z
+        this.x + that.x,
+        this.y + that.y,
+        this.z + that.z
     );
   }
 
@@ -97,9 +97,9 @@ public class Vector3d {
    */
   public Vector3d times(double s) {
     return new Vector3d(
-      s * this.x,
-      s * this.y,
-      s * this.z);
+        s * this.x,
+        s * this.y,
+        s * this.z);
   }
 
 

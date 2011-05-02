@@ -15,8 +15,8 @@ public class CVPoint {
   @Override
   public String toString() {
     return "CVPoint{" +
-      "x=" + x +
-      ", y=" + y +
-      '}';
+        "x=" + x +
+        ", y=" + y +
+        '}';
   }
 }

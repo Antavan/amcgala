@@ -284,7 +284,7 @@ public class SingularValueDecomposition implements java.io.Serializable {
           break;
         }
         if (Math.abs(e[k]) <=
-          tiny + eps * (Math.abs(s[k]) + Math.abs(s[k + 1]))) {
+            tiny + eps * (Math.abs(s[k]) + Math.abs(s[k + 1]))) {
           e[k] = 0.0;
           break;
         }
@@ -298,7 +298,7 @@ public class SingularValueDecomposition implements java.io.Serializable {
             break;
           }
           double t = (ks != p ? Math.abs(e[ks]) : 0.) +
-            (ks != k + 1 ? Math.abs(e[ks - 1]) : 0.);
+              (ks != k + 1 ? Math.abs(e[ks - 1]) : 0.);
           if (Math.abs(s[ks]) <= tiny + eps * t) {
             s[ks] = 0.0;
             break;
@@ -374,8 +374,8 @@ public class SingularValueDecomposition implements java.io.Serializable {
           // Calculate the shift.
 
           double scale = Math.max(Math.max(Math.max(Math.max(
-            Math.abs(s[p - 1]), Math.abs(s[p - 2])), Math.abs(e[p - 2])),
-            Math.abs(s[k])), Math.abs(e[k]));
+              Math.abs(s[p - 1]), Math.abs(s[p - 2])), Math.abs(e[p - 2])),
+              Math.abs(s[k])), Math.abs(e[k]));
           double sp = s[p - 1] / scale;
           double spm1 = s[p - 2] / scale;
           double epm1 = e[p - 2] / scale;

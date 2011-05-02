@@ -5,11 +5,12 @@ import cga.scenegraph.math.Matrix;
 /**
  * Eine Rotation entlang der y-Achse.
  */
-public class RotationY implements Transformation{
+public class RotationY implements Transformation {
   private double phi;
 
   /**
    * Erzeugt eine neue Rotation entlang der y-Achse.
+   *
    * @param phi der Winkel der Rotation
    */
   public RotationY(double phi) {

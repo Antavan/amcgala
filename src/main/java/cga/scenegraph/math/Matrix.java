@@ -184,7 +184,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
     for (int i = 0; i < m; i++) {
       if (A[i].length != n) {
         throw new IllegalArgumentException
-          ("All rows must have the same length.");
+            ("All rows must have the same length.");
       }
       for (int j = 0; j < n; j++) {
         C[i][j] = A[i][j];
@@ -913,7 +913,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
 
   public Matrix solve(Matrix B) {
     return (m == n ? (new LUDecomposition(this)).solve(B) :
-      (new QRDecomposition(this)).solve(B));
+        (new QRDecomposition(this)).solve(B));
   }
 
   /**
@@ -1145,11 +1145,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
       int j = 0;
       do {
         if (j >= n) throw new java.io.IOException
-          ("Row " + v.size() + " is too long.");
+            ("Row " + v.size() + " is too long.");
         row[j++] = Double.valueOf(tokenizer.sval).doubleValue();
       } while (tokenizer.nextToken() == StreamTokenizer.TT_WORD);
       if (j < n) throw new java.io.IOException
-        ("Row " + v.size() + " is too short.");
+          ("Row " + v.size() + " is too short.");
     }
     int m = v.size();  // Now we've got the number of rows.
     double[][] A = new double[m][];

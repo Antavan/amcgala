@@ -20,8 +20,8 @@ public class Pixel {
   @Override
   public String toString() {
     return "Pixel{" +
-      "x=" + x +
-      ", y=" + y +
-      '}';
+        "x=" + x +
+        ", y=" + y +
+        '}';
   }
 }

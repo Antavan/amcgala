@@ -18,6 +18,7 @@ public class Node {
 
   /**
    * Erstellt eine neue Node mit einem Label, über das die Node innerhalb des Graphens gefunden werden kann.
+   *
    * @param label das Label des Knotens
    */
   public Node(String label) {
@@ -26,7 +27,8 @@ public class Node {
 
   /**
    * Erzeugt eine neue Node mit einem Label und einem zugewiesenen Elternknoten.
-   * @param label das Label des Knotens
+   *
+   * @param label  das Label des Knotens
    * @param parent der Elternknoten
    */
   public Node(String label, Node parent) {
@@ -36,6 +38,7 @@ public class Node {
 
   /**
    * Fügt dem Knoten einen neuen Kindsknoten hinzu.
+   *
    * @param childNode der neue Knoten
    * @return gibt Referenz auf sich selbst zurück um verschachtelte Aufrufe zu ermöglichen
    */
@@ -46,6 +49,7 @@ public class Node {
 
   /**
    * Entfernt einen Kindsknoten mit einem gegebenen Label.
+   *
    * @param label das Label des zu löschenden Knoten
    * @return true, wenn Knoten gefunden und entfernt wurde
    */
@@ -66,7 +70,8 @@ public class Node {
 
   /**
    * Fügt einem Knoten mit einem bestimmten Label ein neues Geometrieobjekt hinzu.
-   * @param label das Label des Knoten, dem das neue Objekt hinzugefügt werden soll
+   *
+   * @param label    das Label des Knoten, dem das neue Objekt hinzugefügt werden soll
    * @param newShape das neue Geometrieobjekt
    * @return true, wenn es hinzugefügt werden konnte
    */
@@ -84,6 +89,7 @@ public class Node {
 
   /**
    * Gibt einen Knoten mit einem bestimmten Label zurück.
+   *
    * @param label Label des Knoten, der gefunden werden soll
    * @return true, wenn Knoten gefunden wurde
    */
@@ -100,6 +106,7 @@ public class Node {
 
   /**
    * Übergibt einen neuen Visitor an den Knoten.
+   *
    * @param visitor der Visitor, der den Knoten besuchen soll
    */
   public void accept(Visitor visitor) {
@@ -108,6 +115,7 @@ public class Node {
 
   /**
    * Gibt das Label des Knoten zurück.
+   *
    * @return das Label des Knoten
    */
   public String getLabel() {
@@ -116,6 +124,7 @@ public class Node {
 
   /**
    * Gibt den Parentknoten zurück.
+   *
    * @return der Parentknoten
    */
   public Node getParent() {
@@ -124,6 +133,7 @@ public class Node {
 
   /**
    * Gibt die Kindsknoten zurück.
+   *
    * @return die Kindsknoten
    */
   public Collection<Node> getChildren() {
@@ -132,6 +142,7 @@ public class Node {
 
   /**
    * Gibt die Geometrieobjekt zurück, die an dem Knoten hängen.
+   *
    * @return die Geometrieobjekte
    */
   public Collection<Renderable> getGeometry() {
@@ -141,7 +152,7 @@ public class Node {
   @Override
   public String toString() {
     return "Node{" +
-      "label='" + label + '\'' +
-      '}';
+        "label='" + label + '\'' +
+        '}';
   }
 }
