@@ -38,15 +38,15 @@ public class Line2d extends Renderable {
   @Override
   public void render(Camera camera, Renderer renderer) {
 
-    CVPoint cvStart = camera.project(new Vector3d(x1, y1, 1));
-    CVPoint cvEnd = camera.project(new Vector3d(x2, y2, 1));
+    CVPoint cvStart = camera.project(v1);
+    CVPoint cvEnd = camera.project(v2);
 
     Pixel start = renderer.toPixel(cvStart);
     Pixel end = renderer.toPixel(cvEnd);
 
-    int dx = end.x - start.x;
-    int dy = end.y - start.y;
-    double m = (dy / (double) dx);
+    double dx = end.x - start.x;
+    double dy = end.y - start.y;
+    double m = dy / dx;
     double y = start.y;
 
     for (int x = start.x; x <= end.x; x++) {
