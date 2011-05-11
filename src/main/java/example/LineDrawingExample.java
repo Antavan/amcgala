@@ -35,7 +35,7 @@ public class LineDrawingExample {
     scene2d.setScenegraph(sceneGraph);
     scene2d.setRenderVisitor(visitor);
 
-    Animator animator = new Animator(25);
+    Animator animator = new Animator(10);
     scene2d.setAnimator(animator);
 
     scene2d.start();

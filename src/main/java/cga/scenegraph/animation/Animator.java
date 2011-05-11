@@ -18,6 +18,7 @@ public class Animator {
   }
 
   public void start() {
+
     if (scene != null) {
       Thread animation = new Thread(new Runnable() {
         @Override
@@ -36,6 +37,5 @@ public class Animator {
       });
       animation.start();
     }
-
   }
 }

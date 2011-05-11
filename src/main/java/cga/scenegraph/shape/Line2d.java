@@ -37,7 +37,9 @@ public class Line2d extends Renderable {
 
   @Override
   public void render(Camera camera, Renderer renderer) {
-
+    v1 = new Vector3d(x1, y1, 1);
+    v2 = new Vector3d(x2, y2, 1);
+    
     CVPoint cvStart = camera.project(v1);
     CVPoint cvEnd = camera.project(v2);
 

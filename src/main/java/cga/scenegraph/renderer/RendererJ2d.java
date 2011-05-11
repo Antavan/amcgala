@@ -27,7 +27,7 @@ public class RendererJ2d extends Renderer {
     frame.setSize(width, height);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    frame.setBackground(Color.white);
+    frame.setBackground(Color.WHITE);
     frame.setVisible(true);
 
     frame.createBufferStrategy(2);
