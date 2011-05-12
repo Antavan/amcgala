@@ -63,17 +63,21 @@ public class Camera {
     double f = far.z;
 
     double[] values = {
-        (2 * n) / (right - left), 0, -(right + left) / (right - left),
+        (2 * n) / (right - left), 0, -(right + left) / (right - left),0,
         0, (2 * n) / (top - bottom), -(top + bottom) / (top - bottom), 0,
         0, 0, (f + n) / (f - n), -(2 * f * n) / (f - n),
         0, 0, 1, 0
     };
+    for(int i = 0; i < values.length; i++){
+      System.out.print(values[i] + "   ");
+    }
     projection = new Matrix(values, 4);
   }
 
   public CVPoint project(Vector3d vector3d) {
     Matrix point = projection.times(vector3d.toMatrix());
     CVPoint cvPoint = new CVPoint(point.get(0, 0), point.get(1, 0));
+    System.out.println(cvPoint);
     return cvPoint;
   }
 

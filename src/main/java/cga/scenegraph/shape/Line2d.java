@@ -31,14 +31,14 @@ public class Line2d extends Renderable {
       this.y2 = y2;
     }
 
-    v1 = new Vector3d(x1, y1, 1);
-    v2 = new Vector3d(x2, y2, 1);
+    v1 = new Vector3d(x1, y1, -1);
+    v2 = new Vector3d(x2, y2, -1);
   }
 
   @Override
   public void render(Camera camera, Renderer renderer) {
-    v1 = new Vector3d(x1, y1, 1);
-    v2 = new Vector3d(x2, y2, 1);
+    v1 = new Vector3d(x1, y1, -1);
+    v2 = new Vector3d(x2, y2, -1);
     
     CVPoint cvStart = camera.project(v1);
     CVPoint cvEnd = camera.project(v2);

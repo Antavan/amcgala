@@ -7,14 +7,28 @@ import cga.scenegraph.graph.visitor.AnimationVisitor;
 import cga.scenegraph.graph.visitor.RenderVisitor;
 import cga.scenegraph.renderer.Renderer;
 
-
 public abstract class Scene {
+
+  public Animator getAnimator() {
+    return animator;
+  }
+
+  public Camera getCamera() {
+    return camera;
+  }
+
+  public Renderer getRenderer() {
+    return renderer;
+  }
+
+  public SceneGraph getScenegraph() {
+    return scenegraph;
+  }
   private Camera camera;
   private Renderer renderer;
   private SceneGraph scenegraph;
   private RenderVisitor renderVisitor;
   private AnimationVisitor animationVisitor;
-
   private Animator animator;
 
   protected Scene() {
