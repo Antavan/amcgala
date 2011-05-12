@@ -6,6 +6,11 @@ package cga.scenegraph.math;
 public class Vector3d {
   public double x, y, z;
 
+  @Override
+  public String toString() {
+    return "Vector3d{" + "x=" + x + ", y=" + y + ", z=" + z + '}';
+  }
+
   /**
    * Erzeugt einen neuen 3D-Vektor.
    *

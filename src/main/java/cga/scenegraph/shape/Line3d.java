@@ -1,7 +1,9 @@
 package cga.scenegraph.shape;
 
+import cga.scenegraph.camera.CVPoint;
 import cga.scenegraph.camera.Camera;
 import cga.scenegraph.math.Vector3d;
+import cga.scenegraph.renderer.Pixel;
 import cga.scenegraph.renderer.Renderer;
 
 /**
@@ -32,7 +34,26 @@ public class Line3d extends Renderable {
   public void render(Camera camera, Renderer renderer) {
     start = new Vector3d(x1, y1, z1);
     end = new Vector3d(x2, y2, z2);
+    System.out.println(end);
     
+    CVPoint startPoint = camera.project(start);
+    CVPoint endPoint = camera.project(end);
     
+    Pixel startPixel = renderer.toPixel(startPoint);
+    Pixel endPixel = renderer.toPixel(endPoint);
+    
+    System.out.println(startPixel);
+    System.out.println(endPixel);
+    
+    double dx = endPixel.x - startPixel.x;
+    double dy = endPixel.y - startPixel.y;
+    double m = dy / dx;
+    double y = startPixel.y;
+
+    for (int x = startPixel.x; x <= endPixel.x; x++) {
+      Pixel pixel = new Pixel(x, (int) y);
+      renderer.putPixel(pixel);
+      y += m;
+    }
   }
 }
