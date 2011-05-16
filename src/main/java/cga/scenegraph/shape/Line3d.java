@@ -24,10 +24,6 @@ public class Line3d extends Renderable {
     x2 = end.x;
     y2 = end.y;
     z2 = end.z;
-
-    this.start = new Vector3d(x1, y1, z1);
-    this.end = new Vector3d(x2, y2, z2);
-
   }
 
   @Override
@@ -35,25 +31,32 @@ public class Line3d extends Renderable {
     start = new Vector3d(x1, y1, z1);
     end = new Vector3d(x2, y2, z2);
     System.out.println(end);
-    
+
     CVPoint startPoint = camera.project(start);
     CVPoint endPoint = camera.project(end);
-    
+
     Pixel startPixel = renderer.toPixel(startPoint);
     Pixel endPixel = renderer.toPixel(endPoint);
-    
-    System.out.println(startPixel);
-    System.out.println(endPixel);
-    
+
+//    System.out.println(startPixel);
+//    System.out.println(endPixel);
+
     double dx = endPixel.x - startPixel.x;
     double dy = endPixel.y - startPixel.y;
     double m = dy / dx;
     double y = startPixel.y;
 
-    for (int x = startPixel.x; x <= endPixel.x; x++) {
-      Pixel pixel = new Pixel(x, (int) y);
-      renderer.putPixel(pixel);
-      y += m;
+    if (dx > 0) {
+      for (int x = startPixel.x; x <= endPixel.x; x++) {
+        Pixel pixel = new Pixel(x, (int) y);
+        renderer.putPixel(pixel);
+        y += m;
+      }
+    } else {
+      for (int yi = startPixel.y; yi < endPixel.y; yi++) {
+        Pixel pixel = new Pixel(startPixel.x, yi);
+        renderer.putPixel(pixel);
+      }
     }
   }
 }

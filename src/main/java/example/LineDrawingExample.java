@@ -26,19 +26,48 @@ public class LineDrawingExample {
       }
     });
 
-    Line3d line3d = new Line3d(new Vector3d(-5, 5, -20), new Vector3d(10, 0, 40));
-//    line3d.setAnimation(new Animation<Line3d>() {
-//
-//      @Override
-//      public void animate() {
-//        if (getShape().z2 > -50) {
-//          getShape().z2 -= 1;
-//        }
-//      }
-//    });
+    Line3d line3d = new Line3d(new Vector3d(-3, -3, -1), new Vector3d(7, -3, -1));
+    Line3d line3d2 = new Line3d(new Vector3d(-3, -3, -1), new Vector3d(-3, -3, -4));
+    Line3d line3d3 = new Line3d(new Vector3d(-3, -3, -1), new Vector3d(-3, 7, -1));
 
-   // sceneGraph.addGeometry(line);
+
+    line3d.setAnimation(new Animation<Line3d>() {
+
+      @Override
+      public void animate() {
+        if (getShape().x1 > -100) {
+          getShape().x1 -= 0.1;
+          getShape().x2 -= 0.1;
+        }
+      }
+    });
+
+    line3d2.setAnimation(new Animation<Line3d>() {
+
+      @Override
+      public void animate() {
+        if (getShape().x1 > -100) {
+          getShape().x1 -= 0.1;
+          getShape().x2 -= 0.1;
+        }
+      }
+    });
+
+    line3d3.setAnimation(new Animation<Line3d>() {
+
+      @Override
+      public void animate() {
+        if (getShape().x1 > -100) {
+          getShape().x1 -= 0.1;
+          getShape().x2 -= 0.1;
+        }
+      }
+    });
+
+    // sceneGraph.addGeometry(line);
     sceneGraph.addGeometry(line3d);
+    sceneGraph.addGeometry(line3d2);
+    sceneGraph.addGeometry(line3d3);
 
     RenderVisitor visitor = new RenderVisitor();
     visitor.setRenderer(new RendererJ2d(1600, 800));
@@ -47,7 +76,7 @@ public class LineDrawingExample {
     scene2d.setScenegraph(sceneGraph);
     scene2d.setRenderVisitor(visitor);
 
-    Animator animator = new Animator(10);
+    Animator animator = new Animator(20);
     scene2d.setAnimator(animator);
 
     scene2d.start();
