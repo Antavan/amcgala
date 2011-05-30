@@ -4,34 +4,41 @@ import cga.scenegraph.graph.visitor.Visitor;
 import cga.scenegraph.shape.Renderable;
 
 /**
- * Created by IntelliJ IDEA.
- * User: lichtsprung
- * Date: 2/22/11
- * Time: 3:00 AM
- * To change this template use File | Settings | File Templates.
+ * Szenengraph des Frameworks.
  */
 public class SceneGraph {
-  private Node root = new Node("root");
 
-  public void addNode(Node node) {
-  }
+    private Node root = new Node("root");
 
-  public void removeNode(Node node) {
-  }
+    public void addNode(Node node) {
+        root.addChild(node);
+    }
 
-  public Node findNode(String label) {
-    return root.findNode(label);
-  }
+    public void addNode(Node node, String label) {
+        root.findNode(label).addChild(node);
+    }
 
-  public void addGeometry(String label, Renderable renderable) {
-    root.addShape(label, renderable);
-  }
+    public void removeNode(Node node) {
+        root.removeNode(node.label);
+    }
 
-  public void addGeometry(Renderable renderable) {
-    addGeometry("root", renderable);
-  }
+    public Node findNode(String label) {
+        return root.findNode(label);
+    }
 
-  public void accept(Visitor visitor) {
-    root.accept(visitor);
-  }
+    public void addGeometry(String label, Renderable renderable) {
+        root.addShape(label, renderable);
+    }
+
+    public void addGeometry(Renderable renderable) {
+        addGeometry("root", renderable);
+    }
+
+    public void accept(Visitor visitor) {
+        root.accept(visitor);
+    }
+
+    public void addTransformation(Transformation transformation) {
+        root.setTransformation(transformation);
+    }
 }

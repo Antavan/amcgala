@@ -2,6 +2,7 @@ package cga.scenegraph.shape;
 
 import cga.scenegraph.camera.CVPoint;
 import cga.scenegraph.camera.Camera;
+import cga.scenegraph.math.Matrix;
 import cga.scenegraph.math.Vector3d;
 import cga.scenegraph.renderer.Pixel;
 import cga.scenegraph.renderer.Renderer;
@@ -12,51 +13,51 @@ import cga.scenegraph.renderer.Renderer;
  */
 public class Line3d extends Renderable {
 
-  public double x1, y1, z1;
-  public double x2, y2, z2;
-  private Vector3d start, end;
+    public double x1, y1, z1;
+    public double x2, y2, z2;
+    private Vector3d start, end;
 
-  public Line3d(Vector3d start, Vector3d end) {
-    x1 = start.x;
-    y1 = start.y;
-    z1 = start.z;
+    public Line3d(Vector3d start, Vector3d end) {
+        x1 = start.x;
+        y1 = start.y;
+        z1 = start.z;
 
-    x2 = end.x;
-    y2 = end.y;
-    z2 = end.z;
-  }
+        x2 = end.x;
+        y2 = end.y;
+        z2 = end.z;
+    }
 
-  @Override
-  public void render(Camera camera, Renderer renderer) {
-    start = new Vector3d(x1, y1, z1);
-    end = new Vector3d(x2, y2, z2);
-    System.out.println(end);
+    @Override
+    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+        start = new Vector3d(x1, y1, z1).transform(transformation);
+        end = new Vector3d(x2, y2, z2).transform(transformation);
+        System.out.println(end);
 
-    CVPoint startPoint = camera.project(start);
-    CVPoint endPoint = camera.project(end);
+        CVPoint startPoint = camera.project(start);
+        CVPoint endPoint = camera.project(end);
 
-    Pixel startPixel = renderer.toPixel(startPoint);
-    Pixel endPixel = renderer.toPixel(endPoint);
+        Pixel startPixel = renderer.toPixel(startPoint);
+        Pixel endPixel = renderer.toPixel(endPoint);
 
 //    System.out.println(startPixel);
 //    System.out.println(endPixel);
 
-    double dx = endPixel.x - startPixel.x;
-    double dy = endPixel.y - startPixel.y;
-    double m = dy / dx;
-    double y = startPixel.y;
+        double dx = endPixel.x - startPixel.x;
+        double dy = endPixel.y - startPixel.y;
+        double m = dy / dx;
+        double y = startPixel.y;
 
-    if (dx > 0) {
-      for (int x = startPixel.x; x <= endPixel.x; x++) {
-        Pixel pixel = new Pixel(x, (int) y);
-        renderer.putPixel(pixel);
-        y += m;
-      }
-    } else {
-      for (int yi = startPixel.y; yi < endPixel.y; yi++) {
-        Pixel pixel = new Pixel(startPixel.x, yi);
-        renderer.putPixel(pixel);
-      }
+        if (dx > 0) {
+            for (int x = startPixel.x; x <= endPixel.x; x++) {
+                Pixel pixel = new Pixel(x, (int) y);
+                renderer.putPixel(pixel);
+                y += m;
+            }
+        } else {
+            for (int yi = startPixel.y; yi < endPixel.y; yi++) {
+                Pixel pixel = new Pixel(startPixel.x, yi);
+                renderer.putPixel(pixel);
+            }
+        }
     }
-  }
 }

@@ -1,6 +1,7 @@
 package cga.scenegraph.shape;
 
 import cga.scenegraph.camera.Camera;
+import cga.scenegraph.math.Matrix;
 import cga.scenegraph.renderer.Renderer;
 
 
@@ -15,10 +16,10 @@ public class Rectangle2d extends Renderable {
   }
 
   @Override
-  public void render(Camera camera, Renderer renderer) {
-    a.render(camera, renderer);
-    b.render(camera, renderer);
-    c.render(camera, renderer);
-    d.render(camera, renderer);
+  public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    a.render(transformation, camera, renderer);
+    b.render(transformation, camera, renderer);
+    c.render(transformation, camera, renderer);
+    d.render(transformation, camera, renderer);
   }
 }

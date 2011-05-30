@@ -1,6 +1,7 @@
 package cga.scenegraph.shape;
 
 import cga.scenegraph.camera.Camera;
+import cga.scenegraph.math.Matrix;
 import cga.scenegraph.renderer.Renderer;
 
 /**
@@ -17,7 +18,7 @@ public class Circle2d extends Renderable {
   }
 
   @Override
-  public void render(Camera camera, Renderer renderer) {
+  public void render(Matrix transformation, Camera camera, Renderer renderer) {
     //TODO rendering des kreises implementieren
   }
 
