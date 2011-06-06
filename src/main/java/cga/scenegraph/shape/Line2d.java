@@ -22,9 +22,9 @@ public class Line2d extends Renderable {
   public Line2d(double x1, double y1, double x2, double y2) {
     if (x1 > x2) {
       this.x1 = x2;
-      this.y1 = y1;
+      this.y1 = y2;
       this.x2 = x1;
-      this.y2 = y2;
+      this.y2 = y1;
     } else {
       this.x1 = x1;
       this.y1 = y1;

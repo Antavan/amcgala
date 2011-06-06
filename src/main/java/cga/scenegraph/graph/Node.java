@@ -6,6 +6,7 @@ import cga.scenegraph.shape.Renderable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Eine Node ist Teil des Szenengraphens und kann beliebig viele Kindsknoten und Geometrieobjekte zugewiesen bekommen.
@@ -141,7 +142,7 @@ public class Node {
      * @return die Kindsknoten
      */
     public Collection<Node> getChildren() {
-        return children;
+        return Collections.unmodifiableCollection(children);
     }
 
     /**
@@ -150,7 +151,7 @@ public class Node {
      * @return die Geometrieobjekte
      */
     public Collection<Renderable> getGeometry() {
-        return geometry;
+        return Collections.unmodifiableCollection(geometry);
     }
 
     /**
@@ -176,11 +177,11 @@ public class Node {
      * @return 
      */
     public Matrix getTransformMatrix() {
-        Matrix b = (transformation == null) ? new Translation(0, 0, 0).getTransformMatrix() : transformation.getTransformMatrix();
+        Matrix b = transformation.getTransformMatrix();
 
         if (parent != null) {
             Matrix c = parent.getTransformMatrix();
-            b.times(c);
+            b = b.times(c);
         }
         
         return b;

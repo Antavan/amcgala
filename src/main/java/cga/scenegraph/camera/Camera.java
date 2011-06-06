@@ -65,10 +65,8 @@ public class Camera {
       0, 0, (f + n) / (f - n), -(2 * f * n) / (f - n),
       0, 0, 1, 0
     };
-    for (int i = 0; i < values.length; i++) {
-      System.out.print(values[i] + "   ");
-    }
     projection = new Matrix(values, 4);
+    projection.print(4, 2);
   }
 
   public CVPoint project(Vector3d vector3d) {
