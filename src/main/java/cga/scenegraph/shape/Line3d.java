@@ -18,28 +18,18 @@ public class Line3d extends Renderable {
   private Vector3d start, end;
 
   public Line3d(Vector3d start, Vector3d end) {
-    if (x1 > x2) {
-      this.x1 = start.x;
-      this.y1 = start.y;
-      this.z1 = start.z;
-      this.x2 = end.x;
-      this.y2 = end.y;
-      this.z2 = end.z;
-    } else {
-      this.x1 = start.x;
-      this.y1 = start.y;
-      this.z1 = start.z;
-      this.x2 = end.x;
-      this.y2 = end.y;
-      this.z2 = end.z;
-    }
+    this.x1 = start.x;
+    this.y1 = start.y;
+    this.z1 = start.z;
+    this.x2 = end.x;
+    this.y2 = end.y;
+    this.z2 = end.z;
   }
 
   @Override
   public void render(Matrix transformation, Camera camera, Renderer renderer) {
     start = new Vector3d(x1, y1, z1).transform(transformation);
     end = new Vector3d(x2, y2, z2).transform(transformation);
-    System.out.println(end);
 
     CVPoint startPoint = camera.project(start);
     CVPoint endPoint = camera.project(end);
@@ -47,6 +37,11 @@ public class Line3d extends Renderable {
     Pixel startPixel = renderer.toPixel(startPoint);
     Pixel endPixel = renderer.toPixel(endPoint);
 
+    if (startPixel.x > endPixel.x) {
+      Pixel tmp = startPixel;
+      startPixel = endPixel;
+      endPixel = tmp;
+    }
 //    System.out.println(startPixel);
 //    System.out.println(endPixel);
 
@@ -61,7 +56,7 @@ public class Line3d extends Renderable {
         renderer.putPixel(pixel);
         y += m;
       }
-    } else {
+    } else if (dx == 0) {
       for (int yi = startPixel.y; yi < endPixel.y; yi++) {
         Pixel pixel = new Pixel(startPixel.x, yi);
         renderer.putPixel(pixel);

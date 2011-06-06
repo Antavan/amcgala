@@ -41,6 +41,8 @@ public class Line2d extends Renderable {
     v1 = new Vector3d(x1, y1, -1);
     v2 = new Vector3d(x2, y2, -1);
     
+    //TODO man sollte den Teil auslagern, da der Algorithmus im Bildraum arbeitet und für 2-d wie auch 3-d gleich arbeitet.
+    
     CVPoint cvStart = camera.project(v1);
     CVPoint cvEnd = camera.project(v2);
 
