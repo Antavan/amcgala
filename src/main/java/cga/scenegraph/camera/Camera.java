@@ -71,10 +71,7 @@ public class Camera {
 
   public CVPoint project(Vector3d vector3d) {
     Matrix point = projection.times(vector3d.toMatrix());
-    //System.out.println(point.get(0, 0) + ", " + point.get(1, 0) + ", " + point.get(2, 0) + ", " + point.get(3, 0));
-
     CVPoint cvPoint = new CVPoint(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
-//    System.out.println(cvPoint);
     return cvPoint;
   }
 
