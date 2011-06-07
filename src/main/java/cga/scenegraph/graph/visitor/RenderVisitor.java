@@ -31,8 +31,6 @@ public class RenderVisitor implements Visitor {
     public void visit(Node node) {
         // System.out.println("Visiting: " + node);
         Matrix transform = node.getTransformMatrix();
-        // TODO die multiplikation der Matrizen funktioniert noch nicht richtig. bekomme nur die einheitsmatrix raus.
-        transform.print(4, 2);
         for (Renderable renderable : node.getGeometry()) {
             renderable.render(transform, getCamera(), getRenderer());
         }

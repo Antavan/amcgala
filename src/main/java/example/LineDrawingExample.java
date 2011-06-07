@@ -2,7 +2,7 @@ package example;
 
 import cga.scenegraph.graph.Translation;
 import cga.scenegraph.math.Vector3d;
-import cga.scenegraph.shape.Line3d;
+import cga.scenegraph.shape.Box3d;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -22,32 +22,10 @@ public final class LineDrawingExample extends Framework2d {
 
   @Override
   public void initGraph() {
-    // TODO ein Box3d Objekt wäre schon praktischer
-    Line3d line3d = new Line3d(new Vector3d(-3, -3, -1), new Vector3d(7, -3, -1));
-    Line3d line3d2 = new Line3d(new Vector3d(-3, -3, -1), new Vector3d(-3, -3, -11));
-    Line3d line3d3 = new Line3d(new Vector3d(-3, -3, -1), new Vector3d(-3, 7, -1));
-    Line3d line3d4 = new Line3d(new Vector3d(-3, -3, -11), new Vector3d(-3, 7, -11));
-    Line3d line3d5 = new Line3d(new Vector3d(-3, -3, -11), new Vector3d(7, -3, -11));
-    Line3d line3d6 = new Line3d(new Vector3d(-3, 7, -1), new Vector3d(-3, 7, -11));
-    Line3d line3d7 = new Line3d(new Vector3d(-3, 7, -11), new Vector3d(7, 7, -11));
-    Line3d line3d8 = new Line3d(new Vector3d(7, -3, -1), new Vector3d(7, 7, -1));
-    Line3d line3d9 = new Line3d(new Vector3d(7, -3, -11), new Vector3d(7, -3, -1));
-    Line3d line3d10 = new Line3d(new Vector3d(7, 7, -11), new Vector3d(7, 7, -1));
-    Line3d line3d11 = new Line3d(new Vector3d(7, -3, -11), new Vector3d(7, 7, -11));
-    Line3d line3d12 = new Line3d(new Vector3d(-3, 7, -1), new Vector3d(7, 7, -1));
-
-    addGeometry(line3d);
-    addGeometry(line3d2);
-    addGeometry(line3d3);
-    addGeometry(line3d4);
-    addGeometry(line3d5);
-    addGeometry(line3d6);
-    addGeometry(line3d7);
-    addGeometry(line3d8);
-    addGeometry(line3d9);
-    addGeometry(line3d10);
-    addGeometry(line3d11);
-    addGeometry(line3d12);
+    addGeometry(new Box3d(new Vector3d(0, 0, -5), 10, 10, 10));
+    addGeometry(new Box3d(new Vector3d(0, 15, -5), 10, 10, 10));
+    addGeometry(new Box3d(new Vector3d(-15, 0, -5), 10, 10, 10));
+    addGeometry(new Box3d(new Vector3d(-15, 15, -5), 10, 10, 10));
   }
 
   public static void main(String[] args) {
@@ -93,17 +71,17 @@ public final class LineDrawingExample extends Framework2d {
     @Override
     public void keyPressed(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-        translation.changeX(0.1);
+        translation.changeX(0.2);
       } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-        translation.changeX(-0.1);
+        translation.changeX(-0.2);
       } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-        translation.changeY(0.1);
+        translation.changeY(0.2);
       } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-        translation.changeY(-0.1);
+        translation.changeY(-0.2);
       } else if (e.getKeyCode() == KeyEvent.VK_A) {
-        translation.changeZ(-0.1);
+        translation.changeZ(-0.2);
       } else if (e.getKeyCode() == KeyEvent.VK_Y) {
-        translation.changeZ(0.1);
+        translation.changeZ(0.2);
       }
 
     }
