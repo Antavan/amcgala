@@ -8,18 +8,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class LineDrawingExample extends Framework2d {
+public final class LineDrawingExample extends Framework2d {
 
   private Translation translation;
 
   public LineDrawingExample() {
-    //renderer.addMouseListener(new MyListener());
     renderer.addKeyListener(new MyKeyListener());
-
-    initGraph();
-
     translation = new Translation(0, 0, 0);
     sceneGraph.addTransformation(translation);
+    
+    initGraph();
   }
 
   @Override
@@ -38,7 +36,6 @@ public class LineDrawingExample extends Framework2d {
     Line3d line3d11 = new Line3d(new Vector3d(7, -3, -11), new Vector3d(7, 7, -11));
     Line3d line3d12 = new Line3d(new Vector3d(-3, 7, -1), new Vector3d(7, 7, -1));
 
-    // sceneGraph.addGeometry(line);
     addGeometry(line3d);
     addGeometry(line3d2);
     addGeometry(line3d3);
