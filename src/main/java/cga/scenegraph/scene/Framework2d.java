@@ -1,10 +1,9 @@
-package example;
+package cga.scenegraph.scene;
 
 import cga.scenegraph.animation.Animator;
 import cga.scenegraph.graph.SceneGraph;
 import cga.scenegraph.graph.visitor.RenderVisitor;
 import cga.scenegraph.renderer.RendererJ2d;
-import cga.scenegraph.scene.Scene2d;
 import cga.scenegraph.shape.Renderable;
 
 /**

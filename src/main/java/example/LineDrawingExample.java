@@ -1,5 +1,6 @@
 package example;
 
+import cga.scenegraph.scene.Framework2d;
 import cga.scenegraph.graph.Translation;
 import cga.scenegraph.math.Vector3d;
 import cga.scenegraph.shape.Box3d;
