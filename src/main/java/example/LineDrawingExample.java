@@ -23,10 +23,10 @@ public final class LineDrawingExample extends Framework2d {
 
   @Override
   public void initGraph() {
-    addGeometry(new Box3d(new Vector3d(0, 0, -5), 10, 10, 10));
-    addGeometry(new Box3d(new Vector3d(0, 15, -5), 10, 10, 10));
-    addGeometry(new Box3d(new Vector3d(-15, 0, -5), 10, 10, 10));
-    addGeometry(new Box3d(new Vector3d(-15, 15, -5), 10, 10, 10));
+    add(new Box3d(new Vector3d(0, 0, -5), 10, 10, 10));
+    add(new Box3d(new Vector3d(0, 15, -5), 10, 10, 10));
+    add(new Box3d(new Vector3d(-15, 0, -5), 10, 10, 10));
+    add(new Box3d(new Vector3d(-15, 15, -5), 10, 10, 10));
   }
 
   public static void main(String[] args) {

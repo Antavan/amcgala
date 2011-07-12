@@ -1,7 +1,7 @@
 package cga.scenegraph.shape;
 
 import cga.scenegraph.camera.CVPoint;
-import cga.scenegraph.camera.Camera;
+import cga.scenegraph.camera.DefaultCamera;
 import cga.scenegraph.math.Matrix;
 import cga.scenegraph.math.Vector3d;
 import cga.scenegraph.renderer.Pixel;
@@ -27,7 +27,7 @@ public class Line3d extends Renderable {
   }
 
   @Override
-  public void render(Matrix transformation, Camera camera, Renderer renderer) {
+  public void render(Matrix transformation, DefaultCamera camera, Renderer renderer) {
     start = new Vector3d(x1, y1, z1).transform(transformation);
     end = new Vector3d(x2, y2, z2).transform(transformation);
 

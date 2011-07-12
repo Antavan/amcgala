@@ -1,7 +1,7 @@
 package cga.scenegraph.scene;
 
 import cga.scenegraph.animation.Animator;
-import cga.scenegraph.camera.Camera;
+import cga.scenegraph.camera.DefaultCamera;
 import cga.scenegraph.graph.SceneGraph;
 import cga.scenegraph.graph.visitor.AnimationVisitor;
 import cga.scenegraph.graph.visitor.RenderVisitor;
@@ -13,7 +13,7 @@ public abstract class Scene {
     return animator;
   }
 
-  public Camera getCamera() {
+  public DefaultCamera getCamera() {
     return camera;
   }
 
@@ -24,7 +24,7 @@ public abstract class Scene {
   public SceneGraph getScenegraph() {
     return scenegraph;
   }
-  private Camera camera;
+  private DefaultCamera camera;
   private Renderer renderer;
   private SceneGraph scenegraph;
   private RenderVisitor renderVisitor;
@@ -34,7 +34,7 @@ public abstract class Scene {
   protected Scene() {
   }
 
-  public void setCamera(Camera camera) {
+  public void setCamera(DefaultCamera camera) {
     this.camera = camera;
   }
 

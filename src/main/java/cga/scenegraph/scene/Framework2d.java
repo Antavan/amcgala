@@ -37,7 +37,7 @@ public abstract class Framework2d {
     scene2d.start();
   }
 
-  public void addGeometry(Renderable renderable) {
+  public void add(Renderable renderable) {
     sceneGraph.addGeometry(renderable);
   }
 }
