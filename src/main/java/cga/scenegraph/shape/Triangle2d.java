@@ -1,6 +1,6 @@
 package cga.scenegraph.shape;
 
-import cga.scenegraph.camera.DefaultCamera;
+import cga.scenegraph.camera.Camera;
 import cga.scenegraph.math.Matrix;
 import cga.scenegraph.renderer.Renderer;
 
@@ -21,7 +21,7 @@ public class Triangle2d extends Renderable {
     }
 
     @Override
-    public void render(Matrix transformation, DefaultCamera camera, Renderer renderer) {
+    public void render(Matrix transformation, Camera camera, Renderer renderer) {
         a.render(transformation, camera, renderer);
         b.render(transformation, camera, renderer);
         c.render(transformation, camera, renderer);

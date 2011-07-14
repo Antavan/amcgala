@@ -1,12 +1,12 @@
 package cga.scenegraph.scene;
 
-import cga.scenegraph.camera.DefaultCamera;
+import cga.scenegraph.camera.PerspectiveCamera;
 import cga.scenegraph.math.Vector3d;
 
 public class Scene2d extends Scene {
-
-  public Scene2d() {
-    //TODO die einstellung passt in 3d nicht wirklich. 
-    setCamera(new DefaultCamera(new Vector3d(-2, -2, 10), new Vector3d(2.1, 2.1, 11.00001), DefaultCamera.PROJECTION_TYPE_PERSPECTIVE));
-  }
+    
+    public Scene2d() {
+        //up, position, direction
+        setCamera(new PerspectiveCamera(new Vector3d(0, 1, 0), new Vector3d(0, 0, 1), new Vector3d(0, 0, 0)));
+    }
 }

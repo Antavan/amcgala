@@ -1,6 +1,6 @@
 package cga.scenegraph.graph.visitor;
 
-import cga.scenegraph.camera.DefaultCamera;
+import cga.scenegraph.camera.Camera;
 import cga.scenegraph.graph.Node;
 import cga.scenegraph.math.Matrix;
 import cga.scenegraph.renderer.Renderer;
@@ -9,13 +9,13 @@ import cga.scenegraph.shape.Renderable;
 public class RenderVisitor implements Visitor {
 
     private Renderer renderer;
-    private DefaultCamera camera;
+    private Camera camera;
 
     public void setRenderer(Renderer renderer) {
         this.renderer = renderer;
     }
 
-    public void setCamera(DefaultCamera camera) {
+    public void setCamera(Camera camera) {
         this.camera = camera;
     }
 
@@ -23,7 +23,7 @@ public class RenderVisitor implements Visitor {
         return renderer;
     }
 
-    public DefaultCamera getCamera() {
+    public Camera getCamera() {
         return camera;
     }
 
