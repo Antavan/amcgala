@@ -4,7 +4,11 @@ import cga.scenegraph.math.Matrix;
 import cga.scenegraph.math.Vector3d;
 
 /**
- *
+ * Implementierung einer orthographischen Projektion.
+ * Es gehen jegliche Tiefeninformationen verloren.
+ * Die Kamera ist besonders dafür geeignet, 2D-Projektionen oder 2D GUI-Elemente zu 
+ * realisieren, die über einer perspektivischen Szene zu sehen sind.
+ * 
  * @author Robert Giacinto
  */
 public class OrthographicalCameral implements Camera {

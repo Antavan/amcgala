@@ -58,7 +58,8 @@ public class PerspectiveCamera implements Camera {
         };
 
         Matrix vd = Matrix.constructWithCopy(vdValues);
-
+        
+        // TODO Die perspektivische Projektionsmatrix muss hier noch implementiert werden
         double[][] kValues = {
             {u.x, u.y, u.z, 0},
             {v.x, v.y, v.z, 0},

@@ -1,9 +1,10 @@
-package cga.scenegraph.scene;
+package cga;
 
 import cga.scenegraph.animation.Animator;
 import cga.scenegraph.graph.SceneGraph;
 import cga.scenegraph.graph.visitor.RenderVisitor;
 import cga.scenegraph.renderer.RendererJ2d;
+import cga.scenegraph.scene.Scene2d;
 import cga.scenegraph.shape.Renderable;
 import java.util.logging.Level;
 import java.util.logging.Logger;

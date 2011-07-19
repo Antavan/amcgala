@@ -1,6 +1,6 @@
 package example;
 
-import cga.scenegraph.scene.Framework;
+import cga.Framework;
 import cga.scenegraph.graph.Translation;
 import cga.scenegraph.math.Vector3d;
 import cga.scenegraph.shape.Box3d;
@@ -27,6 +27,7 @@ public final class LineDrawingExample extends Framework {
     }
 
     public static void main(String[] args) {
+        //TODO die Box wird noch nicht richtig transformiert. Die z-Achse rutscht ins Unendliche.
         LineDrawingExample example = new LineDrawingExample();
         example.start();
     }
