@@ -1,5 +1,6 @@
 package cga.scenegraph.graph;
 
+import cga.scenegraph.animation.Alpha;
 import cga.scenegraph.math.Matrix;
 
 /**
@@ -7,6 +8,7 @@ import cga.scenegraph.math.Matrix;
  */
 public class Scale implements Transformation {
   private double scaleX, scaleY, scaleZ;
+  private Alpha alpha;
 
   public Scale(double scaleX, double scaleY, double scaleZ) {
     this.scaleX = scaleX;
@@ -26,4 +28,14 @@ public class Scale implements Transformation {
 
     return new Matrix(values, 4);
   }
+
+    @Override
+    public void setAlpha(Alpha alpha) {
+       this.alpha = alpha;
+    }
+
+    @Override
+    public void update() {
+        //TODO Aktualisierung über Alphaobjekt muss implementiert werden. Frage ist auch, wie man die einzelnen Achseln separat aktualisieren kann.
+    }
 }

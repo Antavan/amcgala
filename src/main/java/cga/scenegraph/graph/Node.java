@@ -9,14 +9,30 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
- * Eine Node ist Teil des Szenengraphens und kann beliebig viele Kindsknoten und Geometrieobjekte zugewiesen bekommen.
+ * Eine Node ist Teil des Scenegraphs und kann beliebig viele Kindsknoten und
+ * Geometrieobjekte zugewiesen bekommen.
  */
 public class Node {
 
     protected String label = "none";
+    /**
+     * Der übergeordnete Knoten, an dem dieser Knoten hängt. Null, wenn es sich
+     * um den Rootknoten handelt.
+     */
     private Node parent;
+    /**
+     * Die Kindsknoten, die an diesem Knoten hängen.
+     */
     private Collection<Node> children = new ArrayList<Node>();
+    /**
+     * Die Geometrieobjekte, die an diesem Knoten hängen und von dem Renderer
+     * dargestellt werden.
+     */
     private Collection<Renderable> geometry = new ArrayList<Renderable>();
+    /**
+     * Ein Transformationsobjekt, das sich auf die Geometrie dieses Knotens und
+     * der Kindsknoten auswirkt.
+     */
     private Transformation transformation;
 
     /**
@@ -165,7 +181,7 @@ public class Node {
 
     /**
      * Setzt die aktuelle Transformationsmatrix dieses Knotens.
-     * 
+     * TODO Die Reihenfolge der Transformation spielt eine Rolle - ist es sinnvoll, das so zu gestalten, dass man nur eine Transformation pro Node zulässt?
      * @param transformation die neue Transformationsmatrix
      */
     public void setTransformation(Transformation transformation) {
@@ -183,7 +199,7 @@ public class Node {
             Matrix c = parent.getTransformMatrix();
             b = b.times(c);
         }
-        
+
         return b;
     }
 

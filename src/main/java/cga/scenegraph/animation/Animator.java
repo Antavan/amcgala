@@ -1,41 +1,42 @@
 package cga.scenegraph.animation;
 
-import cga.scenegraph.scene.Scene;
+import cga.Framework;
 
 public class Animator {
-  private Timer timer;
-  private Scene scene;
 
-  private int framesPerSecond;
+    private Timer timer;
+    private Framework framework;
+    private int framesPerSecond;
 
-  public Animator(int framesPerSecond) {
-    this.framesPerSecond = framesPerSecond;
-    timer = new Timer(framesPerSecond);
-  }
-
-  public void setScene(Scene scene) {
-    this.scene = scene;
-  }
-
-  public void start() {
-
-    if (scene != null) {
-      Thread animation = new Thread(new Runnable() {
-        @Override
-        public void run() {
-          while (true) {
-            timer.start();
-            scene.update();
-            scene.show();
-            timer.stop();
-            try {
-              Thread.sleep((long) timer.getSleepTime());
-            } catch (InterruptedException e) {
-            }
-          }
-        }
-      });
-      animation.start();
+    public Animator(int framesPerSecond) {
+        this.framesPerSecond = framesPerSecond;
+        timer = new Timer(framesPerSecond);
     }
+
+    public void setScene(Framework framework) {
+        this.framework = framework;
   }
+
+    public void start() {
+
+        if (framework != null) {
+            Thread animation = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    while (true) {
+                        timer.start();
+                        framework.update();
+                        framework.show();
+                        timer.stop();
+                        try {
+                            Thread.sleep((long) timer.getSleepTime());
+                        } catch (InterruptedException e) {
+                        }
+                    }
+                }
+            });
+            animation.start();
+        }
+    }
 }

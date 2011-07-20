@@ -16,14 +16,14 @@ public final class LineDrawingExample extends Framework {
     public LineDrawingExample() {
         renderer.addKeyListener(new MyKeyListener());
         translation = new Translation(0, 0, 0);
-        sceneGraph.addTransformation(translation);
+        scenegraph.addTransformation(translation);
 
         initGraph();
     }
 
     @Override
     public void initGraph() {
-        add(new Box3d(new Vector3d(0, 0, -1), 100, 100, 100));
+        add(new Box3d(new Vector3d(-50, -50, -1), 100, 100, 5));
     }
 
     public static void main(String[] args) {

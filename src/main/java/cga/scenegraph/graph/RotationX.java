@@ -1,5 +1,6 @@
 package cga.scenegraph.graph;
 
+import cga.scenegraph.animation.Alpha;
 import cga.scenegraph.math.Matrix;
 
 /**
@@ -7,31 +8,52 @@ import cga.scenegraph.math.Matrix;
  */
 public class RotationX implements Transformation {
 
-  private double phi;
-  private Matrix transformMatrix;
+    private double phi;
+    private Matrix transformMatrix;
+    private Alpha alpha;
 
-  /**
-   * Erstellt eine neue Rotation entlang der x-Achse um den Winkel phi.
-   *
-   * @param phi der Winkel der Rotation
-   */
-  public RotationX(double phi) {
-    this.phi = phi;
-    updateMatrix();
-  }
-  
-   private void updateMatrix() {
-    double[][] values = {
-      {1, 0, 0, 0},
-      {0, 1, 0, 0},
-      {0, 0, 1, 0},
-      {0, 0, 0, 1}
-    };
-    transformMatrix = Matrix.constructWithCopy(values);
-  }
+    /**
+     * Erstellt eine neues Rotationsobjekt.
+     */
+    public RotationX() {
+        this(0);
+    }
 
-  @Override
-  public Matrix getTransformMatrix() {
-    return transformMatrix;
-  }
+    /**
+     * Erstellt ein Rotationsobjekt, das eine Rotation, um den Winkel phi beschreibt.
+     * 
+     * @param phi der Winkel phi der Rotation
+     */
+    public RotationX(double phi) {
+        this.phi = phi;
+        updateMatrix();
+    }
+
+    /**
+     * Aktualisiert die Transformationsmatrix.
+     */
+    private void updateMatrix() {
+        double[][] values = {
+            {1, 0, 0, 0},
+            {0, 1, 0, 0},
+            {0, 0, 1, 0},
+            {0, 0, 0, 1}
+        };
+        transformMatrix = Matrix.constructWithCopy(values);
+    }
+
+    @Override
+    public Matrix getTransformMatrix() {
+        return transformMatrix;
+    }
+
+    @Override
+    public void setAlpha(Alpha alpha) {
+        this.alpha = alpha;
+    }
+
+    @Override
+    public void update() {
+        //TODO Aktualisierung der Rotation mithilfe des Alphaobjekts muss implementiert werden.
+    }
 }
