@@ -1,5 +1,8 @@
 package cga.scenegraph.animation;
 
+import cga.scenegraph.animation.interpolation.Interpolation;
+import cga.scenegraph.animation.interpolation.LinearInterpolation;
+
 /**
  * Ein Alphaobjekt ermöglicht die lineare Interpolation zwischen zwei Werten.
  * 
@@ -7,37 +10,30 @@ package cga.scenegraph.animation;
  */
 public class Alpha {
 
-    private double start;
-    private double end;
-    private double step;
-    private boolean cyclic;
-    private double current;
+  private double start;
+  private double end;
+  private int stepCount;
+  private boolean cyclic;
+  private Interpolation interpolation;
 
-    public Alpha(double start, double end) {
-        this(start, end, 1, true);
-    }
+  public Alpha(double start, double end) {
+    this(start, end, 1, true);
+  }
 
-    public Alpha(double start, double end, double step) {
-        this(start, end, step, true);
-    }
+  public Alpha(double start, double end, int stepCount) {
+    this(start, end, stepCount, true);
+  }
 
-    public Alpha(double start, double end, double step, boolean cyclic) {
-        this.start = start;
-        this.end = end;
-        this.step = step;
-        this.cyclic = cyclic;
-        this.current = start;
-    }
+  public Alpha(double start, double end, int stepCount, boolean cyclic) {
+    this.start = start;
+    this.end = end;
+    this.stepCount = stepCount;
+    this.cyclic = cyclic;
+    this.interpolation = new LinearInterpolation(start, end, stepCount, cyclic);
+  }
 
-    public double step() {
-        if (current + step > end && !cyclic) {
-            return end;
-        } else if (current + step > end && cyclic) {
-            current = start;
-            return current;
-        } else {
-            current += step;
-            return current;
-        }
-    }
+  public double step() {
+    //TODO die Abfrage, ob die Interpolation unendlich ist muss noch behandelt werden.
+    return interpolation.nextValue();
+  }
 }
