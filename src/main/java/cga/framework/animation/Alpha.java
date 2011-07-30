@@ -29,6 +29,7 @@ public class Alpha {
     this.max = max;
     this.stepCount = stepCount;
     this.cyclic = cyclic;
+    // TODO Interpolation sollte mit übergeben werden an Alpha...oder Alpha verschwindet.
     this.interpolation = new LinearInterpolation(min, max, stepCount, cyclic);
   }
 
