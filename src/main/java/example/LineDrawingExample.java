@@ -1,9 +1,9 @@
 package example;
 
 import cga.Framework;
-import cga.scenegraph.graph.Translation;
-import cga.scenegraph.math.Vector3d;
-import cga.scenegraph.shape.Box3d;
+import cga.framework.scenegraph.Translation;
+import cga.framework.math.Vector3d;
+import cga.framework.shape.Box3d;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -23,7 +23,7 @@ public final class LineDrawingExample extends Framework {
 
     @Override
     public void initGraph() {
-        add(new Box3d(new Vector3d(-50, -50, -1), 100, 100, 5));
+        add(new Box3d(new Vector3d(-50, -50, -25), 100, 100, 100));
     }
 
     public static void main(String[] args) {

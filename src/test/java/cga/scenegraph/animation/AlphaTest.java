@@ -4,6 +4,7 @@
  */
 package cga.scenegraph.animation;
 
+import cga.framework.animation.Alpha;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

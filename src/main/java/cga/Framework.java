@@ -1,14 +1,15 @@
 package cga;
 
-import cga.scenegraph.animation.Animator;
-import cga.scenegraph.camera.Camera;
-import cga.scenegraph.camera.PerspectiveCamera;
-import cga.scenegraph.graph.SceneGraph;
-import cga.scenegraph.graph.visitor.AnimationVisitor;
-import cga.scenegraph.graph.visitor.RenderVisitor;
-import cga.scenegraph.math.Vector3d;
-import cga.scenegraph.renderer.RendererJ2d;
-import cga.scenegraph.shape.Renderable;
+import cga.framework.animation.Animator;
+import cga.framework.camera.Camera;
+import cga.framework.camera.OrthographicalCamera;
+import cga.framework.camera.PerspectiveCamera;
+import cga.framework.scenegraph.SceneGraph;
+import cga.framework.scenegraph.visitor.AnimationVisitor;
+import cga.framework.scenegraph.visitor.RenderVisitor;
+import cga.framework.math.Vector3d;
+import cga.framework.renderer.RendererJ2d;
+import cga.framework.shape.Renderable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
