@@ -1,12 +1,11 @@
 package cga.framework.scenegraph;
 
-import cga.framework.animation.Alpha;
 import cga.framework.math.Matrix;
 
 /**
  * Ein Transformationsobjekt kann einem Knoten des Scenegraphs übergeben werden.
  */
-public interface Transformation {
+public interface Transformation{
 
     /**
      * Gibt die Transformationsmatrix zurück, die die in Transformation repräsentiert, die
@@ -16,15 +15,9 @@ public interface Transformation {
      */
     public Matrix getTransformMatrix();
 
-    /**
-     * Setzt ein Alphaobjekt, das für die Animation der Transformation genutzt werden kann.
-     * 
-     * @param alpha das Alphaobjekt
-     */
-    public void setAlpha(Alpha alpha);
     
     /**
-     * Aktualisiert die Transformation unter Verwendung eines Alphaobjekts.
+     * Aktualisiert die Transformation unter Verwendung von Interpolationsobjekten..
      */
     public void update();
 }

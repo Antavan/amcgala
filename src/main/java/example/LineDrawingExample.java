@@ -1,10 +1,9 @@
 package example;
 
 import cga.Framework;
+import cga.framework.animation.interpolation.LinearInterpolation;
+import cga.framework.scenegraph.Scale;
 import cga.framework.scenegraph.Translation;
-import cga.framework.math.Vector3d;
-import cga.framework.shape.Box3d;
-import cga.framework.shape.Point2d;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -13,11 +12,19 @@ import java.awt.event.MouseEvent;
 public final class LineDrawingExample extends Framework {
 
   private Translation translation;
+  private Scale scale;
 
   public LineDrawingExample() {
     renderer.addKeyListener(new MyKeyListener());
     translation = new Translation(0, 0, 0);
-    scenegraph.addTransformation(translation);
+    translation.setInterpolationX(new LinearInterpolation(-500, 500, 200, true));
+    translation.setInterpolationY(new LinearInterpolation(0, 150, 300, true));
+
+    scale = new Scale(0, 0, 0);
+    scale.setInterpolationX(new LinearInterpolation(0, 2, 200, true));
+    scale.setInterpolationY(new LinearInterpolation(0, 2, 200, true));
+
+    scenegraph.addTransformation(scale);
 
     initGraph();
   }

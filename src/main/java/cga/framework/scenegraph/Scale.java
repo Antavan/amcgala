@@ -1,14 +1,18 @@
 package cga.framework.scenegraph;
 
-import cga.framework.animation.Alpha;
+import cga.framework.animation.interpolation.Interpolation;
 import cga.framework.math.Matrix;
 
 /**
  * Skalierung um den Faktor s = (sx, sy, sz)
  */
 public class Scale implements Transformation {
+
   private double scaleX, scaleY, scaleZ;
-  private Alpha alpha;
+  private Matrix transformMatrix;
+  private Interpolation interpolationX;
+  private Interpolation interpolationY;
+  private Interpolation interpolationZ;
 
   public Scale(double scaleX, double scaleY, double scaleZ) {
     this.scaleX = scaleX;
@@ -16,26 +20,57 @@ public class Scale implements Transformation {
     this.scaleZ = scaleZ;
   }
 
+  private void updateMatrix() {
+    double[][] values = {
+      {scaleX, 0, 0, 0},
+      {0, scaleY, 0, 0},
+      {0, 0, scaleZ, 0},
+      {0, 0, 0, 1}
+    };
+
+    transformMatrix = Matrix.constructWithCopy(values);
+  }
+
+  public Interpolation getInterpolationX() {
+    return interpolationX;
+  }
+
+  public void setInterpolationX(Interpolation interpolationX) {
+    this.interpolationX = interpolationX;
+  }
+
+  public Interpolation getInterpolationY() {
+    return interpolationY;
+  }
+
+  public void setInterpolationY(Interpolation interpolationY) {
+    this.interpolationY = interpolationY;
+  }
+
+  public Interpolation getInterpolationZ() {
+    return interpolationZ;
+  }
+
+  public void setInterpolationZ(Interpolation interpolationZ) {
+    this.interpolationZ = interpolationZ;
+  }
 
   @Override
   public Matrix getTransformMatrix() {
-    double[] values = {
-        scaleX, 0, 0, 0,
-        0, scaleY, 0, 0,
-        0, 0, scaleZ, 0,
-        0, 0, 0, 1
-    };
-
-    return new Matrix(values, 4);
+    return transformMatrix;
   }
 
-    @Override
-    public void setAlpha(Alpha alpha) {
-       this.alpha = alpha;
+  @Override
+  public void update() {
+    if (interpolationX != null) {
+      scaleX = interpolationX.nextValue();
     }
-
-    @Override
-    public void update() {
-        //TODO Aktualisierung über Alphaobjekt muss implementiert werden. Frage ist auch, wie man die einzelnen Achseln separat aktualisieren kann.
+    if (interpolationY != null) {
+      scaleY = interpolationY.nextValue();
     }
+    if (interpolationZ != null) {
+      scaleZ = interpolationZ.nextValue();
+    }
+    updateMatrix();
+  }
 }

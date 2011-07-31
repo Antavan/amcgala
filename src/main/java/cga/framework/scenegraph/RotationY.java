@@ -1,6 +1,6 @@
 package cga.framework.scenegraph;
 
-import cga.framework.animation.Alpha;
+import cga.framework.animation.interpolation.Interpolation;
 import cga.framework.math.Matrix;
 
 /**
@@ -8,36 +8,67 @@ import cga.framework.math.Matrix;
  */
 public class RotationY implements Transformation {
 
-    private double phi;
+  private double phi;
+  private Interpolation interpolationPhi;
+  private Matrix transformMatrix;
 
-    /**
+  /**
      * Erzeugt eine neues Rotationsobjekt.
      */
-    public RotationY() {
-        this(0);
-    }
+  public RotationY() {
+    this(0);
+  }
 
-    /**
+  /**
    * Erzeugt eine neue Rotation entlang der y-Achse.
    *
    * @param phi der Winkel der Rotation
    */
-    public RotationY(double phi) {
-        this.phi = phi;
-    }
+  public RotationY(double phi) {
+    this.phi = phi;
+    updateMatrix();
+  }
 
-    @Override
-    public Matrix getTransformMatrix() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+  /**
+     * Aktualisiert die Transformationsmatrix.
+     */
+  private void updateMatrix() {
+    double[][] values = {
+      {1, 0, 0, 0},
+      {0, 1, 0, 0},
+      {0, 0, 1, 0},
+      {0, 0, 0, 1}
+    };
+    transformMatrix = Matrix.constructWithCopy(values);
+  }
 
-    @Override
-    public void setAlpha(Alpha alpha) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+  @Override
+  public Matrix getTransformMatrix() {
+    return transformMatrix;
+  }
 
-    @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet.");
+  public Interpolation getInterpolationPhi() {
+    return interpolationPhi;
+  }
+
+  public void setInterpolationPhi(Interpolation interpolationPhi) {
+    this.interpolationPhi = interpolationPhi;
+  }
+
+  public double getPhi() {
+    return phi;
+  }
+
+  public void setPhi(double phi) {
+    this.phi = phi;
+    updateMatrix();
+  }
+
+  @Override
+  public void update() {
+    if (interpolationPhi != null) {
+      phi = interpolationPhi.nextValue();
+      updateMatrix();
     }
+  }
 }

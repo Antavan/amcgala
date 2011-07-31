@@ -1,7 +1,7 @@
 package example;
 
-import cga.framework.animation.Alpha;
 import cga.framework.animation.Animation;
+import cga.framework.animation.interpolation.Interpolation;
 import cga.framework.animation.interpolation.LinearInterpolation;
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
@@ -10,7 +10,7 @@ import cga.framework.shape.Point2d;
 import cga.framework.shape.Renderable;
 
 /**
- * Eine animierte Sinuskurve. <p/> <p/> <p/> <p/> <p/> <p/> <p/> <p/> <p/>
+ * Eine animierte Sinuskurve.
  * <p/>
  * @author Robert Giacinto
  */
@@ -20,8 +20,8 @@ public class AnimatedSineCurve extends Renderable {
   private Point2d[] points;
   private double frequency;
   private double amplitude;
-  private Alpha alphaFrq;
-  private Alpha alphaAmp;
+  private Interpolation interpolationFrq;
+  private Interpolation interpolationAmp;
 
   public AnimatedSineCurve(int steps, double frequency, double amplitude) {
     this.steps = steps;
@@ -36,17 +36,17 @@ public class AnimatedSineCurve extends Renderable {
 
       @Override
       public void animate() {
-        if (alphaAmp != null) {
-          setAmplitude(alphaAmp.step());
+        if (interpolationAmp != null) {
+          setAmplitude(interpolationAmp.nextValue());
         }
 
-        if (alphaFrq != null) {
-          setFrequency(alphaFrq.step());
+        if (interpolationFrq != null) {
+          setFrequency(interpolationFrq.nextValue());
         }
       }
     });
-    alphaFrq = new Alpha(0, 10, 200);
-    alphaAmp = new Alpha(0, 20, 250);
+    interpolationFrq = new LinearInterpolation(0, 20, steps, true);
+    interpolationAmp = new LinearInterpolation(0, 20, steps, true);
   }
 
   private void init() {
@@ -57,21 +57,20 @@ public class AnimatedSineCurve extends Renderable {
     }
   }
 
-  public Alpha getAlphaAmp() {
-    return alphaAmp;
+  public Interpolation getInterpolationAmp() {
+    return interpolationAmp;
   }
 
-  public void setAlphaAmp(Alpha alphaAmp) {
-    this.alphaAmp = alphaAmp;
-
+  public void setInterpolationAmp(Interpolation interpolationAmp) {
+    this.interpolationAmp = interpolationAmp;
   }
 
-  public Alpha getAlphaFrq() {
-    return alphaFrq;
+  public Interpolation getInterpolationFrq() {
+    return interpolationFrq;
   }
 
-  public void setAlphaFrq(Alpha alphaFrq) {
-    this.alphaFrq = alphaFrq;
+  public void setInterpolationFrq(Interpolation interpolationFrq) {
+    this.interpolationFrq = interpolationFrq;
   }
 
   public double getAmplitude() {

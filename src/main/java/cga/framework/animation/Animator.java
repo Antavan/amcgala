@@ -4,39 +4,48 @@ import cga.Framework;
 
 public class Animator {
 
-    private Timer timer;
-    private Framework framework;
-    private int framesPerSecond;
+  private Timer timer;
+  private Framework framework;
+  private int framesPerSecond;
 
-    public Animator(int framesPerSecond) {
-        this.framesPerSecond = framesPerSecond;
-        timer = new Timer(framesPerSecond);
-    }
-
-    public void setScene(Framework framework) {
-        this.framework = framework;
+  public Animator(int framesPerSecond) {
+    this.framesPerSecond = framesPerSecond;
+    timer = new Timer(framesPerSecond);
   }
 
-    public void start() {
+  public void setFramework(Framework framework) {
+    this.framework = framework;
+  }
 
-        if (framework != null) {
-            Thread animation = new Thread(new Runnable() {
+  public int getFramesPerSecond() {
+    return framesPerSecond;
+  }
 
-                @Override
-                public void run() {
-                    while (true) {
-                        timer.start();
-                        framework.update();
-                        framework.show();
-                        timer.stop();
-                        try {
-                            Thread.sleep((long) timer.getSleepTime());
-                        } catch (InterruptedException e) {
-                        }
-                    }
-                }
-            });
-            animation.start();
+  public void setFramesPerSecond(int framesPerSecond) {
+    this.framesPerSecond = framesPerSecond;
+    timer = new Timer(framesPerSecond);
+  }
+
+  public void start() {
+
+    if (framework != null) {
+      Thread animation = new Thread(new Runnable() {
+
+        @Override
+        public void run() {
+          while (true) {
+            timer.start();
+            framework.update();
+            framework.show();
+            timer.stop();
+            try {
+              Thread.sleep((long) timer.getSleepTime());
+            } catch (InterruptedException e) {
+            }
+          }
         }
+      });
+      animation.start();
     }
+  }
 }
