@@ -45,14 +45,14 @@ public class AnimatedSineCurve extends Renderable {
         }
       }
     });
-    interpolationFrq = new LinearInterpolation(0, 20, steps, true);
-    interpolationAmp = new LinearInterpolation(0, 20, steps, true);
+    interpolationFrq = new LinearInterpolation(15, 20, steps, true);
+    interpolationAmp = new LinearInterpolation(15, 20, steps, true);
   }
 
   private void init() {
     int step = 0;
     while (step < steps) {
-      points[step] = new Point2d(step * (Math.PI * 10 / steps) * 10, 10 * amplitude * Math.sin(step * (Math.PI * 10 / steps) * frequency));
+      points[step] = new Point2d(step * (Math.PI * 10 / steps) * 100, 10 * amplitude * Math.sin(step * (Math.PI * 10 / steps) * frequency*10));
       step++;
     }
   }

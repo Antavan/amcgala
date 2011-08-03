@@ -4,9 +4,11 @@ import cga.framework.animation.interpolation.Interpolation;
 import cga.framework.math.Matrix;
 
 /**
- * Eine Rotation entlang der y-Achse.
+ * Eine Rotation um die z-Achse. <p/>
+ * <p/>
+ * @author Robert Giacinto
  */
-public class RotationY implements Transformation {
+public class RotationZ implements Transformation {
 
   private double phi;
   private Interpolation interpolationPhi;
@@ -15,7 +17,7 @@ public class RotationY implements Transformation {
   /**
      * Erzeugt eine neues Rotationsobjekt.
      */
-  public RotationY() {
+  public RotationZ() {
     this(0);
   }
 
@@ -24,7 +26,7 @@ public class RotationY implements Transformation {
    *
    * @param phi der Winkel der Rotation
    */
-  public RotationY(double phi) {
+  public RotationZ(double phi) {
     this.phi = phi;
     updateMatrix();
   }
@@ -34,9 +36,9 @@ public class RotationY implements Transformation {
      */
   private void updateMatrix() {
     double[][] values = {
-      {Math.cos(phi), 0, Math.sin(phi), 0},
-      {0, 1, 0, 0},
-      {-Math.sin(phi), 0, Math.cos(phi), 0},
+      {Math.cos(phi), -Math.sin(phi), 0, 0},
+      {Math.sin(phi), Math.cos(phi), 0, 0},
+      {0, 0, 1, 0},
       {0, 0, 0, 1}
     };
     transformMatrix = Matrix.constructWithCopy(values);

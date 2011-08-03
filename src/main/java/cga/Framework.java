@@ -2,6 +2,7 @@ package cga;
 
 import cga.framework.animation.Animator;
 import cga.framework.camera.Camera;
+import cga.framework.camera.OrthographicalCamera;
 import cga.framework.camera.PerspectiveCamera;
 import cga.framework.scenegraph.SceneGraph;
 import cga.framework.scenegraph.visitor.AnimationVisitor;
@@ -36,7 +37,7 @@ public abstract class Framework {
     visitors = new ArrayList<Visitor>();
     scenegraph = new SceneGraph();
 
-    camera = new PerspectiveCamera(new Vector3d(0, 1, 0), new Vector3d(0, 0, 1), new Vector3d(0, 0, 0));
+    camera = new PerspectiveCamera(new Vector3d(0, 0, 1), new Vector3d(0, 0, 0), new Vector3d(0, 1, 0), 76, 16 / 9, 1, 100);
 
 
     logger.log(Level.INFO, "Erstelle Java2D Renderoutput.");

@@ -79,4 +79,9 @@ public class OrthographicalCamera implements Camera {
         CVPoint cvPoint = new CVPoint(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
         return cvPoint;
     }
+
+  @Override
+  public void update() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 }
