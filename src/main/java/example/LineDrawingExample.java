@@ -6,7 +6,7 @@ import cga.framework.math.Vector3d;
 import cga.framework.scenegraph.RotationZ;
 import cga.framework.scenegraph.Scale;
 import cga.framework.scenegraph.Translation;
-import cga.framework.shape.Box3d;
+import cga.framework.shape.Line3d;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -31,21 +31,27 @@ public final class LineDrawingExample extends Framework {
     rotation = new RotationZ();
     rotation.setInterpolationPhi(new LinearInterpolation(0, Math.PI * 2, 1000, true));
 
-    scenegraph.addTransformation(translation);
+    scenegraph.addTransformation(rotation);
 
     initGraph();
   }
 
   @Override
   public void initGraph() {
-    add(new Box3d(new Vector3d(0, 0, -1), 100,100, 100));
+    //add(new Box3d(new Vector3d(0, 0, -1), 100,100, 100));
 
 //    for (double x = 0; x < 2 * Math.PI; x += 0.01) {
 //      add(new Point2d(x * 50, 50 * Math.sin(x)));
 //    }
 
     //add(new AnimatedSineCurve(1500, 1, 1));
-    //add(new Line3d(new Vector3d(0, 0, 0), new Vector3d(400, 0, 0)));
+    add(new Line3d(new Vector3d(0, 0, -0.5), new Vector3d(400, 0, -0.5)));
+    add(new Line3d(new Vector3d(400, 0, -0.5), new Vector3d(400, 400, -0.5)));
+    add(new Line3d(new Vector3d(0, 0, -0.5), new Vector3d(0, 400, -0.5)));
+    add(new Line3d(new Vector3d(0, 400, -0.5), new Vector3d(400, 400, -0.5)));
+    
+    add(new Line3d(new Vector3d(0, 0, -0.5), new Vector3d(0, 0, -400.5)));
+    add(new Line3d(new Vector3d(400, 0, -0.5), new Vector3d(400, 0, -400.5)));
   }
 
   public static void main(String[] args) {

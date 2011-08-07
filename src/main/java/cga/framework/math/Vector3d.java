@@ -5,6 +5,10 @@ package cga.framework.math;
  */
 public class Vector3d {
 
+  public static final Vector3d UNIT_X = new Vector3d(1, 0, 0);
+  public static final Vector3d UNIT_Y = new Vector3d(0, 1, 0);
+  public static final Vector3d UNIT_Z = new Vector3d(0, 0, 1);
+  
   public double x, y, z;
 
   @Override
