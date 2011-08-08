@@ -8,6 +8,7 @@ public class Vector3d {
   public static final Vector3d UNIT_X = new Vector3d(1, 0, 0);
   public static final Vector3d UNIT_Y = new Vector3d(0, 1, 0);
   public static final Vector3d UNIT_Z = new Vector3d(0, 0, 1);
+  public static final Vector3d ZERO = new Vector3d(0, 0, 0);
   
   public double x, y, z;
 
@@ -103,10 +104,10 @@ public class Vector3d {
      * @return Ergebnisvektor
      */
   public Vector3d times(double s) {
-    return new Vector3d(
-            s * this.x,
-            s * this.y,
-            s * this.z);
+      x *= s;
+      y *= s;
+      z *= s;
+      return this;
   }
 
   /**
@@ -115,17 +116,25 @@ public class Vector3d {
      * @return der normalisierte Vektor
      */
   public Vector3d normalize() {
-    double norm = 1.0 / Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-    return new Vector3d(this.x * norm,
-            this.y * norm,
-            this.z * norm);
+    double norm = 1.0 / length();
+    times(norm);
+    return this;
   }
 
+  /**
+   * Gibt den Vektor in einer 4d Matrix zurück. Diese wird für viele Transformationen benötigt.
+   * @return die Matrixrepräsentation des Vektors
+   */
   public Matrix toMatrix() {
     double[] vals = {x, y, z, 1};
     return new Matrix(vals, 4);
   }
 
+  /**
+   * Transformiert den Vektor mithilfe einer Transformationsmatrix und gibt eine Kopie des transformierten Vektors zurück.
+   * @param transformation die Transformationsmatrix
+   * @return der transformierte Vektor
+   */
   public Vector3d transform(Matrix transformation) {
     Matrix tmp = transformation.times(toMatrix());
     return new Vector3d(tmp.get(0, 0), tmp.get(1, 0), tmp.get(2, 0));

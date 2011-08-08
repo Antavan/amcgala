@@ -4,6 +4,7 @@ import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 
 /**
+ * @deprecated 
  * @author Robert Giacinto
  */
 public class DefaultCamera implements Camera {

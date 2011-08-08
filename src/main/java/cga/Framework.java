@@ -23,84 +23,89 @@ import java.util.logging.Logger;
  */
 public abstract class Framework {
 
-  private static final Logger logger = Logger.getLogger(Framework.class.getName());
-  public SceneGraph scenegraph;
-  public RendererJ2d renderer;
-  private Camera camera;
-  private Animator animator;
-  private List<Visitor> visitors;
+    private static final Logger logger = Logger.getLogger(Framework.class.getName());
+    public SceneGraph scenegraph;
+    public RendererJ2d renderer;
+    private Camera camera;
+    private Animator animator;
+    private List<Visitor> visitors;
+    private double aspectRatio;
+    private double fieldOfView;
 
-  public Framework() {
+    public Framework(int width, int height) {
 
-    logger.log(Level.INFO, "Initialisiere Framework.");
-    logger.log(Level.INFO, "Erstelle Scenegraph.");
-    visitors = new ArrayList<Visitor>();
-    scenegraph = new SceneGraph();
-
-    camera = new PerspectiveCamera(new Vector3d(0, 0, 1), new Vector3d(0, 0, 0), new Vector3d(0, 1, 0), 76, 16 / 9, 1, 100);
-
-
-    logger.log(Level.INFO, "Erstelle Java2D Renderoutput.");
-    renderer = new RendererJ2d(800, 800);
-
-    logger.log(Level.INFO, "Füge InterpolationVisitor hinzu.");
-    visitors.add(new InterpolationVisitor());
-
-    logger.log(Level.INFO, "Erstelle Animator.");
-    animator = new Animator(20);
-    AnimationVisitor animationVisitor = new AnimationVisitor();
-    visitors.add(animationVisitor);
+        logger.log(Level.INFO, "Initialisiere Framework.");
+        logger.log(Level.INFO, "Erstelle Scenegraph.");
+        visitors = new ArrayList<Visitor>();
+        scenegraph = new SceneGraph();
+        aspectRatio = width / height;
+        fieldOfView = Math.toRadians(76);
+        
+        // TODO hier fehlt jetzt der korrekte Aufruf der Kamera. Sobald die neue Klasse funktioniert muss das hier geändert werden!
+        //camera = new PerspectiveCamera(Vector3d.UNIT_Z, Vector3d.ZERO, Vector3d.UNIT_Y, fieldOfView, aspectRatio, 1, 100);
 
 
-    logger.log(Level.INFO, "Erstelle RenderVisitor.");
-    RenderVisitor renderVisitor = new RenderVisitor();
-    renderVisitor.setCamera(camera);
-    renderVisitor.setRenderer(renderer);
-    visitors.add(renderVisitor);
+        logger.log(Level.INFO, "Erstelle Java2D Renderoutput.");
+        renderer = new RendererJ2d(width, height);
+
+        logger.log(Level.INFO, "Füge InterpolationVisitor hinzu.");
+        visitors.add(new InterpolationVisitor());
+
+        logger.log(Level.INFO, "Erstelle Animator.");
+        animator = new Animator(20);
+        AnimationVisitor animationVisitor = new AnimationVisitor();
+        visitors.add(animationVisitor);
+
+
+        logger.log(Level.INFO, "Erstelle RenderVisitor.");
+        RenderVisitor renderVisitor = new RenderVisitor();
+        renderVisitor.setCamera(camera);
+        renderVisitor.setRenderer(renderer);
+        visitors.add(renderVisitor);
 
 
 
-  }
-
-  public abstract void initGraph();
-
-  public void add(Renderable renderable) {
-    scenegraph.addGeometry(renderable);
-  }
-
-  public void setCamera(Camera camera) {
-    this.camera = camera;
-  }
-
-  public void setRenderer(RendererJ2d renderer) {
-    this.renderer = renderer;
-  }
-
-  public void setScenegraph(SceneGraph scenegraph) {
-    this.scenegraph = scenegraph;
-  }
-
-  public void update() {
-    if (camera != null) {
-      for (Visitor v : visitors) {
-        scenegraph.accept(v);
-      }
     }
-  }
 
-  public void show() {
-    if (renderer != null) {
-      renderer.show();
-    }
-  }
+    public abstract void initGraph();
 
-  public void start() {
-    if (animator == null) {
-      update();
-      show();
-    } else {
-      animator.setFramework(this);
-      animator.start();
+    public void add(Renderable renderable) {
+        scenegraph.addGeometry(renderable);
     }
-  }
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+    }
+
+    public void setRenderer(RendererJ2d renderer) {
+        this.renderer = renderer;
+    }
+
+    public void setScenegraph(SceneGraph scenegraph) {
+        this.scenegraph = scenegraph;
+    }
+
+    public void update() {
+        if (camera != null) {
+            for (Visitor v : visitors) {
+                scenegraph.accept(v);
+            }
+        }
+    }
+
+    public void show() {
+        if (renderer != null) {
+            renderer.show();
+        }
+    }
+
+    public void start() {
+        if (animator == null) {
+            update();
+            show();
+        } else {
+            animator.setFramework(this);
+            animator.start();
+        }
+    }
 }

@@ -122,6 +122,45 @@ public final class Quaternion {
   public Quaternion conjugate() {
     return new Quaternion(-x, -y, -z, w);
   }
+  
+  public Vector3d getRotationColumn(int i) {
+       
+
+        double norm = lengthSquared();
+        Vector3d store = new Vector3d(0, 0, 0);
+
+        double xx = x * x * norm;
+        double xy = x * y * norm;
+        double xz = x * z * norm;
+        double xw = x * w * norm;
+        double yy = y * y * norm;
+        double yz = y * z * norm;
+        double yw = y * w * norm;
+        double zz = z * z * norm;
+        double zw = z * w * norm;
+
+        switch (i) {
+            case 0:
+                store.x = 1 - 2 * (yy + zz);
+                store.y = 2 * (xy + zw);
+                store.z = 2 * (xz - yw);
+                break;
+            case 1:
+                store.x = 2 * (xy - zw);
+                store.y = 1 - 2 * (xx + zz);
+                store.z = 2 * (yz + xw);
+                break;
+            case 2:
+                store.x = 2 * (xz + yw);
+                store.y = 2 * (yz - xw);
+                store.z = 1 - 2 * (xx + yy);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid column index. " + i);
+        }
+
+        return store;
+    }
 
   public Matrix toMatrix() {
     double[][] vals = {
@@ -132,4 +171,5 @@ public final class Quaternion {
     };
     return Matrix.constructWithCopy(vals);
   }
+
 }
