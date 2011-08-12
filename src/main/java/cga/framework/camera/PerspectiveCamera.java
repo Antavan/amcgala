@@ -4,6 +4,7 @@ import cga.framework.math.Matrix;
 import cga.framework.math.Plane;
 import cga.framework.math.Quaternion;
 import cga.framework.math.Vector3d;
+import cga.framework.renderer.Pixel;
 
 /**
  * Diese Klasse implementiert eine Kamera mit perspektivischer Projektion. Aus
@@ -144,7 +145,7 @@ public final class PerspectiveCamera implements Camera {
     }
 
     @Override
-    public CVPoint project(Vector3d vector3d) {
+    public CVPoint getClippingSpaceCoordinates(Vector3d vector3d) {
         Matrix point = view.times(vector3d.toMatrix());
         CVPoint cvPoint = new CVPoint(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
         return cvPoint;
@@ -156,11 +157,8 @@ public final class PerspectiveCamera implements Camera {
          * Erste Transformation: Weltkoordinaten -> Kamerakoordinaten.
          */
         n = direction.sub(location).times(-1).normalize();
-        System.out.println("n = " + n);
         u = vup.cross(n).normalize();
-        System.out.println("u = " + u);
         v = n.cross(u);
-        System.out.println("v = " + v);
 
         Vector3d d = new Vector3d(location.dot(u), location.dot(v), location.dot(n)).times(-1);
 
@@ -177,5 +175,10 @@ public final class PerspectiveCamera implements Camera {
          */
 
         projection = Matrix.identity(4, 4);
+    }
+
+    @Override
+    public Pixel getImageSpaceCoordinates(Vector3d vector3d) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

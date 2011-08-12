@@ -11,7 +11,7 @@ import cga.framework.renderer.Renderer;
  * Eine Linie im 3d Raum.
  * @author Robert Giacinto
  */
-public class Line3d extends Renderable {
+public class Line3d extends Shape {
 
     public double x1, y1, z1;
     public double x2, y2, z2;
@@ -32,13 +32,11 @@ public class Line3d extends Renderable {
         start = new Vector3d(x1, y1, z1).transform(transformation);
         end = new Vector3d(x2, y2, z2).transform(transformation);
 
-        // Projektion der Punkte in den Bildraum der Kamera.
-        CVPoint startPoint = camera.project(start);
-        CVPoint endPoint = camera.project(end);
+        
 
         // Start- und Endpunkt der Linie in Pixeln, mit denen die Linienalgorithmen durchgeführt werden.
-        Pixel startPixel = new Pixel((int) startPoint.x, (int) startPoint.y);
-        Pixel endPixel = new Pixel((int) endPoint.x, (int) endPoint.y);
+        Pixel startPixel = camera.getImageSpaceCoordinates(start);
+        Pixel endPixel = camera.getImageSpaceCoordinates(end);
 
         // Wir zeichnen von links nach rechts. Sollte der Startpixel rechts vom Endpixel liegen, dann tauschen wir die Pixel.
         if (startPixel.x > endPixel.x) {

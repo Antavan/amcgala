@@ -1,7 +1,8 @@
-package cga.framework.scenegraph;
+package cga.framework.scenegraph.transform;
 
 import cga.framework.animation.interpolation.Interpolation;
 import cga.framework.math.Matrix;
+import cga.framework.scenegraph.Transformation;
 
 /**
  * Skalierung um den Faktor s = (sx, sy, sz)

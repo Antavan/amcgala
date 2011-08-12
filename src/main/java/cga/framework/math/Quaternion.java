@@ -6,6 +6,9 @@ package cga.framework.math;
  * @author Robert Giacinto
  */
 public final class Quaternion {
+  public static enum Axis{
+    LookAt
+  }
 
   private double x, y, z, w;
 
@@ -27,6 +30,12 @@ public final class Quaternion {
     normalize();
   }
 
+  /**
+   * Multipliziert das Quaternion mit einem anderem Quaternion.
+   * 
+   * @param that das zweite Quaternion
+   * @return das Resultat der Multiplikation
+   */
   public Quaternion times(Quaternion that) {
     x = w * that.x + x * that.w + y * that.z - z * that.y;
     y = w * that.y + y * that.w + z * that.x - x * that.z;
@@ -35,14 +44,30 @@ public final class Quaternion {
     return this;
   }
 
+  /**
+   * Die Länge des Quaternion.
+   * 
+   * @return  die Länge
+   */
   public double length() {
     return Math.sqrt(lengthSquared());
   }
 
+  /**
+   * Die quadrierte Länge des Quaternion.
+   * 
+   * @return die quadrierte Länge des Quaternion.
+   */
   public double lengthSquared() {
     return x * x + y * y + z * z + w * w;
   }
 
+  /**
+   * Setzt die Werte dieses Quaternion auf die Werte des anderen Quaternion.
+   * 
+   * @param that das andere Quaternion
+   * @return das Quaternion mit den neuen Werten
+   */
   public Quaternion set(Quaternion that) {
     this.x = that.x;
     this.y = that.y;
@@ -51,6 +76,15 @@ public final class Quaternion {
     return this;
   }
 
+  /**
+   * Setzt die einzelnen Komponenten des Quaternions auf neue Werte.
+   * 
+   * @param x die x-Komponente des Quaternions
+   * @param y die y-Komponente des Quaternions
+   * @param z die z-Komponente des Quaternions
+   * @param w die w-Komponente des Quaternions
+   * @return das Quaternion mit den neuen Werten
+   */
   public Quaternion set(double x, double y, double z, double w) {
     this.x = x;
     this.y = y;
@@ -59,6 +93,9 @@ public final class Quaternion {
     return this;
   }
 
+  /**
+   * Normalisiert das Quaternion auf eine Länge von 1.
+   */
   public void normalize() {
     double length = length();
 
@@ -70,6 +107,11 @@ public final class Quaternion {
     }
   }
 
+  /**
+   * Gibt eine normalisierte Kopie des Quaternions zurück.
+   * 
+   * @return die normalisierte Kopie des Quaternions.
+   */
   public Quaternion getNormalized() {
     double length = length();
     Quaternion tmp = null;
@@ -123,6 +165,11 @@ public final class Quaternion {
     return new Quaternion(-x, -y, -z, w);
   }
   
+  /**
+   * TODO kommentare fehlen!
+   * @param i
+   * @return 
+   */
   public Vector3d getRotationColumn(int i) {
        
 

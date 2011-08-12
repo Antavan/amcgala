@@ -4,7 +4,7 @@ import cga.framework.camera.Camera;
 import cga.framework.scenegraph.Node;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
-import cga.framework.shape.Renderable;
+import cga.framework.shape.Shape;
 
 public class RenderVisitor implements Visitor {
 
@@ -30,7 +30,9 @@ public class RenderVisitor implements Visitor {
     @Override
     public void visit(Node node) {
         Matrix transform = node.getTransformMatrix();
-        for (Renderable renderable : node.getGeometry()) {
+        System.out.println(node.getLabel());
+        
+        for (Shape renderable : node.getGeometry()) {
             renderable.render(transform, getCamera(), getRenderer());
         }
     }

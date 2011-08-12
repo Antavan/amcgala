@@ -1,8 +1,9 @@
 package cga.framework.scenegraph;
 
+import cga.framework.scenegraph.transform.Translation;
 import cga.framework.scenegraph.visitor.Visitor;
 import cga.framework.math.Matrix;
-import cga.framework.shape.Renderable;
+import cga.framework.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,7 +14,7 @@ import java.util.Collections;
  * Geometrieobjekte zugewiesen bekommen.
  */
 public class Node {
-
+    
     protected String label = "none";
     /**
      * Der übergeordnete Knoten, an dem dieser Knoten hängt. Null, wenn es sich
@@ -28,7 +29,7 @@ public class Node {
      * Die Geometrieobjekte, die an diesem Knoten hängen und von dem Renderer
      * dargestellt werden.
      */
-    private Collection<Renderable> geometry = new ArrayList<Renderable>();
+    private Collection<Shape> geometry = new ArrayList<Shape>();
     /**
      * Ein Transformationsobjekt, das sich auf die Geometrie dieses Knotens und
      * der Kindsknoten auswirkt.
@@ -81,11 +82,11 @@ public class Node {
                 return true;
             }
         }
-
+        
         for (Node n : children) {
             return n.removeNode(label);
         }
-
+        
         return false;
     }
 
@@ -96,7 +97,7 @@ public class Node {
      * @param newShape das neue Geometrieobjekt
      * @return true, wenn es hinzugefügt werden konnte
      */
-    public boolean addShape(String label, Renderable newShape) {
+    public boolean addShape(String label, Shape newShape) {
         if (this.label.equalsIgnoreCase(label)) {
             geometry.add(newShape);
             return true;
@@ -106,6 +107,16 @@ public class Node {
             }
         }
         return false;
+    }
+
+    /**
+   * Fügt ein neues Geometrieobjekt dieser Node hinzu.
+   * @param shape das neue Objekt
+   * @return true,  wenn es erfolgreich hinzugefügt wurde
+   */
+    public boolean addShape(Shape shape) {
+        geometry.add(shape);
+        return true;
     }
 
     /**
@@ -132,6 +143,9 @@ public class Node {
      */
     public void accept(Visitor visitor) {
         visitor.visit(this);
+        for (Node n : children) {
+           n.accept(visitor);
+        }
     }
 
     /**
@@ -166,7 +180,7 @@ public class Node {
      *
      * @return die Geometrieobjekte
      */
-    public Collection<Renderable> getGeometry() {
+    public Collection<Shape> getGeometry() {
         return Collections.unmodifiableCollection(geometry);
     }
 
@@ -194,15 +208,15 @@ public class Node {
      */
     public Matrix getTransformMatrix() {
         Matrix b = transformation.getTransformMatrix();
-
+        
         if (parent != null) {
             Matrix c = parent.getTransformMatrix();
             b = b.times(c);
         }
-
+        
         return b;
     }
-
+    
     @Override
     public String toString() {
         return "Node{"

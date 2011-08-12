@@ -2,13 +2,14 @@ package cga.framework.camera;
 
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
+import cga.framework.renderer.Pixel;
 
 /**
- * Implementierung einer orthographischen Projektion.
- * Es gehen jegliche Tiefeninformationen verloren.
- * Die Kamera ist besonders dafür geeignet, 2D-Projektionen oder 2D GUI-Elemente zu 
- * realisieren, die über einer perspektivischen Szene zu sehen sind.
- * 
+ * Implementierung einer orthographischen Projektion. Es gehen jegliche
+ * Tiefeninformationen verloren. Die Kamera ist besonders dafür geeignet,
+ * 2D-Projektionen oder 2D GUI-Elemente zu realisieren, die über einer
+ * perspektivischen Szene zu sehen sind.
+ *
  * @author Robert Giacinto
  */
 public class OrthographicalCamera implements Camera {
@@ -74,14 +75,21 @@ public class OrthographicalCamera implements Camera {
     }
 
     @Override
-    public CVPoint project(Vector3d vector3d) {
+    public CVPoint getClippingSpaceCoordinates(Vector3d vector3d) {
         Matrix point = projection.times(vector3d.toMatrix());
         CVPoint cvPoint = new CVPoint(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
         return cvPoint;
     }
 
-  @Override
-  public void update() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Pixel getImageSpaceCoordinates(Vector3d vector3d) {
+        Matrix point = projection.times(vector3d.toMatrix());
+        Pixel pixel = new Pixel(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
+        return pixel;
+    }
 }

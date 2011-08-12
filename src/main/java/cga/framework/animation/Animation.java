@@ -1,9 +1,9 @@
 package cga.framework.animation;
 
 
-import cga.framework.shape.Renderable;
+import cga.framework.shape.Shape;
 
-public abstract class Animation<T extends Renderable> {
+public abstract class Animation<T extends Shape> {
   private T shape;
 
   public T getShape() {

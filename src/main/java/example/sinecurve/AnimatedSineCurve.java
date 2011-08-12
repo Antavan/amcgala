@@ -1,4 +1,4 @@
-package example;
+package example.sinecurve;
 
 import cga.framework.animation.Animation;
 import cga.framework.animation.interpolation.Interpolation;
@@ -6,15 +6,16 @@ import cga.framework.animation.interpolation.LinearInterpolation;
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
+import cga.framework.shape.Line2d;
 import cga.framework.shape.Point2d;
-import cga.framework.shape.Renderable;
+import cga.framework.shape.Shape;
 
 /**
  * Eine animierte Sinuskurve.
  * <p/>
  * @author Robert Giacinto
  */
-public class AnimatedSineCurve extends Renderable {
+public class AnimatedSineCurve extends Shape {
 
   private int steps;
   private Point2d[] points;
@@ -31,6 +32,10 @@ public class AnimatedSineCurve extends Renderable {
     points = new Point2d[steps];
 
     init();
+    
+    
+    interpolationFrq = new LinearInterpolation(0, 3, steps, true);
+    interpolationAmp = new LinearInterpolation(15, 20, steps, true);
 
     setAnimation(new Animation<AnimatedSineCurve>() {
 
@@ -45,8 +50,7 @@ public class AnimatedSineCurve extends Renderable {
         }
       }
     });
-    interpolationFrq = new LinearInterpolation(15, 20, steps, true);
-    interpolationAmp = new LinearInterpolation(15, 20, steps, true);
+    
   }
 
   private void init() {
@@ -93,8 +97,9 @@ public class AnimatedSineCurve extends Renderable {
 
   @Override
   public void render(Matrix transformation, Camera camera, Renderer renderer) {
-    for (Point2d p : points) {
-      p.render(transformation, camera, renderer);
+    for(int i = 0; i < points.length-1; i++){
+      Line2d line = new Line2d(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
+      line.render(transformation, camera, renderer);
     }
   }
 }

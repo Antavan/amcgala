@@ -4,7 +4,7 @@ import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 
-public class Triangle2d extends Renderable {
+public class Triangle2d extends Shape {
 
     public Line2d a, b, c;
 

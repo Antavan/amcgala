@@ -5,7 +5,7 @@ import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 
 
-public class Rectangle2d extends Renderable {
+public class Rectangle2d extends Shape {
   public Line2d a, b, c, d;
 
   public Rectangle2d(Line2d a, Line2d b, Line2d c, Line2d d) {

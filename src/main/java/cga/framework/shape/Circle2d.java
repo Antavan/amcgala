@@ -7,7 +7,7 @@ import cga.framework.renderer.Renderer;
 /**
  * Ein zweidimensionaler Kreis.
  */
-public class Circle2d extends Renderable {
+public class Circle2d extends Shape {
 
   private int segments;
   private double radius;

@@ -1,7 +1,7 @@
 package cga.framework.scenegraph;
 
 import cga.framework.scenegraph.visitor.Visitor;
-import cga.framework.shape.Renderable;
+import cga.framework.shape.Shape;
 
 /**
  * Szenengraph des Frameworks.
@@ -26,11 +26,11 @@ public class SceneGraph {
     return root.findNode(label);
   }
 
-  public void addGeometry(String label, Renderable renderable) {
+  public void addGeometry(String label, Shape renderable) {
     root.addShape(label, renderable);
   }
 
-  public void addGeometry(Renderable renderable) {
+  public void addGeometry(Shape renderable) {
     addGeometry("root", renderable);
   }
 

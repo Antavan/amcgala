@@ -10,7 +10,7 @@ import cga.framework.renderer.Renderer;
  * 
  * @author Robert Giacinto
  */
-public class Box3d extends Renderable {
+public class Box3d extends Shape {
 
   private Line3d[] lines;
 
