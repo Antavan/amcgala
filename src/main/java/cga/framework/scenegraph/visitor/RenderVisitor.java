@@ -29,9 +29,7 @@ public class RenderVisitor implements Visitor {
 
     @Override
     public void visit(Node node) {
-        Matrix transform = node.getTransformMatrix();
-        System.out.println(node.getLabel());
-        
+        Matrix transform = node.getTransformMatrix();        
         for (Shape renderable : node.getGeometry()) {
             renderable.render(transform, getCamera(), getRenderer());
         }

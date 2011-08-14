@@ -9,7 +9,6 @@ public final class AnimatedSineCurveMain extends Framework {
 
   public AnimatedSineCurveMain() {
     super(800, 800);
-    initGraph();
   }
 
   @Override
