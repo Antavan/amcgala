@@ -62,13 +62,14 @@ public class Plane {
             return Side.None;
         }
     }
-    
-     public boolean isOnPlane(Vector3d point){
+
+    public boolean isOnPlane(Vector3d point) {
         double distance = distance(point);
-        // TODO hier muss am besten eine Konstante für das Epsilon hin!
-        if (distance < 0.001 && distance > -0.001)
+        
+        if (distance < MathConstants.EPSILON && distance > -MathConstants.EPSILON) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 }
