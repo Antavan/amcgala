@@ -1,3 +1,5 @@
+// TODO Welche Lizenz ist das?
+
 package cga.framework.math;
 
 /**
