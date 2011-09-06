@@ -1,24 +1,23 @@
 /* 
-* Copyright 2011 Cologne University of Applied Sciences Licensed under the
-* Educational Community License, Version 2.0 (the "License"); you may
-* not use this file except in compliance with the License. You may
-* obtain a copy of the License at
-*
-* http://www.osedu.org/licenses/ECL-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an "AS IS"
-* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
-* or implied. See the License for the specific language governing
-* permissions and limitations under the License.
-*/
-
+ * Copyright 2011 Cologne University of Applied Sciences Licensed under the
+ * Educational Community License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may
+ * obtain a copy of the License at
+ *
+ * http://www.osedu.org/licenses/ECL-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 package cga.framework.shape;
 
-import cga.framework.camera.CVPoint;
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
+import cga.framework.renderer.Color;
 import cga.framework.renderer.Pixel;
 import cga.framework.renderer.Renderer;
 
@@ -82,13 +81,13 @@ public class Line2d extends Shape {
         if (dx > 0) {
             for (int x = startPixel.x; x <= endPixel.x; x++) {
                 Pixel pixel = new Pixel(x, (int) y);
-                renderer.putPixel(pixel);
+                renderer.putPixel(pixel, color);
                 y += m;
             }
         } else if (dx == 0) {
             for (int yi = startPixel.y; yi < endPixel.y; yi++) {
                 Pixel pixel = new Pixel(startPixel.x, yi);
-                renderer.putPixel(pixel);
+                renderer.putPixel(pixel, color);
             }
         }
 
