@@ -20,6 +20,7 @@ import cga.framework.math.Plane;
 import cga.framework.math.Quaternion;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Pixel;
+import java.util.logging.Logger;
 
 /**
  * Diese Klasse implementiert eine Kamera mit perspektivischer Projektion. Aus
@@ -29,7 +30,7 @@ import cga.framework.renderer.Pixel;
  * @author Robert Giacinto
  */
 public final class PerspectiveCamera implements Camera {
-
+    private static final Logger logger = Logger.getLogger(PerspectiveCamera.class.getName());
     private static final int PLANE_LEFT = 0;
     private static final int PLANE_RIGHT = 1;
     private static final int PLANE_BOTTOM = 2;

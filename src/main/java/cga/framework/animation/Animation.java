@@ -15,9 +15,10 @@
 package cga.framework.animation;
 
 import cga.framework.shape.Shape;
+import java.util.logging.Logger;
 
 public abstract class Animation<T extends Shape> {
-
+    private static final Logger logger = Logger.getLogger(Animation.class.getName());
     private T shape;
 
     public T getShape() {

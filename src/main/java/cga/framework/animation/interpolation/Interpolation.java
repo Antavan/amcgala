@@ -14,6 +14,8 @@
  */
 package cga.framework.animation.interpolation;
 
+import java.util.logging.Logger;
+
 /**
  * Interface, das alle Klassen implementieren, die eine Interpolation
  * darstellen.
@@ -21,7 +23,7 @@ package cga.framework.animation.interpolation;
  * @author Robert Giacinto
  */
 public abstract class Interpolation {
-
+    private static final Logger logger = Logger.getLogger(Interpolation.class.getName());
     protected double min;
     protected double max;
     protected double stepCount;

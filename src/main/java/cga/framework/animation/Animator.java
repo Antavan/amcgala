@@ -15,9 +15,10 @@
 package cga.framework.animation;
 
 import cga.Framework;
+import java.util.logging.Logger;
 
 public class Animator {
-
+    private static final Logger logger = Logger.getLogger(Animator.class.getName());
     private Timer timer;
     private Framework framework;
     private int framesPerSecond;

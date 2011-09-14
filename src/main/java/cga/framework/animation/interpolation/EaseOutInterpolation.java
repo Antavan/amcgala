@@ -14,13 +14,15 @@
  */
 package cga.framework.animation.interpolation;
 
+import java.util.logging.Logger;
+
 /**
  * Eine Interpolation, bei der die Schritt zu Beginn groß sind und zum Ende hin
  * kleiner werden.
  * @author Robert Giacinto
  */
 public class EaseOutInterpolation extends Interpolation {
-
+    private static final Logger logger = Logger.getLogger(EaseOutInterpolation.class.getName());
     public EaseOutInterpolation(double start, double end, int stepCount, boolean cyclic) {
         super(start, end, stepCount, cyclic);
     }

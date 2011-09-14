@@ -14,8 +14,10 @@
  */
 package cga.framework.animation;
 
-public class Timer {
+import java.util.logging.Logger;
 
+public class Timer {
+    private static final Logger logger = Logger.getLogger(Timer.class.getName());
     private double framesPerSecond;
     private double startTime;
     private double stopTime;

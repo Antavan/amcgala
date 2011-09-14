@@ -14,11 +14,12 @@
  */
 package cga.framework.renderer;
 
-import javax.swing.*;
-import java.awt.*;
+
+import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferStrategy;
+import javax.swing.JFrame;
 
 public class RendererJ2d extends Renderer {
 

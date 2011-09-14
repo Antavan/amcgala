@@ -1,18 +1,17 @@
 /* 
-* Copyright 2011 Cologne University of Applied Sciences Licensed under the
-* Educational Community License, Version 2.0 (the "License"); you may
-* not use this file except in compliance with the License. You may
-* obtain a copy of the License at
-*
-* http://www.osedu.org/licenses/ECL-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an "AS IS"
-* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
-* or implied. See the License for the specific language governing
-* permissions and limitations under the License.
-*/
-
+ * Copyright 2011 Cologne University of Applied Sciences Licensed under the
+ * Educational Community License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may
+ * obtain a copy of the License at
+ *
+ * http://www.osedu.org/licenses/ECL-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
 package cga;
 
 import cga.framework.animation.Animator;
@@ -22,6 +21,7 @@ import cga.framework.scenegraph.SceneGraph;
 import cga.framework.scenegraph.visitor.AnimationVisitor;
 import cga.framework.scenegraph.visitor.RenderVisitor;
 import cga.framework.math.Vector3d;
+import cga.framework.renderer.Renderer;
 import cga.framework.renderer.RendererJ2d;
 import cga.framework.scenegraph.Node;
 import cga.framework.scenegraph.visitor.InterpolationVisitor;
@@ -38,98 +38,183 @@ import java.util.logging.Logger;
  */
 public abstract class Framework {
 
-  private static final Logger logger = Logger.getLogger(Framework.class.getName());
-  public SceneGraph scenegraph;
-  public RendererJ2d renderer;
-  private Camera camera;
-  private Animator animator;
-  private List<Visitor> visitors;
-  private double aspectRatio;
-  private double fieldOfView;
+    private static final Logger logger = Logger.getLogger(Framework.class.getName());
+    public SceneGraph scenegraph;
+    public Renderer renderer;
+    private Camera camera;
+    private Animator animator;
+    private List<Visitor> visitors;
+    private double aspectRatio;
+    private double fieldOfView;
+    private int screenWidth;
+    private int screenHeight;
 
-  public Framework(int width, int height) {
+    public Framework(int width, int height) {
 
-    logger.log(Level.INFO, "Initialisiere Framework.");
-    logger.log(Level.INFO, "Erstelle Scenegraph.");
-    visitors = new ArrayList<Visitor>();
-    scenegraph = new SceneGraph();
-    aspectRatio = width / height;
-    fieldOfView = Math.toRadians(76);
-
-    // TODO hier fehlt jetzt der korrekte Aufruf der Kamera. Sobald die neue Klasse funktioniert muss das hier geändert werden!
-    camera = new OrthographicalCamera(Vector3d.UNIT_Y, Vector3d.UNIT_Z, Vector3d.ZERO);
-
-
-    logger.log(Level.INFO, "Erstelle Java2D Renderoutput.");
-    renderer = new RendererJ2d(width, height);
-
-    logger.log(Level.INFO, "Füge InterpolationVisitor hinzu.");
-    visitors.add(new InterpolationVisitor());
-
-    logger.log(Level.INFO, "Erstelle Animator.");
-    animator = new Animator(20);
-    AnimationVisitor animationVisitor = new AnimationVisitor();
-    visitors.add(animationVisitor);
+        screenWidth = width;
+        screenHeight = height;
+        logger.log(Level.INFO, "Initialisiere Framework.");
+        logger.log(Level.INFO, "Erstelle Scenegraph.");
+        visitors = new ArrayList<Visitor>();
+        scenegraph = new SceneGraph();
+        aspectRatio = width / height;
+        fieldOfView = Math.toRadians(76);
 
 
-    logger.log(Level.INFO, "Erstelle RenderVisitor.");
-    RenderVisitor renderVisitor = new RenderVisitor();
-    renderVisitor.setCamera(camera);
-    renderVisitor.setRenderer(renderer);
-    visitors.add(renderVisitor);
+        camera = new OrthographicalCamera(Vector3d.UNIT_Y, Vector3d.UNIT_Z, Vector3d.ZERO);
 
-     initGraph();
 
-  }
+        logger.log(Level.INFO, "Erstelle Java2D Renderoutput.");
+        renderer = new RendererJ2d(width, height);
 
-  /**
-   * Jedes Programm, das auf das Framework zurückgreift implementiert diese Methode. 
-   * Hier findet die spezifische Initialisierung des Szenengraphs statt. Hier können zum Beispiel
-   * Objekte an den Szenengraph gehängt werden.
-   */
-  public abstract void initGraph();
+        logger.log(Level.INFO, "Füge InterpolationVisitor hinzu.");
+        visitors.add(new InterpolationVisitor());
 
-  public void add(Shape renderable) {
-    scenegraph.addGeometry(renderable);
-  }
-  
-  public void add(Node node){
-    scenegraph.addNode(node);
-  }
+        logger.log(Level.INFO, "Erstelle Animator.");
+        animator = new Animator(20);
+        AnimationVisitor animationVisitor = new AnimationVisitor();
+        visitors.add(animationVisitor);
 
-  public void setCamera(Camera camera) {
-    this.camera = camera;
-  }
 
-  public void setRenderer(RendererJ2d renderer) {
-    this.renderer = renderer;
-  }
+        logger.log(Level.INFO, "Erstelle RenderVisitor.");
+        RenderVisitor renderVisitor = new RenderVisitor();
+        renderVisitor.setCamera(camera);
+        renderVisitor.setRenderer(renderer);
+        visitors.add(renderVisitor);
 
-  public void setScenegraph(SceneGraph scenegraph) {
-    this.scenegraph = scenegraph;
-  }
+        initGraph();
 
-  public void update() {
-    if (camera != null) {
-      for (Visitor v : visitors) {
-        scenegraph.accept(v);
-      }
     }
-  }
 
-  public void show() {
-    if (renderer != null) {
-      renderer.show();
-    }
-  }
+    /**
+     * Jedes Programm, das auf das Framework zurückgreift implementiert diese Methode. 
+     * Hier findet die spezifische Initialisierung des Szenengraphs statt. Hier können zum Beispiel
+     * Objekte an den Szenengraph gehängt werden.
+     */
+    public abstract void initGraph();
 
-  public void start() {
-    if (animator == null) {
-      update();
-      show();
-    } else {
-      animator.setFramework(this);
-      animator.start();
+    /**
+     * Fügt der Szene ein neues zeichenbares Objekt hinzu. Dieses wird an den Root-Knoten
+     * angehängt. 
+     * @param shape das Grafikobjekt, das der Szene hinzugefügt wird 
+     */
+    public void add(Shape shape) {
+        scenegraph.addGeometry(shape);
     }
-  }
+
+    /**
+     * Fügt dem Szenengraph einen neuen Knoten hinzu. 
+     * @param node der neue Knoten
+     */
+    public void add(Node node) {
+        scenegraph.addNode(node);
+    }
+
+    /**
+     * Ändert die Kamera, die verwendet wird.
+     * @param camera die neue Kamera, die das Framework verwenden soll
+     */
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+    }
+
+    /**
+     * Ändert den Renderer des Frameworks. 
+     * Damit ist es möglich die Ausgabe des Frameworks zu verändern. Abhängig von der
+     * Implementierung des Renderers.
+     * @param renderer der neue Renderer
+     */
+    public void setRenderer(Renderer renderer) {
+        this.renderer = renderer;
+    }
+
+    /**
+     * Ändert den Szenengraph, der vom Framework verwendet wird.
+     * @param scenegraph der neue Szenengraph
+     */
+    public void setScenegraph(SceneGraph scenegraph) {
+        this.scenegraph = scenegraph;
+    }
+
+    /**
+     * Das Seitenverhältnis der Ausgabe. Diese wird innerhalb der Kamera benötigt.
+     * @return das Seitenverhältnis der Ausgabe
+     */
+    public double getAspectRatio() {
+        return aspectRatio;
+    }
+
+    
+    private void setAspectRatio(double aspectRatio) {
+        this.aspectRatio = aspectRatio;
+    }
+
+    /**
+     * Gibt die Höhe der Ausgabe zurück.
+     * @return die Höhe in Pixeln
+     */
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    /**
+     * Ändert die Höhe der Bildschirmausgabe.
+     * @param screenHeight die Höhe der Bildschirmausgabe in Pixeln
+     */
+    public void setScreenHeight(int screenHeight) {
+        this.screenHeight = screenHeight;
+        setAspectRatio(screenWidth / screenHeight);
+    }
+
+    /**
+     * Gibt die Breite der Bildschirmausgabe in Pixeln zurück.
+     * 
+     * @return  die Breite der Bildschirmausgabe in Pixeln
+     */
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    /**
+     * Ändert die Breite der Bildschirmausgabe.
+     * @param screenWidth die neue Breite der Bildschirmausgabe in Pixeln
+     */
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+        setAspectRatio(screenWidth / screenHeight);
+    }
+
+    /**
+     * Aktualisiert den Szenengraphen, in dem die einzelnen, registrierten Visitor den 
+     * Szenengraphen besuchen.
+     */
+    public void update() {
+        if (camera != null) {
+            for (Visitor v : visitors) {
+                scenegraph.accept(v);
+            }
+        }
+    }
+
+    /**
+     * Rendert den Szenengraphen mithilfe des registrierten Renderers.
+     */
+    public void show() {
+        if (renderer != null) {
+            renderer.show();
+        }
+    }
+
+    /**
+     * Startet das Framework und aktualisiert den Szenengraphen mithilfe eines Animators.
+     */
+    public void start() {
+        if (animator == null) {
+            update();
+            show();
+        } else {
+            animator.setFramework(this);
+            animator.start();
+        }
+    }
 }

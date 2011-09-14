@@ -14,6 +14,8 @@
  */
 package cga.framework.animation.interpolation;
 
+import java.util.logging.Logger;
+
 /**
  * Eine Interpolation mit kleinen Schritten zu Beginn, die zum Ende hin größer
  * werden. Auf diese Weise ist es zum Beispiel möglich Beschleunigungen zu
@@ -22,7 +24,7 @@ package cga.framework.animation.interpolation;
  * @author Robert Giacinto
  */
 public class EaseInInterpolation extends Interpolation {
-
+    private static final Logger logger = Logger.getLogger(EaseInInterpolation.class.getName());
     public EaseInInterpolation(double start, double end, int stepCount, boolean cyclic) {
         super(start, end, stepCount, cyclic);
     }
