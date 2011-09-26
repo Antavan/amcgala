@@ -23,7 +23,7 @@ import cga.framework.shape.Point2d;
 import cga.framework.shape.Shape;
 
 /**
- *
+ * Eine Dreiecksklasse. Sie nimmt die Eckpunkte eines beliebigen Dreiecks entgegen.
  * @author Robert Giacinto
  */
 public class Triangle extends Shape {

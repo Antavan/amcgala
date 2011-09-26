@@ -24,7 +24,9 @@ import cga.framework.shape.Line2d;
 import cga.framework.shape.Shape;
 
 /**
- *
+ * Eine sich morphende Linie. Es ist auch möglich dieses Prinzip auf beliebige Formen zu erweitern. In dem Fall müssen
+ * Startobjekt und Zielobjekt über die gleiche Anzahl von Punkten definiert sein. In dem Fall kann das Startobjekt in das Endobjekt  gemorpht werden.
+ * 
  * @author Robert Giacinto
  */
 public class MorphingItem extends Shape {

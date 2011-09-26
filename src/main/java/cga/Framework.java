@@ -33,7 +33,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Die Hauptklasse des Frameworks, die die Hauptaufgaben übernimmt.
+ * Sie initialisiert die wichtigsten Datenstrukturen und ermöglicht ihren Zugriff.
+ * 
  * @author Robert Giacinto
  */
 public abstract class Framework {
@@ -49,6 +51,11 @@ public abstract class Framework {
     private int screenWidth;
     private int screenHeight;
 
+    /**
+     * Erstellt ein neues Framework, das eine grafische Ausgabe in der Auflösung width x height hat.
+     * @param width die Breite der Auflösung
+     * @param height die Höhe der Auflösung
+     */
     public Framework(int width, int height) {
 
         screenWidth = width;

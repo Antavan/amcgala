@@ -17,30 +17,58 @@ package cga.framework.animation;
 import cga.Framework;
 import java.util.logging.Logger;
 
+/**
+ * Diese Klasse kümmert sich um das Timing der Animation. Sie ruft in regelmäßigen Abständen die 
+ * Methoden update und show der Klasse Framework auf und ermöglicht so die Realisation von Animationen.
+ * 
+ * @author Robert Giacinto
+ */
 public class Animator {
     private static final Logger logger = Logger.getLogger(Animator.class.getName());
     private Timer timer;
     private Framework framework;
     private int framesPerSecond;
 
+    /**
+     * Erzeugt einen neuen Animator, der das Framework aktualisiert.
+     * 
+     * @param framesPerSecond  die Anzahl der Aktualisierungen pro Sekunde
+     */
     public Animator(int framesPerSecond) {
         this.framesPerSecond = framesPerSecond;
         timer = new Timer(framesPerSecond);
     }
 
+    /**
+     * Ändert das Framework, das von dem Animator aktualisiert wird.
+     * 
+     * @param framework  das neue Framework
+     */
     public void setFramework(Framework framework) {
         this.framework = framework;
     }
 
+    /**
+     * GIbt die Anzahl der Aktualisierungen zurück.
+     * 
+     * @return die Anzahl der Aktualsierungen pro Sekunde
+     */
     public int getFramesPerSecond() {
         return framesPerSecond;
     }
 
+    /**
+     * Ändert die Anzahl der Aktualisierungen pro Sekunde.
+     * @param framesPerSecond die neue Anzahl von Aktualisierungen pro Sekunde
+     */
     public void setFramesPerSecond(int framesPerSecond) {
         this.framesPerSecond = framesPerSecond;
         timer = new Timer(framesPerSecond);
     }
 
+    /**
+     * Startet den Animator.
+     */
     public void start() {
 
         if (framework != null) {

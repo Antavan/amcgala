@@ -17,6 +17,11 @@ package cga.framework.animation;
 import cga.framework.shape.Shape;
 import java.util.logging.Logger;
 
+/**
+ * Eine Animation, die das Verhalten eines Shapes beeinflussen kann.
+ * @author Robert Giacinto
+ * @param <T>  Der Typ des Shapes, das durch diese Animation beeinflusst wird. Dies ermöglicht den direkten Zugriff auf die Felder des Objekts ohne einen Cast durchführen zu müssen.
+ */
 public abstract class Animation<T extends Shape> {
     private static final Logger logger = Logger.getLogger(Animation.class.getName());
     private T shape;

@@ -19,7 +19,7 @@ import cga.framework.scenegraph.Node;
 import cga.framework.scenegraph.transform.RotationZ;
 
 /**
- *
+ * Eine Transformationsgruppe, die ein Dreieck entgegennimmt und dieses um die z-Achse rotieren lässt.
  * @author Robert Giacinto
  */
 public class RotatingTriangleNode extends Node {
