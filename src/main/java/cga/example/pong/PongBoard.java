@@ -14,38 +14,49 @@
  */
 package cga.example.pong;
 
-import cga.framework.camera.Camera;
-import cga.framework.math.Matrix;
-import cga.framework.renderer.Renderer;
+import cga.framework.scenegraph.Node;
 import cga.framework.shape.Line2d;
 import cga.framework.shape.Rectangle2d;
-import cga.framework.shape.Shape;
 
 /**
  * Das Board, in dem das Spiel stattfindet. Es definiert die Grenzen, in denen der Ball und der Spieler sich bewegen können.
  * 
  * @author Robert Giacinto
  */
-public class PongBoard extends Shape {
+public class PongBoard extends Node {
 
     private PongBall ball;
     private Rectangle2d boundaries;
 
     public PongBoard(int width, int height) {
-        ball = new PongBall();
+        super("Pongboard");
         width = (width - 20) >> 1;
         height = (height - 20) >> 1;
 
+        // Die äußeren Grenzen des Spielfeldes.
         boundaries = new Rectangle2d(
                 new Line2d(-width, -height, -width, height), // links
                 new Line2d(-width, -height, width, -height), // unten
                 new Line2d(-width, height, width, height), // oben
                 new Line2d(width, -height, width, height)); // rechts
+        addShape(boundaries);
+        ball = new PongBall(this);
+        addShape(ball);
     }
 
-    @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        boundaries.render(transformation, camera, renderer);
-        ball.render(transformation, camera, renderer);
+    public PongBall getBall() {
+        return ball;
+    }
+
+    public void setBall(PongBall ball) {
+        this.ball = ball;
+    }
+
+    public Rectangle2d getBoundaries() {
+        return boundaries;
+    }
+
+    public void setBoundaries(Rectangle2d boundaries) {
+        this.boundaries = boundaries;
     }
 }

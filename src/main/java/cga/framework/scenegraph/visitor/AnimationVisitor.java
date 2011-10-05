@@ -16,8 +16,10 @@ package cga.framework.scenegraph.visitor;
 
 import cga.framework.scenegraph.Node;
 import cga.framework.shape.Shape;
+import java.util.logging.Logger;
 
 public class AnimationVisitor implements Visitor {
+    private static final Logger logger = Logger.getLogger(AnimationVisitor.class.getName());
 
     @Override
     public void visit(Node node) {

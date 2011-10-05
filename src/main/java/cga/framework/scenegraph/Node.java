@@ -22,6 +22,8 @@ import cga.framework.shape.Shape;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Eine Node ist Teil des Scenegraphs und kann beliebig viele Kindsknoten und
@@ -29,6 +31,7 @@ import java.util.Collections;
  */
 public class Node {
 
+    private static final Logger logger = Logger.getLogger(Node.class.getName());
     protected String label = "none";
     /**
      * Der übergeordnete Knoten, an dem dieser Knoten hängt. Null, wenn es sich
@@ -38,12 +41,12 @@ public class Node {
     /**
      * Die Kindsknoten, die an diesem Knoten hängen.
      */
-    private Collection<Node> children = new ArrayList<Node>();
+    private Collection<Node> children;
     /**
      * Die Geometrieobjekte, die an diesem Knoten hängen und von dem Renderer
      * dargestellt werden.
      */
-    private Collection<Shape> geometry = new ArrayList<Shape>();
+    private Collection<Shape> geometry;
     /**
      * Ein Transformationsobjekt, das sich auf die Geometrie dieses Knotens und
      * der Kindsknoten auswirkt.
@@ -58,6 +61,8 @@ public class Node {
     public Node(String label) {
         this.label = label;
         transformation = new Translation(0, 0, 0);
+        geometry = new ArrayList<Shape>();
+        children = new ArrayList<Node>();
     }
 
     /**
@@ -69,6 +74,7 @@ public class Node {
     public Node(String label, Node parent) {
         this(label);
         this.parent = parent;
+        this.parent.addChild(this);
     }
 
     /**
@@ -156,6 +162,8 @@ public class Node {
      * @param visitor der Visitor, der den Knoten besuchen soll
      */
     public void accept(Visitor visitor) {
+//        String names[] = {visitor.getClass().getName(), label};
+//        logger.log(Level.INFO, "Visitor {0} visiting node {1}", names);
         visitor.visit(this);
         for (Node n : children) {
             n.accept(visitor);

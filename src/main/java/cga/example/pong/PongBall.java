@@ -18,8 +18,8 @@ import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
-import cga.framework.shape.Line2d;
-import cga.framework.shape.Rectangle2d;
+import cga.framework.shape.Arrow2d;
+import cga.framework.shape.Cross2d;
 import cga.framework.shape.Shape;
 
 /**
@@ -29,33 +29,29 @@ import cga.framework.shape.Shape;
  */
 public class PongBall extends Shape {
 
-    private Rectangle2d ball;
     private double velocity;
     private Vector3d direction;
+    private Vector3d position;
+    private PongBoard board;
+    private Cross2d cross;
+    private Arrow2d arrow;
 
-    public PongBall() {
-        ball = new Rectangle2d(
-                new Line2d(0, 0, 0, 10),
-                new Line2d(0, 0, 10, 0),
-                new Line2d(10, 0, 10, 10),
-                new Line2d(0, 10, 10, 10));
-        velocity = 2;
-        direction = new Vector3d(1, 1, -1);
+    public PongBall(PongBoard board) {
+        this.board = board;
+        velocity = .4;
+        direction = getRandomDirection().normalize().times(velocity);
+        position = new Vector3d(0, 0, -1);
+        cross = new Cross2d(position, 5);
+        arrow = new Arrow2d(position, direction, velocity * 50);
     }
 
     @Override
     public void update() {
-        
-    }
-    
-    
-
-    public Rectangle2d getBall() {
-        return ball;
-    }
-
-    public void setBall(Rectangle2d ball) {
-        this.ball = ball;
+        position.x += direction.x;
+        position.y += direction.y;
+        cross.setPosition(position);
+        arrow.setPosition(position);
+        // nach dem mittag: abprallen von den wänden
     }
 
     public Vector3d getDirection() {
@@ -76,6 +72,11 @@ public class PongBall extends Shape {
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        ball.render(transformation, camera, renderer);
+        cross.render(transformation, camera, renderer);
+        arrow.render(transformation, camera, renderer);
+    }
+
+    private Vector3d getRandomDirection() {
+        return new Vector3d(Math.sin(Math.random() * Math.PI), Math.cos(Math.random() * Math.PI), -1);
     }
 }
