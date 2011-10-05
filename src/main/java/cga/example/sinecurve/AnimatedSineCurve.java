@@ -13,7 +13,7 @@
 * permissions and limitations under the License.
 */
 
-package example.sinecurve;
+package cga.example.sinecurve;
 
 import cga.framework.animation.Animation;
 import cga.framework.animation.interpolation.Interpolation;

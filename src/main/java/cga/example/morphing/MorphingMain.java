@@ -12,23 +12,29 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package example.triangle;
+package cga.example.morphing;
 
-import cga.framework.animation.interpolation.EaseInInterpolation;
-import cga.framework.scenegraph.Node;
-import cga.framework.scenegraph.transform.RotationZ;
+import cga.Framework;
+import cga.framework.shape.Line2d;
 
 /**
- * Eine Transformationsgruppe, die ein Dreieck entgegennimmt und dieses um die z-Achse rotieren lässt.
+ * Dieses Programm morpht zwischen zwei Bildern.
+ *
  * @author Robert Giacinto
  */
-public class RotatingTriangleNode extends Node {
+public class MorphingMain extends Framework {
 
-    public RotatingTriangleNode(Triangle triangle) {
-	super("Rotating Triangle");
-	RotationZ rotationZ = new RotationZ();
-	rotationZ.setInterpolationPhi(new EaseInInterpolation(0, 6 * Math.PI, 1000, true));
-	setTransformation(rotationZ);
-	addShape(triangle);
+    public MorphingMain(int width, int height) {
+        super(width, height);
+    }
+
+    @Override
+    public void initGraph() {
+        add(new MorphingItem(new Line2d(0, 0, 0, 200), new Line2d(0, 200, 200, -100), 200));
+    }
+
+    public static void main(String[] args) {
+        MorphingMain morphing = new MorphingMain(800, 800);
+        morphing.start();
     }
 }

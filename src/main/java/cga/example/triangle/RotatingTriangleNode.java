@@ -12,31 +12,23 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package example.basics;
+package cga.example.triangle;
 
-import cga.Framework;
+import cga.framework.animation.interpolation.EaseInInterpolation;
+import cga.framework.scenegraph.Node;
+import cga.framework.scenegraph.transform.RotationZ;
 
 /**
- * Dieses Beispiel zeigt die Minimalkonfiguration des Frameworks.
- * 
+ * Eine Transformationsgruppe, die ein Dreieck entgegennimmt und dieses um die z-Achse rotieren lässt.
  * @author Robert Giacinto
  */
-public class Minimal extends Framework {
+public class RotatingTriangleNode extends Node {
 
-    /**
-     * Neues Framework, das eine Java2D Ausgabe der Größe width x height hat.
-     * @param width die Breite des Fensters
-     * @param height die Höhe des Fensters
-     */
-    public Minimal(int width, int height) {
-	super(width, height);
-    }
-
-    @Override
-    public void initGraph() {
-    }
-
-    public static void main(String[] args) {
-	Minimal example = new Minimal(800, 600);
+    public RotatingTriangleNode(Triangle triangle) {
+	super("Rotating Triangle");
+	RotationZ rotationZ = new RotationZ();
+	rotationZ.setInterpolationPhi(new EaseInInterpolation(0, 6 * Math.PI, 1000, true));
+	setTransformation(rotationZ);
+	addShape(triangle);
     }
 }

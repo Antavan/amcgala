@@ -12,7 +12,7 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package example.triangle;
+package cga.example.triangle;
 
 import cga.Framework;
 import cga.framework.shape.Point2d;
