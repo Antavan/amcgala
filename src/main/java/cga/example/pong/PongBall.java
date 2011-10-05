@@ -16,36 +16,66 @@ package cga.example.pong;
 
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
+import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
 import cga.framework.shape.Line2d;
 import cga.framework.shape.Rectangle2d;
 import cga.framework.shape.Shape;
 
 /**
- * Das Board, in dem das Spiel stattfindet. Es definiert die Grenzen, in denen der Ball und der Spieler sich bewegen können.
+ * Der Ball, der vom Spieler getroffen werden muss.
  * 
  * @author Robert Giacinto
  */
-public class PongBoard extends Shape {
+public class PongBall extends Shape {
 
-    private PongBall ball;
-    private Rectangle2d boundaries;
+    private Rectangle2d ball;
+    private double velocity;
+    private Vector3d direction;
 
-    public PongBoard(int width, int height) {
-        ball = new PongBall();
-        width = (width - 20) >> 1;
-        height = (height - 20) >> 1;
+    public PongBall() {
+        ball = new Rectangle2d(
+                new Line2d(0, 0, 0, 10),
+                new Line2d(0, 0, 10, 0),
+                new Line2d(10, 0, 10, 10),
+                new Line2d(0, 10, 10, 10));
+        velocity = 2;
+        direction = new Vector3d(1, 1, -1);
+    }
 
-        boundaries = new Rectangle2d(
-                new Line2d(-width, -height, -width, height), // links
-                new Line2d(-width, -height, width, -height), // unten
-                new Line2d(-width, height, width, height), // oben
-                new Line2d(width, -height, width, height)); // rechts
+    @Override
+    public void update() {
+        
+    }
+    
+    
+
+    public Rectangle2d getBall() {
+        return ball;
+    }
+
+    public void setBall(Rectangle2d ball) {
+        this.ball = ball;
+    }
+
+    public Vector3d getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Vector3d direction) {
+        this.direction = direction;
+    }
+
+    public double getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(double velocity) {
+        this.velocity = velocity;
     }
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        boundaries.render(transformation, camera, renderer);
         ball.render(transformation, camera, renderer);
     }
 }

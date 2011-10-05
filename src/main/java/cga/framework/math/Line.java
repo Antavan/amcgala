@@ -12,26 +12,14 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cga.framework.camera;
+package cga.framework.math;
 
 /**
- * Diese Klasse repräsentiert einen Punkt im kanonischen View Volume.
- * Einen CVPoint erhält man als Ergebnis der Projektion.
+ * Diese Klasse stellt eine Gerade im dreidimensionalen Raum dar. 
+ * Sie bietet Methoden für Schnittberechnungen mit anderen Geraden, Ebenen und Punkten zur Verfügung.
+ * 
+ * @author Robert Giacinto
  */
-public class CVPoint {
-
-    public double x, y;
-
-    public CVPoint(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    @Override
-    public String toString() {
-        return "CVPoint{"
-                + "x=" + x
-                + ", y=" + y
-                + '}';
-    }
+public class Line {
+    
 }

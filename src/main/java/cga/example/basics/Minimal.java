@@ -29,7 +29,7 @@ public class Minimal extends Framework {
      * @param height die Höhe des Fensters
      */
     public Minimal(int width, int height) {
-	super(width, height);
+        super(width, height);
     }
 
     @Override
@@ -37,6 +37,6 @@ public class Minimal extends Framework {
     }
 
     public static void main(String[] args) {
-	Minimal example = new Minimal(800, 600);
+        Minimal example = new Minimal(800, 600);
     }
 }

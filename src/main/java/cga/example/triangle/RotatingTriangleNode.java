@@ -25,10 +25,10 @@ import cga.framework.scenegraph.transform.RotationZ;
 public class RotatingTriangleNode extends Node {
 
     public RotatingTriangleNode(Triangle triangle) {
-	super("Rotating Triangle");
-	RotationZ rotationZ = new RotationZ();
-	rotationZ.setInterpolationPhi(new EaseInInterpolation(0, 6 * Math.PI, 1000, true));
-	setTransformation(rotationZ);
-	addShape(triangle);
+        super("Rotating Triangle");
+        RotationZ rotationZ = new RotationZ();
+        rotationZ.setInterpolationPhi(new EaseInInterpolation(0, 6 * Math.PI, 1000, true));
+        setTransformation(rotationZ);
+        addShape(triangle);
     }
 }

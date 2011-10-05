@@ -12,26 +12,17 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cga.framework.camera;
+package cga.framework.animation;
 
 /**
- * Diese Klasse repräsentiert einen Punkt im kanonischen View Volume.
- * Einen CVPoint erhält man als Ergebnis der Projektion.
+ * Dieses Interface zeigt an, ob sich der interne Zustand eines Objekts verändern kann. Ein entsprechender Visitor ruft die Methode
+ * update in jedem Aktualisierungsschritt auf und ermöglicht so die Änderung von Zuständen von Objekten zur Laufzeit.
+ * 
+ * @author Robert Giacinto
  */
-public class CVPoint {
-
-    public double x, y;
-
-    public CVPoint(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    @Override
-    public String toString() {
-        return "CVPoint{"
-                + "x=" + x
-                + ", y=" + y
-                + '}';
-    }
+public interface Updatable {
+    /**
+     * Aktualisiert das Objekt, das diese Methode implementiert. Wird durch den UpdateVisitor aufgerufen.
+     */
+    void update();
 }

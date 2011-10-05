@@ -123,28 +123,28 @@ public final class PerspectiveCamera implements Camera {
     private Quaternion rotation;
 
     private PerspectiveCamera() {
-	cullingPlanes = new Plane[FRUSTUM_PLANES];
-	for (int i = 0; i < cullingPlanes.length; i++) {
-	    cullingPlanes[i] = new Plane();
-	}
+        cullingPlanes = new Plane[FRUSTUM_PLANES];
+        for (int i = 0; i < cullingPlanes.length; i++) {
+            cullingPlanes[i] = new Plane();
+        }
 
-	location = new Vector3d(0, 0, 0);
+        location = new Vector3d(0, 0, 0);
 
-	frustumNear = 1.0;
-	frustumFar = 2.0;
-	frustumLeft = -0.5;
-	frustumRight = 0.5;
-	frustumTop = 0.5;
-	frustumBottom = -0.5;
+        frustumNear = 1.0;
+        frustumFar = 2.0;
+        frustumLeft = -0.5;
+        frustumRight = 0.5;
+        frustumTop = 0.5;
+        frustumBottom = -0.5;
 
-	viewportLeft = 0.0;
-	viewportRight = 1.0;
-	viewportTop = 1.0;
-	viewportBottom = 0.0;
-	
-	fieldOfView = Math.toRadians(75);
-	
-	vup = Vector3d.UNIT_Y;
+        viewportLeft = 0.0;
+        viewportRight = 1.0;
+        viewportTop = 1.0;
+        viewportBottom = 0.0;
+
+        fieldOfView = Math.toRadians(75);
+
+        vup = Vector3d.UNIT_Y;
     }
 
     /**
@@ -154,12 +154,12 @@ public final class PerspectiveCamera implements Camera {
      * @param height  die Höhe der Ausgabe
      */
     public PerspectiveCamera(int width, int height) {
-	this();
-	this.width = width;
-	this.height = height;
+        this();
+        this.width = width;
+        this.height = height;
 
-	aspectRatio = width / height;	
-	update();
+        aspectRatio = width / height;
+        update();
     }
 
     /**
@@ -173,57 +173,57 @@ public final class PerspectiveCamera implements Camera {
      * @param height die Höhe der Bildschirmausgabe
      */
     public PerspectiveCamera(Vector3d location, Vector3d direction, Vector3d vup, double fov, int width, int height) {
-	this();
-	this.location = location;
-	this.direction = direction;
-	this.vup = vup;
-	this.fieldOfView = fov;
-	this.aspectRatio = width / height;
-	this.width = width;
-	this.height = height;
-	update();
+        this();
+        this.location = location;
+        this.direction = direction;
+        this.vup = vup;
+        this.fieldOfView = fov;
+        this.aspectRatio = width / height;
+        this.width = width;
+        this.height = height;
+        update();
     }
 
     @Override
     public Matrix getProjection() {
-	return projection;
+        return projection;
     }
 
     @Override
     public CVPoint getClippingSpaceCoordinates(Vector3d vector3d) {
-	Matrix point = view.times(vector3d.toMatrix());
-	CVPoint cvPoint = new CVPoint(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
-	return cvPoint;
+        Matrix point = view.times(vector3d.toMatrix());
+        CVPoint cvPoint = new CVPoint(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
+        return cvPoint;
     }
 
     @Override
     public void update() {
-	/*
-	 * Erste Transformation: Weltkoordinaten -> Kamerakoordinaten.
-	 */
-	n = direction.sub(location).times(-1).normalize();
-	u = vup.cross(n).normalize();
-	v = n.cross(u);
+        /*
+         * Erste Transformation: Weltkoordinaten -> Kamerakoordinaten.
+         */
+        n = direction.sub(location).times(-1).normalize();
+        u = vup.cross(n).normalize();
+        v = n.cross(u);
 
-	Vector3d d = new Vector3d(location.dot(u), location.dot(v), location.dot(n)).times(-1);
+        Vector3d d = new Vector3d(location.dot(u), location.dot(v), location.dot(n)).times(-1);
 
-	double[][] viewValues = {
-	    {u.x, u.y, u.z, d.x},
-	    {v.x, v.y, v.z, d.y},
-	    {n.x, n.y, n.z, d.z},
-	    {0, 0, 0, 1}
-	};
-	view = Matrix.constructWithCopy(viewValues);
+        double[][] viewValues = {
+            {u.x, u.y, u.z, d.x},
+            {v.x, v.y, v.z, d.y},
+            {n.x, n.y, n.z, d.z},
+            {0, 0, 0, 1}
+        };
+        view = Matrix.constructWithCopy(viewValues);
 
-	/*
-	 * Zweite Transformation: Kamerakoordinaten -> Bildkoordinaten
-	 */
+        /*
+         * Zweite Transformation: Kamerakoordinaten -> Bildkoordinaten
+         */
 
-	projection = Matrix.identity(4, 4);
+        projection = Matrix.identity(4, 4);
     }
 
     @Override
     public Pixel getImageSpaceCoordinates(Vector3d vector3d) {
-	throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

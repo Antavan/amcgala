@@ -12,26 +12,22 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cga.framework.camera;
+package cga.framework.scenegraph.visitor;
+
+import cga.framework.scenegraph.Node;
+import cga.framework.shape.Shape;
 
 /**
- * Diese Klasse repräsentiert einen Punkt im kanonischen View Volume.
- * Einen CVPoint erhält man als Ergebnis der Projektion.
+ * Der UpdateVisitor traversiert den Szenengraph und ruft die update Methode aller Objekte auf, die das Interface Updatable implementieren.
+ * 
+ * @author Robert Giacinto
  */
-public class CVPoint {
-
-    public double x, y;
-
-    public CVPoint(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
+public class UpdateVisitor implements Visitor {
 
     @Override
-    public String toString() {
-        return "CVPoint{"
-                + "x=" + x
-                + ", y=" + y
-                + '}';
+    public void visit(Node node) {
+        for (Shape shape : node.getGeometry()) {
+            shape.update();
+        }
     }
 }

@@ -17,7 +17,6 @@ package cga.framework.shape;
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
-import cga.framework.renderer.Color;
 import cga.framework.renderer.Pixel;
 import cga.framework.renderer.Renderer;
 

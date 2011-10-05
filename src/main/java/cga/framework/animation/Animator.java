@@ -24,6 +24,7 @@ import java.util.logging.Logger;
  * @author Robert Giacinto
  */
 public class Animator {
+
     private static final Logger logger = Logger.getLogger(Animator.class.getName());
     private Timer timer;
     private Framework framework;

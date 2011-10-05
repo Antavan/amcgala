@@ -23,6 +23,7 @@ import java.util.logging.Logger;
  * @author Robert Giacinto
  */
 public abstract class Interpolation {
+
     private static final Logger logger = Logger.getLogger(Interpolation.class.getName());
     protected double min;
     protected double max;

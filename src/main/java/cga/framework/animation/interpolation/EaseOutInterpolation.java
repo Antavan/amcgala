@@ -22,7 +22,9 @@ import java.util.logging.Logger;
  * @author Robert Giacinto
  */
 public class EaseOutInterpolation extends Interpolation {
+
     private static final Logger logger = Logger.getLogger(EaseOutInterpolation.class.getName());
+
     public EaseOutInterpolation(double start, double end, int stepCount, boolean cyclic) {
         super(start, end, stepCount, cyclic);
     }

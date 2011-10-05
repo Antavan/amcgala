@@ -15,16 +15,29 @@
 package cga.framework.shape;
 
 import cga.framework.animation.Animation;
+import cga.framework.animation.Updatable;
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Color;
 import cga.framework.renderer.Renderer;
+import java.util.logging.Logger;
 
-public abstract class Shape {
+/**
+ * Diese Klasse stellt die Oberklasse aller darstellbaren Objekte dar.
+ * @author Robert Giacinto
+ */
+public abstract class Shape implements Updatable {
 
+    private static final Logger logger = Logger.getLogger(Shape.class.getName());
     private Animation animation;
     public Color color = Color.BLACK;
 
+    /**
+     * Diese Methode gibt das Shapeobjekt aus. Es wird von allen Unterklassen implementiert.
+     * @param transformation die Transformationsmatrix, die aus den Transformationsgruppen resultiert
+     * @param camera die Kamera der Szene
+     * @param renderer der Renderer
+     */
     public abstract void render(Matrix transformation, Camera camera, Renderer renderer);
 
     public void setAnimation(Animation animation) {
@@ -35,4 +48,7 @@ public abstract class Shape {
     public Animation getAnimation() {
         return animation;
     }
+
+    @Override
+    public void update() { }
 }

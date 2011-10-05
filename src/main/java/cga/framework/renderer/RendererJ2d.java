@@ -14,7 +14,6 @@
  */
 package cga.framework.renderer;
 
-
 import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;

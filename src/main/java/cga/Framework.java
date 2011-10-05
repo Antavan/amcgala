@@ -25,6 +25,7 @@ import cga.framework.renderer.Renderer;
 import cga.framework.renderer.RendererJ2d;
 import cga.framework.scenegraph.Node;
 import cga.framework.scenegraph.visitor.InterpolationVisitor;
+import cga.framework.scenegraph.visitor.UpdateVisitor;
 import cga.framework.scenegraph.visitor.Visitor;
 import cga.framework.shape.Shape;
 import java.util.ArrayList;
@@ -82,6 +83,9 @@ public abstract class Framework {
         AnimationVisitor animationVisitor = new AnimationVisitor();
         visitors.add(animationVisitor);
 
+        logger.log(Level.INFO, "UpdateVisitor.");
+        UpdateVisitor updateVisitor = new UpdateVisitor();
+        visitors.add(updateVisitor);
 
         logger.log(Level.INFO, "Erstelle RenderVisitor.");
         RenderVisitor renderVisitor = new RenderVisitor();
@@ -151,7 +155,6 @@ public abstract class Framework {
         return aspectRatio;
     }
 
-    
     private void setAspectRatio(double aspectRatio) {
         this.aspectRatio = aspectRatio;
     }
