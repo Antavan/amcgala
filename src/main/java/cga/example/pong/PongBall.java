@@ -51,7 +51,7 @@ public class PongBall extends Shape {
         position.y += direction.y;
         cross.setPosition(position);
         arrow.setPosition(position);
-        // nach dem mittag: abprallen von den wänden
+        // TODO nach dem mittag: abprallen von den wänden
     }
 
     public Vector3d getDirection() {
