@@ -12,33 +12,23 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cga.framework.shape;
+package cga.example.pong;
 
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
+import cga.framework.shape.Shape;
 
-public class Rectangle2d extends Shape {
-
-    public Line2d a, b, c, d;
-
-    public Rectangle2d(Line2d a, Line2d b, Line2d c, Line2d d) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        this.d = d;
-    }
+/**
+ * Das Paddle, mit dem man den Ball treffen muss.
+ * 
+ * @author Robert Giacinto
+ */
+public class PongPaddle extends Shape{
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        a.render(transformation, camera, renderer);
-        b.render(transformation, camera, renderer);
-        c.render(transformation, camera, renderer);
-        d.render(transformation, camera, renderer);
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    @Override
-    public String toString() {
-        return "Rectangle2d{" + "a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + '}';
-    }
+    
 }

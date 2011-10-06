@@ -79,7 +79,7 @@ public abstract class Framework {
         visitors.add(new InterpolationVisitor());
 
         logger.log(Level.INFO, "Erstelle Animator.");
-        animator = new Animator(20);
+        animator = new Animator(25);
         AnimationVisitor animationVisitor = new AnimationVisitor();
         visitors.add(animationVisitor);
 

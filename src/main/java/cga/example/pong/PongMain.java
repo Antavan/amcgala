@@ -15,7 +15,6 @@
 package cga.example.pong;
 
 import cga.Framework;
-import cga.framework.scenegraph.transform.Scale;
 
 /**
  * Ein simples Pongspiel.
@@ -29,8 +28,8 @@ public class PongMain extends Framework {
 
     @Override
     public void initGraph() {
-        scenegraph.addTransformation(new Scale(.90, .90, .90));
-        add(new PongBoard(getScreenWidth(), getScreenHeight()));
+//        scenegraph.addTransformation(new Scale(.90, .90, .90));
+        add(new PongBoard(0, 0, 480, 240));
     }
 
     public static void main(String[] args) {

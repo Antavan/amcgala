@@ -14,6 +14,8 @@
  */
 package cga.example.pong;
 
+import cga.framework.math.Plane;
+import cga.framework.math.Vector3d;
 import cga.framework.scenegraph.Node;
 import cga.framework.shape.Line2d;
 import cga.framework.shape.Rectangle2d;
@@ -27,18 +29,24 @@ public class PongBoard extends Node {
 
     private PongBall ball;
     private Rectangle2d boundaries;
+    private Plane top;
+    private Plane bottom;
 
-    public PongBoard(int width, int height) {
+    public PongBoard(double x, double y, int width, int height) {
         super("Pongboard");
-        width = (width - 20) >> 1;
-        height = (height - 20) >> 1;
+        // TODO das lambda der Ebenen muss noch bestimmt werden.
+        top = new Plane(Vector3d.UNIT_Y, -height / 2);
+        bottom = new Plane(Vector3d.UNIT_Y, height / 2);
 
+        width = width >> 1;
+        height = height >> 1;
         // Die äußeren Grenzen des Spielfeldes.
         boundaries = new Rectangle2d(
-                new Line2d(-width, -height, -width, height), // links
-                new Line2d(-width, -height, width, -height), // unten
-                new Line2d(-width, height, width, height), // oben
-                new Line2d(width, -height, width, height)); // rechts
+                new Line2d(x - width, y - height, x - width, y + height), // links
+                new Line2d(x - width, y - height, x + width, y - height), // unten
+                new Line2d(x - width, y + height, x + width, y + height), // oben
+                new Line2d(x + width, y - height, x + width, y + height)); // rechts
+        System.out.println(boundaries);
         addShape(boundaries);
         ball = new PongBall(this);
         addShape(ball);
@@ -59,4 +67,22 @@ public class PongBoard extends Node {
     public void setBoundaries(Rectangle2d boundaries) {
         this.boundaries = boundaries;
     }
+
+    public Plane getBottom() {
+        return bottom;
+    }
+
+    public void setBottom(Plane bottom) {
+        this.bottom = bottom;
+    }
+
+    public Plane getTop() {
+        return top;
+    }
+
+    public void setTop(Plane top) {
+        this.top = top;
+    }
+    
+    
 }
