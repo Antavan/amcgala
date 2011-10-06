@@ -36,9 +36,13 @@ public class PongBall extends Shape {
     private Cross2d cross;
     private Arrow2d arrow;
 
+    /**
+     * Ein Ball, der sich auf dem Pong Spielfeld bewegen kann, und von einem Paddle abgewehrt werden kann.
+     * @param board das Board, auf dem sich der Ball bewegt
+     */
     public PongBall(PongBoard board) {
         this.board = board;
-        velocity = .10;
+        velocity = .11;
         direction = getRandomDirection().times(velocity);
         System.out.println(direction);
         System.out.println(direction.length());
@@ -56,26 +60,50 @@ public class PongBall extends Shape {
         checkPosition();
     }
 
+    /**
+     * Gibt die Bewegungsrichtung des Balls zurück.
+     * @return die aktuelle Bewegungsrichtung des Balls
+     */
     public Vector3d getDirection() {
         return direction;
     }
 
+    /**
+     * Ändert die Bewegungsrichtung des Balls.
+     * @param direction die neue Richtung
+     */
     public void setDirection(Vector3d direction) {
         this.direction = direction;
     }
 
+    /**
+     * Gibt die aktuelle Geschwindigkeit des Balls zurück.
+     * @return die aktuelle Geschwindigkeit des Balls
+     */
     public double getVelocity() {
         return velocity;
     }
 
+    /**
+     * Ändert die Geschwindigkeit des Balls.
+     * @param velocity die Geschwindigkeit des Balls
+     */
     public void setVelocity(double velocity) {
         this.velocity = velocity;
     }
 
+    /**
+     * Gibt die Position des Balls zurück.
+     * @return die aktuelle Position des Balls
+     */
     public Vector3d getPosition() {
         return position;
     }
 
+    /**
+     * Ändert die Position des Balls.
+     * @param position die neue Position des Balls.
+     */
     public void setPosition(Vector3d position) {
         this.position = position;
     }
@@ -95,6 +123,8 @@ public class PongBall extends Shape {
             direction.y = -direction.y;
         } else if (board.getLeft().isNearPlane(position)) {
             direction.x = -direction.x;
+        } else if (board.getXmax() / 2 < position.x) {
+            position = new Vector3d(0, 0, -1);
         }
     }
 }

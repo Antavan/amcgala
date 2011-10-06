@@ -34,6 +34,11 @@ public class Plane {
     public Plane() {
     }
 
+    /**
+     * Erzeugt eine neue Ebene.
+     * @param normal die Normale der Ebene
+     * @param constant die Konstant der Ebene
+     */
     public Plane(Vector3d normal, double constant) {
         this.normal = normal;
         this.constant = constant;
@@ -62,10 +67,26 @@ public class Plane {
         normal = new Vector3d(x, y, z);
     }
 
+    /**
+     * Gibt die Entfernung des Punktes von der Ebene zurück.
+     * @param point der Punkt, der überprüft werden soll
+     * @return die Entfernung von der Ebene
+     */
     public double distance(Vector3d point) {
         return normal.dot(point) - constant;
     }
 
+    /**
+     * Überprüft, auf welcher Seite der Ebene der gegebene Punkt liegt.
+     * Es gibt drei Möglichkeiten.
+     * 
+     * 1. Unter der Ebene (Side.Negative)
+     * 2. Über der Ebene (Side.Positive)
+     * 3. In der Ebene (Side.None)
+     * 
+     * @param point der Punkt, der überprüft werden soll
+     * @return Lage des Punktes
+     */
     public Side whichSide(Vector3d point) {
         double distance = distance(point);
         if (distance < 0) {
@@ -77,6 +98,11 @@ public class Plane {
         }
     }
 
+    /**
+     * Überprüft, ob ein Punkt auf dieser Ebene liegt.
+     * @param point der Punkt, der überprüft werden soll
+     * @return true, wenn Punkt auf Ebene liegt
+     */
     public boolean isOnPlane(Vector3d point) {
         double distance = distance(point);
 

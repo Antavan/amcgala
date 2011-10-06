@@ -30,7 +30,7 @@ import cga.framework.shape.Shape;
  * @author Robert Giacinto
  */
 public class PongPaddle extends Shape {
-    
+
     private Rectangle2d paddle;
     private Vector3d position;
     private Plane top;
@@ -39,7 +39,8 @@ public class PongPaddle extends Shape {
     private PongBall ball;
     private PongBoard board;
     private Cross2d c1, c2;
-    private double lengthH, lengthV;
+    private int lengthH, lengthV;
+    private boolean stopDown, stopUp;
 
     /**
      * Erstellt ein neues Paddle, mit dem ein Ball gespielt werden kann.
@@ -48,37 +49,45 @@ public class PongPaddle extends Shape {
      * @param position die Startposition des Paddles
      * @param ball der Ball, der von dem Paddle gespielt werden kann
      */
-    public PongPaddle(double lengthH, double lengthV, Vector3d position, PongBall ball, PongBoard board) {
+    public PongPaddle(int lengthH, int lengthV, Vector3d position, PongBall ball, PongBoard board) {
         this.ball = ball;
         this.lengthH = lengthH;
         this.lengthV = lengthV;
         this.board = board;
         this.position = position;
-        
+
         paddle = new Rectangle2d(
                 new Line2d(position.x - lengthH, position.y - lengthV, position.x + lengthH, position.y - lengthV),
                 new Line2d(position.x - lengthH, position.y - lengthV, position.x - lengthH, position.y + lengthV),
                 new Line2d(position.x + lengthH, position.y - lengthV, position.x + lengthH, position.y + lengthV),
                 new Line2d(position.x - lengthH, position.y + lengthV, position.x + lengthH, position.y + lengthV));
-        
+
         top = new Plane(Vector3d.UNIT_Y, position.y + lengthV);
         bottom = new Plane(Vector3d.UNIT_Y, position.y - lengthV);
         paddleCol = new Plane(Vector3d.UNIT_X, position.x - lengthH);
-        
+
         c1 = new Cross2d(position.x, position.y + lengthV, 10);
         c2 = new Cross2d(position.x, position.y - lengthV, 10);
-        
+
     }
-    
+
+    /**
+     * Gibt die Position des Paddles zurück.
+     * @return die Position des Paddles
+     */
     public Vector3d getPosition() {
         return position;
     }
-    
+
+    /**
+     * Setzt das Paddle auf eine neue Position.
+     * @param position die neue Position
+     */
     public void setPosition(Vector3d position) {
         this.position = position;
         updateCollisionPlanes();
     }
-    
+
     @Override
     public void update() {
         if (bottom.whichSide(ball.getPosition()) == Plane.Side.Positive
@@ -87,14 +96,14 @@ public class PongPaddle extends Shape {
             ball.getDirection().x = -ball.getDirection().x;
         }
     }
-    
+
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
         paddle.render(transformation, camera, renderer);
-        c1.render(transformation, camera, renderer);
+//        c1.render(transformation, camera, renderer);
 //        c2.render(transformation, camera, renderer);
     }
-    
+
     private void updateCollisionPlanes() {
         top.setConstant(position.y + lengthV);
         bottom.setConstant(position.y - lengthV);
@@ -103,21 +112,37 @@ public class PongPaddle extends Shape {
                 new Line2d(position.x - lengthH, position.y - lengthV, position.x - lengthH, position.y + lengthV),
                 new Line2d(position.x + lengthH, position.y - lengthV, position.x + lengthH, position.y + lengthV),
                 new Line2d(position.x - lengthH, position.y + lengthV, position.x + lengthH, position.y + lengthV));
-        
+
     }
-    
+
+    /**
+     * Bewegt das Paddle ein Stück nach oben.
+     */
     public void moveUp() {
-        Vector3d tmp = new Vector3d(position.x, position.y + lengthV + 4, -1);
-        if (!board.getTop().isNearPlane(tmp)) {
-            position.y += 4;
+        int ny = (int) (position.y + lengthV + 15);
+        if (ny < board.getYmax() / 2 && !stopUp) {
+            position.y += 15;
+            stopDown = false;
+            updateCollisionPlanes();
+        } else {
+            stopUp = true; // hintert das Paddle daran, sich weiter nach oben zu bewegen als es darf.  Kann wahrscheinlich weg...
+            position.y = board.getYmax();
             updateCollisionPlanes();
         }
     }
-    
+
+    /**
+     * Bewegt das Paddle ein Stück nach unten.
+     */
     public void moveDown() {
-        Vector3d tmp = new Vector3d(position.x, position.y - lengthV - 4, -1);
-        if (!board.getBottom().isNearPlane(tmp)) {
-            position.y -= 4;
+        int ny = (int) (position.y - lengthV - 15);
+        if (ny > board.getYmin() / 2 && !stopDown) {
+            position.y -= 15;
+            stopUp = false;
+            updateCollisionPlanes();
+        } else {
+            stopDown = true; // hindert das Paddle daran, sich weiter nach unten zu bewegen als es darf
+            position.y = board.getYmin();
             updateCollisionPlanes();
         }
     }

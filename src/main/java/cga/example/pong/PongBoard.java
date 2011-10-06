@@ -35,11 +35,16 @@ public class PongBoard extends Node {
     private Plane left;
     private int width;
     private int height;
+    private int xmin, xmax, ymin, ymax;
 
-    public PongBoard(double x, double y, int width, int height) {
+    public PongBoard(int x, int y, int width, int height) {
         super("Pongboard");
         this.width = width;
         this.height = height;
+        xmin = x - width;
+        xmax = x + width;
+        ymin = y - height;
+        ymax = y + height;
 
         top = new Plane(Vector3d.UNIT_Y, y - height / 2);
         bottom = new Plane(Vector3d.UNIT_Y, y + height / 2);
@@ -59,6 +64,38 @@ public class PongBoard extends Node {
         addShape(ball);
         paddle = new PongPaddle(5, 20, new Vector3d((width / 4) * 3, 0, -1), ball, this);
         addShape(paddle);
+    }
+
+    public int getXmax() {
+        return xmax;
+    }
+
+    public void setXmax(int xmax) {
+        this.xmax = xmax;
+    }
+
+    public int getXmin() {
+        return xmin;
+    }
+
+    public void setXmin(int xmin) {
+        this.xmin = xmin;
+    }
+
+    public int getYmax() {
+        return ymax;
+    }
+
+    public void setYmax(int ymax) {
+        this.ymax = ymax;
+    }
+
+    public int getYmin() {
+        return ymin;
+    }
+
+    public void setYmin(int ymin) {
+        this.ymin = ymin;
     }
 
     public PongBall getBall() {
