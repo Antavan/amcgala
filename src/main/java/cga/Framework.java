@@ -36,6 +36,8 @@ import java.util.logging.Logger;
 /**
  * Die Hauptklasse des Frameworks, die die Hauptaufgaben übernimmt.
  * Sie initialisiert die wichtigsten Datenstrukturen und ermöglicht ihren Zugriff.
+ * Der Aufbau des Frameworks folgt der Computer Graphics Pipeline, wie sie zum Beispiel 
+ * in xxx beschrieben ist.
  * 
  * @author Robert Giacinto
  */

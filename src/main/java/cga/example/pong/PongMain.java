@@ -15,25 +15,45 @@
 package cga.example.pong;
 
 import cga.Framework;
+import cga.framework.renderer.RendererJ2d;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
- * Ein simples Pongspiel.
+ * Ein simples Pongspiel, das mit der Maus gesteuert werden kann.
  * @author Robert Giacinto
  */
 public class PongMain extends Framework {
-
+    
+    private PongBoard board;
+    
     public PongMain(int width, int height) {
         super(width, height);
+        ((RendererJ2d) renderer).addKeyListener(new MyKeyListener());
     }
-
+    
     @Override
     public void initGraph() {
-//        scenegraph.addTransformation(new Scale(.90, .90, .90));
-        add(new PongBoard(0, 0, 480, 240));
+        board = new PongBoard(0, 0, 480, 240);
+        add(board);
     }
-
+    
     public static void main(String[] args) {
         PongMain game = new PongMain(800, 600);
         game.start();
+    }
+    
+    private class MyKeyListener extends KeyAdapter {
+        
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                board.getPaddle().moveDown();
+            } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+                board.getPaddle().moveUp();
+            }
+        }
     }
 }

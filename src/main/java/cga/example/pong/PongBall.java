@@ -72,6 +72,14 @@ public class PongBall extends Shape {
         this.velocity = velocity;
     }
 
+    public Vector3d getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector3d position) {
+        this.position = position;
+    }
+
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
         cross.render(transformation, camera, renderer);
@@ -85,6 +93,8 @@ public class PongBall extends Shape {
     private void checkPosition() {
         if (board.getBottom().isNearPlane(position) || board.getTop().isNearPlane(position)) {
             direction.y = -direction.y;
+        } else if (board.getLeft().isNearPlane(position)) {
+            direction.x = -direction.x;
         }
     }
 }

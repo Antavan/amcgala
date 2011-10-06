@@ -87,9 +87,15 @@ public class Plane {
         }
     }
 
+    /**
+     * Prüft, ob ein Punkt in der neuer dieser Ebene liegt. Die Standardentfernung kann in der Klasse
+     * MathConstants.NEAR_EPSILON nachgeschaut werden.
+     * 
+     * @param point der Punkt der überprüft werden soll
+     * @return true, wenn Punkt in der Nähe der Ebene
+     */
     public boolean isNearPlane(Vector3d point) {
         double distance = distance(point);
-        
         if (distance < MathConstants.NEAR_EPSILON && distance > -MathConstants.NEAR_EPSILON) {
             return true;
         } else {

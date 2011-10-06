@@ -28,15 +28,22 @@ import cga.framework.shape.Rectangle2d;
 public class PongBoard extends Node {
 
     private PongBall ball;
+    private PongPaddle paddle;
     private Rectangle2d boundaries;
     private Plane top;
     private Plane bottom;
+    private Plane left;
+    private int width;
+    private int height;
 
     public PongBoard(double x, double y, int width, int height) {
         super("Pongboard");
-        // TODO das lambda der Ebenen muss noch bestimmt werden.
-        top = new Plane(Vector3d.UNIT_Y, -height / 2);
-        bottom = new Plane(Vector3d.UNIT_Y, height / 2);
+        this.width = width;
+        this.height = height;
+
+        top = new Plane(Vector3d.UNIT_Y, y - height / 2);
+        bottom = new Plane(Vector3d.UNIT_Y, y + height / 2);
+        left = new Plane(Vector3d.UNIT_X, x - width / 2);
 
         width = width >> 1;
         height = height >> 1;
@@ -46,10 +53,12 @@ public class PongBoard extends Node {
                 new Line2d(x - width, y - height, x + width, y - height), // unten
                 new Line2d(x - width, y + height, x + width, y + height), // oben
                 new Line2d(x + width, y - height, x + width, y + height)); // rechts
-        System.out.println(boundaries);
+
         addShape(boundaries);
         ball = new PongBall(this);
         addShape(ball);
+        paddle = new PongPaddle(5, 20, new Vector3d((width / 4) * 3, 0, -1), ball, this);
+        addShape(paddle);
     }
 
     public PongBall getBall() {
@@ -83,6 +92,20 @@ public class PongBoard extends Node {
     public void setTop(Plane top) {
         this.top = top;
     }
-    
-    
+
+    public PongPaddle getPaddle() {
+        return paddle;
+    }
+
+    public void setPaddle(PongPaddle paddle) {
+        this.paddle = paddle;
+    }
+
+    public Plane getLeft() {
+        return left;
+    }
+
+    public void setLeft(Plane left) {
+        this.left = left;
+    }
 }
