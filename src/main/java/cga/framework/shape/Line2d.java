@@ -38,11 +38,18 @@ public class Line2d extends Shape {
             this.y1 = y2;
             this.x2 = x1;
             this.y2 = y1;
-        } else {
+        } else if (x2 > x1) {
             this.x1 = x1;
             this.y1 = y1;
             this.x2 = x2;
             this.y2 = y2;
+        } else { // x1 == x2, dann sollte y1 < y2 sein
+            if (y2 < y1) {
+                this.x1 = x2;
+                this.y1 = y2;
+                this.x2 = x1;
+                this.y2 = y1;
+            }
         }
 
         start = new Vector3d(x1, y1, -1);
