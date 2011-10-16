@@ -22,6 +22,12 @@ public class CVPoint {
 
     public double x, y;
 
+    /**
+     * Erzeugt einen neuen CVPunkt.
+     * TODO nochmal überprüfen: Sollte eigentlich 3d sein.
+     * @param x x-Koordinate
+     * @param y y-Koordinate
+     */
     public CVPoint(double x, double y) {
         this.x = x;
         this.y = y;

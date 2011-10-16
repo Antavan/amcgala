@@ -27,13 +27,25 @@ public abstract class Animation<T extends Shape> {
     private static final Logger logger = Logger.getLogger(Animation.class.getName());
     private T shape;
 
+    /**
+     * Gibt das Shape zurück, das von der Animation beeinflusst wird.
+     * @return das Shapeobjekt
+     */
     public T getShape() {
         return shape;
     }
 
+    /**
+     * Ändert das Shapeobjekt, das von der Animation beeinflusst wird.
+     * @param shape 
+     */
     public void setShape(T shape) {
         this.shape = shape;
     }
 
+    /**
+     * Diese Methode wird in jedem Aktualisierungsdurchlauf aufgerufen. In dieser Methode wird der spezifische Code implementiert,
+     * der das Shapeobjekt verändert bzw. animiert.
+     */
     public abstract void animate();
 }

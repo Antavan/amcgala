@@ -20,6 +20,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
+/**
+ * Eine Java2D Implementierung eines Renderers. Es wird das Bild in einem JFrame ausgegeben.
+ * @author Robert Giacinto
+ */
 public class RendererJ2d extends Renderer {
 
     private JFrame frame;
@@ -29,6 +33,11 @@ public class RendererJ2d extends Renderer {
     private int offsetX;
     private int offsetY;
 
+    /**
+     * Erstellt einen neuen RendererJ2D.
+     * @param width Breite der Ausgabe
+     * @param height Höhe der Ausgabe
+     */
     public RendererJ2d(int width, int height) {
         super(width, height);
         this.width = width;
@@ -69,12 +78,20 @@ public class RendererJ2d extends Renderer {
         bs.getDrawGraphics().clearRect(0, 0, frame.getWidth(), frame.getHeight());
     }
 
+    /**
+     * Fügt dem JFrame der Ausgabe einen MouseListener hinzu, mit dem Interaktionen implementiert werden können.
+     * @param mouseAdapter der MouseListener
+     */
     public void addMouseListener(MouseAdapter mouseAdapter) {
         frame.addMouseListener(mouseAdapter);
         frame.addMouseMotionListener(mouseAdapter);
         frame.addMouseWheelListener(mouseAdapter);
     }
 
+    /**
+     * Fügt dem JFrame einen KeyListener hinzu, mit dem Interaktionen über das Keyboard implementiert werden können.
+     * @param keyAdapter der KeyListener
+     */
     public void addKeyListener(KeyAdapter keyAdapter) {
         frame.addKeyListener(keyAdapter);
     }

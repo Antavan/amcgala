@@ -23,7 +23,6 @@ package cga.framework.math;
 public class Plane {
 
     public static enum Side {
-
         None,
         Positive,
         Negative
@@ -44,18 +43,34 @@ public class Plane {
         this.constant = constant;
     }
 
+    /**
+     * Gibt die Konstante der Ebenengleichung zurück.
+     * @return die Konstante
+     */
     public double getConstant() {
         return constant;
     }
 
+    /**
+     * Setzt die Konstante der Ebenengleichung.
+     * @param constant die neue Konstante
+     */
     public void setConstant(double constant) {
         this.constant = constant;
     }
 
+    /**
+     * Gibt die Normale der Ebene zurück.
+     * @return die Normale der Ebene
+     */
     public Vector3d getNormal() {
         return normal;
     }
 
+    /**
+     * Ändert die Normale der Ebene.
+     * @param normal die Normale
+     */
     public void setNormal(Vector3d normal) {
         if (normal == null) {
             throw new IllegalArgumentException("Normale darf nicht null sein!");
@@ -63,6 +78,12 @@ public class Plane {
         this.normal = normal;
     }
 
+    /**
+     * Ändert die Normale der Ebene.
+     * @param x die x-Komponente der Normalen
+     * @param y die y-Komponente der Normalen
+     * @param z die z-Komponente der Normalen
+     */
     public void setNormal(double x, double y, double z) {
         normal = new Vector3d(x, y, z);
     }

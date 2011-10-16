@@ -27,6 +27,14 @@ public class EaseInInterpolation extends Interpolation {
 
     private static final Logger logger = Logger.getLogger(EaseInInterpolation.class.getName());
 
+    /**
+     * Erzeugt eine neue EaseInInterpolation.
+     * 
+     * @param start der Startwert, bei der die Interpolation beginnen soll
+     * @param end der Endwert, bei der die Interpolation enden soll
+     * @param stepCount die Anzahl der Schritte der Interpolation
+     * @param cyclic true, wenn die Intpoleration zyklisch von Neuem beginnen soll
+     */
     public EaseInInterpolation(double start, double end, int stepCount, boolean cyclic) {
         super(start, end, stepCount, cyclic);
     }

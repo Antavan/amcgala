@@ -16,6 +16,12 @@ package cga.framework.animation;
 
 import java.util.logging.Logger;
 
+/**
+ * Ein einfacher Timer, der einen Zeitraum messen kann. Diese
+ * Klasse wird zur Animation und Aktualisierung des Frameworks benötigt.
+ * 
+ * @author Robert Giacinto
+ */
 public class Timer {
 
     private static final Logger logger = Logger.getLogger(Timer.class.getName());
@@ -25,20 +31,36 @@ public class Timer {
     private double timePerFrame;
     private double duration;
 
+    /**
+     * Erzeugt einen neuen Timer.
+     * 
+     * @param framesPerSecond die Anzahl von Frames, die pro Sekunde berechnet werden sollen.
+     */
     public Timer(double framesPerSecond) {
         this.framesPerSecond = framesPerSecond;
         timePerFrame = 1000 / framesPerSecond;
     }
 
+    /**
+     * Startet den Timer. 
+     */
     public void start() {
         startTime = System.currentTimeMillis();
     }
 
+    /**
+     * Stoppt den Timer.
+     */
     public void stop() {
         stopTime = System.currentTimeMillis();
         duration = stopTime - startTime;
     }
 
+    /**
+     * Gibt die Sleeptime des Frameworks zurück. Dies ist die Differenzzeit, die nach Abzug der benötigten Zeit zum Rendern, noch 
+     * übrig bleibt.
+     * @return die Sleeptime
+     */
     public double getSleepTime() {
         return (timePerFrame - duration < 0) ? 1 : (timePerFrame - duration);
     }

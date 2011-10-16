@@ -24,6 +24,14 @@ public class LinearInterpolation extends Interpolation {
 
     private static final Logger logger = Logger.getLogger(LinearInterpolation.class.getName());
 
+    /**
+     * Erzeugt einen neuen LinearInterpolator.
+     * 
+     * @param start der Startwert
+     * @param end der Endwert
+     * @param stepCount die Anzahl der Schritte
+     * @param cyclic true, wenn Interpolation zyklisch von Neuem beginnen soll
+     */
     public LinearInterpolation(double start, double end, int stepCount, boolean cyclic) {
         super(start, end, stepCount, cyclic);
     }

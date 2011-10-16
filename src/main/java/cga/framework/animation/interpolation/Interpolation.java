@@ -31,6 +31,13 @@ public abstract class Interpolation {
     protected double stepCounter;
     protected boolean cyclic;
 
+    /**
+     * Superkonstruktor aller Interpolationen. Er initialisiert die gemeinsamen Felder.
+     * @param start Startwert der Interpolation
+     * @param end Endwert der Interpolation
+     * @param stepCount die Anzahl der Schritte
+     * @param cyclic true, wenn Interpolation zyklisch von Neuem beginnen soll
+     */
     public Interpolation(double start, double end, int stepCount, boolean cyclic) {
         this.min = start;
         this.max = end;
@@ -38,5 +45,9 @@ public abstract class Interpolation {
         this.cyclic = cyclic;
     }
 
+    /**
+     * Diese Methode wird von allen Unterklassen implementiert und gibt den nächsten interpolierten Wert zurück.
+     * @return der nächste interpolierte Wert
+     */
     public abstract double nextValue();
 }

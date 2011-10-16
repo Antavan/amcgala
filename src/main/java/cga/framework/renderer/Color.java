@@ -15,6 +15,7 @@
 package cga.framework.renderer;
 
 /**
+ *  Diese Klasse repräsentiert eine Farbe, mit der Pixel eingefärbt werden können.
  * 
  * @author Robert Giacinto
  */
@@ -30,6 +31,10 @@ public class Color {
     private int b;
     protected java.awt.Color color;
 
+    /**
+     * Erzeugt eine neue Farbe von einer java.awt.Color.
+     * @param color die Farbe
+     */
     public Color(java.awt.Color color) {
         this.color = color;
         r = color.getRed();
@@ -37,6 +42,12 @@ public class Color {
         b = color.getBlue();
     }
 
+    /**
+     * Erzeugt eine neue Farbe von den Einzelwerten der Farbkanäle.
+     * @param r der rote Farbanteil
+     * @param g der grüne Farbanteil
+     * @param b der blaue Farbanteil
+     */
     public Color(int r, int g, int b) {
         this.r = r;
         this.g = g;
@@ -44,28 +55,52 @@ public class Color {
         color = new java.awt.Color(r, g, b);
     }
 
+    /**
+     * Gibt den blauen Farbanteil der Farbe zurück.
+     * @return der blaue Farbanteil
+     */
     public int getB() {
         return b;
     }
 
+    /**
+     * Ändert den blauen Farbanteil der Farbe.
+     * @param b der blaue Farbanteil
+     */
     public void setB(int b) {
         this.b = b;
         color = new java.awt.Color(r, g, b);
     }
 
+    /**
+     * Gibt den grünen Farbanteil der Farbe zurück.
+     * @return der grüne Farbanteil
+     */
     public int getG() {
         return g;
     }
 
+    /**
+     * Ändert den grünen Farbanteil der Farbe.
+     * @param g der grüne Farbanteil
+     */
     public void setG(int g) {
         this.g = g;
         color = new java.awt.Color(r, g, b);
     }
 
+    /**
+     * Gibt den roten Farbanteil der Farbe zurück.
+     * @return der rote Farbanteil
+     */
     public int getR() {
         return r;
     }
 
+    /**
+     * Ändert den roten Farbanteil der Farbe
+     * @param r der rote Farbanteil
+     */
     public void setR(int r) {
         this.r = r;
         color = new java.awt.Color(r, g, b);

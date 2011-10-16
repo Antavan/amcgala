@@ -19,25 +19,60 @@ package cga.framework.renderer;
  */
 public abstract class Renderer {
 
+    /**
+     * Die Breite der Ausgabe des Renderers
+     */
     private int width;
+    /**
+     * Die Höhe der Ausgabe des Renderers
+     */
     private int height;
 
+    /**
+     * Erzeugt einen neuen Renderer und initialisiert die gemeinsamen Felder aller Renderer. 
+     * 
+     * @param width die Breite der Ausgabe des Renderers
+     * @param height die Höhe der Ausgabe des Renderers
+     */
     protected Renderer(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
+    /**
+     * Gibt die Breite der Ausgabe zurück.
+     * @return die Breite der Ausgabe
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Gibt die Höhe der Ausgabe zurück.
+     * @return die Höhe der Ausgabe
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Diese Methode stellt einen Pixel über den Renderer auf der Ausgabe dar. 
+     * Die genaue Art und Weise wie der Pixel dargestellt wird, hängt von der jeweiligen Implementierung ab.
+     * @param pixel der Pixel, der dargestellt werden soll
+     */
     public abstract void putPixel(Pixel pixel);
 
+    /**
+     * Diese Methode stellt einen Pixel in einer bestimmten Farbe über den Renderer auf der Ausgabe dar. 
+     * Die genaue Art und Weise wie der Pixel dargestellt wird, hängt von der jeweiligen Implementierung ab.
+     * 
+     * @param pixel der Pixel, der dargestellt werden soll
+     * @param color die Farbe des Pixels
+     */
     public abstract void putPixel(Pixel pixel, Color color);
 
+    /**
+     * Weist den Renderer an, den Buffer auszugeben.
+     */
     public abstract void show();
 }
