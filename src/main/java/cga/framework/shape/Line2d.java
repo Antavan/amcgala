@@ -32,24 +32,29 @@ public class Line2d extends Shape {
     public double x2, y2;
     private Vector3d start, end;
 
+    /**
+     * Erzeugt eine 2d-Linie vom Punkt (x1, y1) nach (x2, y2).
+     * @param x1 die x-Koordinate des Startpunkts
+     * @param y1 die y- Koordinate des Startpunkts
+     * @param x2 die x-Koordinate des Endpunkts
+     * @param y2 die y-Koordindate des Endpunkts
+     */
     public Line2d(double x1, double y1, double x2, double y2) {
-        if (x1 > x2) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+        
+        if (x1 > x2) { // vertausche Punkte
             this.x1 = x2;
             this.y1 = y2;
             this.x2 = x1;
             this.y2 = y1;
-        } else if (x2 > x1) {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-        } else { // x1 == x2, dann sollte y1 < y2 sein
-            if (y2 < y1) {
-                this.x1 = x2;
-                this.y1 = y2;
-                this.x2 = x1;
-                this.y2 = y1;
-            }
+        }
+        
+        if (x1 == x2 && y1 > y2) { // Vertikale von y1 unten nach y2 oben
+            this.y1 = y2;
+            this.y2 = y1;
         }
 
         start = new Vector3d(x1, y1, -1);
@@ -58,7 +63,7 @@ public class Line2d extends Shape {
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        // Einbeziehen der Transformationsgruppen.
+        // Einbeziehen der Transformationsgruppen. Um Animationen zu berücksichtigen, die auf die einzelnen Felder zugegriffen haben, werden die start und end Vektoren aktualisiert, bevor sie mit der Transformationsmatrix multipliziert werden.
         start = new Vector3d(x1, y1, -1).transform(transformation);
         end = new Vector3d(x2, y2, -1).transform(transformation);
 
@@ -76,8 +81,8 @@ public class Line2d extends Shape {
 
         /*
          * Simpler Linienalgorithmus, der vom Startpixel mit einer konstanten
-         * Steigung zum Endpixel geht. TODO Eine Verbesserung hier wäre der
-         * Bresenhamalgorithmus.
+         * Steigung zum Endpixel geht. 
+         * TODO Eine Verbesserung hier wäre der Bresenhamalgorithmus.
          */
         double dx = endPixel.x - startPixel.x;
         double dy = endPixel.y - startPixel.y;
@@ -96,8 +101,6 @@ public class Line2d extends Shape {
                 renderer.putPixel(pixel, color);
             }
         }
-
-
     }
 
     @Override
