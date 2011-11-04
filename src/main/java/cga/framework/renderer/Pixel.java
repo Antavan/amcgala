@@ -14,25 +14,52 @@
  */
 package cga.framework.renderer;
 
+/**
+ * Ein Pixel stellt einen Punkt in der Ausgabe dar. 
+ * Es wird während des Renderings verwendet, um ein Shape über einen Renderer 
+ * auszugeben.
+ * @author Robert Giacinto
+ */
 public class Pixel {
 
     public int x;
     public int y;
 
+    /**
+     * Erzeugt einen neuen Pixel an der Stelle (x,y)
+     * @param x die x-Koordinate des Pixels
+     * @param y die y-Koordinate des Pixels
+     */
     public Pixel(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Erzeugt einen neuen Pixel an der Stelle (x,y). 
+     * Die doubles werden entsprechend auf die Integerpositionen des Pixels gerundet.
+     * @param x die x-Koordinate des Pixels
+     * @param y die y-Koordinate des Pixels
+     */
     public Pixel(double x, double y) {
-        this.x = (int) x;
-        this.y = (int) y;
+        float nx = Math.round(x);
+        float ny = Math.round(y);
+        this.y = Math.round(ny);
+        this.x = Math.round(nx);
     }
 
+    /**
+     * Gibt die x-Koordinate des Pixels zurück.
+     * @return die x-Koordinate des Pixels
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Gibt die y-Koordinate des Pixels zurück.
+     * @return die y-Koordinate des Pixels
+     */
     public int getY() {
         return y;
     }

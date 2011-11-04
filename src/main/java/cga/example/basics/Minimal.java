@@ -38,5 +38,6 @@ public class Minimal extends Framework {
 
     public static void main(String[] args) {
         Minimal example = new Minimal(800, 600);
+        example.start();
     }
 }

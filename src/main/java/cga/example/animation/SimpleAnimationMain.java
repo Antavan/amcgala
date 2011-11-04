@@ -77,6 +77,9 @@ public class SimpleAnimationMain extends Framework {
             getShape().y1 += dy;
             getShape().y2 += dy2;
 
+            /*
+             * Wenn ein Punkt der Linie an den Rand der Anzeige stößt wird dieser zufällig an eine andere Stelle gesetzt. 
+             */
             if (getShape().x1 < -getScreenWidth() / 2 || getShape().x1 > getScreenWidth() / 2) {
                 getShape().x1 = random.nextInt(getScreenWidth());
             }
