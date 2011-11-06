@@ -20,6 +20,7 @@ import cga.framework.animation.interpolation.LinearInterpolation;
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
+import cga.framework.shape.BresenhamLine2d;
 import cga.framework.shape.Line2d;
 import cga.framework.shape.Point2d;
 import cga.framework.shape.Shape;
@@ -70,7 +71,7 @@ public class AnimatedSineCurve extends Shape {
     private void init() {
         int step = 0;
         while (step < steps) {
-            points[step] = new Point2d(step * (Math.PI * 10 / steps) * 100, 10 * amplitude * Math.sin(step * (Math.PI * 10 / steps) * frequency * 10));
+            points[step] = new Point2d(step * ( Math.PI * 10 / steps ) * 100, 10 * amplitude * Math.sin(step * ( Math.PI * 10 / steps ) * frequency * 10));
             step++;
         }
     }
@@ -112,7 +113,7 @@ public class AnimatedSineCurve extends Shape {
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
         for (int i = 0; i < points.length - 1; i++) {
-            Line2d line = new Line2d(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
+            BresenhamLine2d line = new BresenhamLine2d(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
             line.render(transformation, camera, renderer);
         }
     }
