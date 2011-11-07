@@ -26,6 +26,7 @@ public class Letter extends Shape {
 
     private Line[] lines;
     private double width;
+    private double height;
     private BresenhamLine2d[] letterLines;
     private static Line[] A = {
         new Line(new Point2d(0, 0), new Point2d(0.4, 1.0)),
@@ -33,9 +34,50 @@ public class Letter extends Shape {
         new Line(new Point2d(0.6, 1.0), new Point2d(1.0, 0)),
         new Line(new Point2d(0.2, 0.5), new Point2d(0.8, 0.5))
     };
+    private static Line[] B = {
+        new Line(new Point2d(0, 0), new Point2d(0, 1)),
+        new Line(new Point2d(0, 1), new Point2d(0.8, 1)),
+        new Line(new Point2d(0.8, 1), new Point2d(1, 0.9)),
+        new Line(new Point2d(1, 0.9), new Point2d(1, 0.7)),
+        new Line(new Point2d(1, 0.7), new Point2d(0.8, 0.6)),
+        new Line(new Point2d(0.8, 0.6), new Point2d(0.2, 0.6)),
+        new Line(new Point2d(0.2, 0.6), new Point2d(0.2, 0.5)),
+        new Line(new Point2d(0.2, 0.5), new Point2d(0.8, 0.5)),
+        new Line(new Point2d(0.8, 0.5), new Point2d(1, 0.4)),
+        new Line(new Point2d(1, 0.4), new Point2d(1.0, 0.2)),
+        new Line(new Point2d(1.0, 0.2), new Point2d(0.8, 0)),
+        new Line(new Point2d(0.8, 0), new Point2d(0, 0))
+    };
+    private static Line[] C = {
+        new Line(new Point2d(1, 0), new Point2d(0.3, 0)),
+        new Line(new Point2d(0.3, 0), new Point2d(0, 0.3)),
+        new Line(new Point2d(0, 0.3), new Point2d(0, 0.8)),
+        new Line(new Point2d(0, 0.8), new Point2d(0.3, 1)),
+        new Line(new Point2d(0.3, 1.0), new Point2d(1.0, 1.0))
+    };
+    private static Line[] D = {
+        new Line(new Point2d(0, 0), new Point2d(0, 1.0)),
+        new Line(new Point2d(0, 1.0), new Point2d(0.7, 1.0)),
+        new Line(new Point2d(0.7, 1.0), new Point2d(1.0, 0.7)),
+        new Line(new Point2d(1.0, 0.7), new Point2d(1.0, 0.4)),
+        new Line(new Point2d(1.0, 0.4), new Point2d(0.7, 0)),
+        new Line(new Point2d(0.7, 0), new Point2d(0, 0))
+    };
 
     public static Letter getA(double width) {
         return new Letter(width, A);
+    }
+
+    public static Letter getB(double width) {
+        return new Letter(width, B);
+    }
+
+    public static Letter getC(double width) {
+        return new Letter(width, C);
+    }
+
+    public static Letter getD(double width) {
+        return new Letter(width, D);
     }
 
     private Letter() {
@@ -44,9 +86,10 @@ public class Letter extends Shape {
     private Letter(double width, Line... lines) {
         this.lines = lines;
         this.width = width;
+        this.height = 1.5 * width;
         letterLines = new BresenhamLine2d[lines.length];
         for (int i = 0; i < lines.length; i++) {
-            letterLines[i] = lines[i].getLine(width);
+            letterLines[i] = lines[i].getLine(width, height);
         }
     }
 
@@ -67,8 +110,8 @@ public class Letter extends Shape {
             this.end = end;
         }
 
-        public BresenhamLine2d getLine(double width) {
-            return new BresenhamLine2d(start.x * width, start.y * width, end.x * width, end.y * width);
+        public BresenhamLine2d getLine(double width, double height) {
+            return new BresenhamLine2d(start.x * width, start.y * height, end.x * width, end.y * height);
         }
     }
 }

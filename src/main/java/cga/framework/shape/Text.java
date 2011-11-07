@@ -34,8 +34,8 @@ public class Text extends Shape {
         this.text = text;
         this.height = height;
         this.letters = new Shape[text.length()];
-        letters[0] = Letter.getA(height);
-        
+        letters[0] = Letter.getC(100);
+
     }
 
     @Override
