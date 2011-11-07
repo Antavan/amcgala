@@ -14,18 +14,12 @@
  */
 package cga.example.ships;
 
-import cga.framework.shape.Shape;
-
 /**
  * Ein Schiff auf dem Spielfeld. 
  * Im Spiel sind Schiffe der Größe 2,3,4 und 5 vorgesehen.
  * @author Robert Giacinto
  */
-public class Ship {
+public class ShipFactory {
+   
 
-    private Shape shipShape[];
-
-    public Ship(int length) {
-        this.shipShape = new Shape[length];
-    }
 }

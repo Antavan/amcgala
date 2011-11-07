@@ -19,8 +19,8 @@ import cga.framework.math.Matrix;
 import cga.framework.math.Plane;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
+import cga.framework.shape.BresenhamLine2d;
 import cga.framework.shape.Cross2d;
-import cga.framework.shape.Line2d;
 import cga.framework.shape.Rectangle2d;
 import cga.framework.shape.Shape;
 
@@ -56,11 +56,7 @@ public class PongPaddle extends Shape {
         this.board = board;
         this.position = position;
 
-        paddle = new Rectangle2d(
-                new Line2d(position.x - lengthH, position.y - lengthV, position.x + lengthH, position.y - lengthV),
-                new Line2d(position.x - lengthH, position.y - lengthV, position.x - lengthH, position.y + lengthV),
-                new Line2d(position.x + lengthH, position.y - lengthV, position.x + lengthH, position.y + lengthV),
-                new Line2d(position.x - lengthH, position.y + lengthV, position.x + lengthH, position.y + lengthV));
+        paddle = new Rectangle2d(position.x - lengthH, position.y - lengthV, lengthH, lengthV);
 
         top = new Plane(Vector3d.UNIT_Y, position.y + lengthV);
         bottom = new Plane(Vector3d.UNIT_Y, position.y - lengthV);
@@ -107,19 +103,14 @@ public class PongPaddle extends Shape {
     private void updateCollisionPlanes() {
         top.setConstant(position.y + lengthV);
         bottom.setConstant(position.y - lengthV);
-        paddle = new Rectangle2d(
-                new Line2d(position.x - lengthH, position.y - lengthV, position.x + lengthH, position.y - lengthV),
-                new Line2d(position.x - lengthH, position.y - lengthV, position.x - lengthH, position.y + lengthV),
-                new Line2d(position.x + lengthH, position.y - lengthV, position.x + lengthH, position.y + lengthV),
-                new Line2d(position.x - lengthH, position.y + lengthV, position.x + lengthH, position.y + lengthV));
-
+        paddle = new Rectangle2d(position.x - lengthH, position.y - lengthV, lengthH, lengthV);
     }
 
     /**
      * Bewegt das Paddle ein Stück nach oben.
      */
     public void moveUp() {
-        int ny = (int) (position.y + lengthV + 15);
+        int ny = (int) ( position.y + lengthV + 15 );
         if (ny < board.getYmax() / 2 && !stopUp) {
             position.y += 15;
             stopDown = false;
@@ -135,7 +126,7 @@ public class PongPaddle extends Shape {
      * Bewegt das Paddle ein Stück nach unten.
      */
     public void moveDown() {
-        int ny = (int) (position.y - lengthV - 15);
+        int ny = (int) ( position.y - lengthV - 15 );
         if (ny > board.getYmin() / 2 && !stopDown) {
             position.y -= 15;
             stopUp = false;

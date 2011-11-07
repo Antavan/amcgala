@@ -18,27 +18,41 @@ import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 
+/**
+ * Ein 2d-Rechteck.
+ * 
+ * @author Robert Giacinto
+ */
 public class Rectangle2d extends Shape {
 
-    public Line2d a, b, c, d;
+    public double width;
+    public double height;
+    public BresenhamLine2d bottom, top, left, right;
 
-    public Rectangle2d(Line2d a, Line2d b, Line2d c, Line2d d) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        this.d = d;
+    /**
+     * 
+     * @param x die x-Koordinate der Ecke links unten.
+     * @param y die y-Koordinate der Ecke links unten.
+     * @param width die Breite des Rechtecks
+     * @param height die Höhe des Rechtecks
+     */
+    public Rectangle2d(double x, double y, double width, double height) {
+        bottom = new BresenhamLine2d(x, y, x + width, y);
+        top = new BresenhamLine2d(x, y + height, x + width, y + height);
+        left = new BresenhamLine2d(x, y, x, y + height);
+        right = new BresenhamLine2d(x + width, y, x + width, y + height);
     }
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        a.render(transformation, camera, renderer);
-        b.render(transformation, camera, renderer);
-        c.render(transformation, camera, renderer);
-        d.render(transformation, camera, renderer);
+        bottom.render(transformation, camera, renderer);
+        top.render(transformation, camera, renderer);
+        left.render(transformation, camera, renderer);
+        right.render(transformation, camera, renderer);
     }
 
     @Override
     public String toString() {
-        return "Rectangle2d{" + "a=" + a + ", b=" + b + ", c=" + c + ", d=" + d + '}';
+        return "Rectangle2d{" + "bottom =" + bottom + ", top =" + top + ", left =" + left + ", right =" + right + '}';
     }
 }

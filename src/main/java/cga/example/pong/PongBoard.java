@@ -17,7 +17,7 @@ package cga.example.pong;
 import cga.framework.math.Plane;
 import cga.framework.math.Vector3d;
 import cga.framework.scenegraph.Node;
-import cga.framework.shape.Line2d;
+import cga.framework.shape.BresenhamLine2d;
 import cga.framework.shape.Rectangle2d;
 
 /**
@@ -53,16 +53,12 @@ public class PongBoard extends Node {
         width = width >> 1;
         height = height >> 1;
         // Die äußeren Grenzen des Spielfeldes.
-        boundaries = new Rectangle2d(
-                new Line2d(x - width, y - height, x - width, y + height), // links
-                new Line2d(x - width, y - height, x + width, y - height), // unten
-                new Line2d(x - width, y + height, x + width, y + height), // oben
-                new Line2d(x + width, y - height, x + width, y + height)); // rechts
+        boundaries = new Rectangle2d(x, y, width, height); // rechts
 
         addShape(boundaries);
         ball = new PongBall(this);
         addShape(ball);
-        paddle = new PongPaddle(5, 20, new Vector3d((width / 4) * 3, 0, -1), ball, this);
+        paddle = new PongPaddle(5, 20, new Vector3d(( width / 4 ) * 3, 0, -1), ball, this);
         addShape(paddle);
     }
 

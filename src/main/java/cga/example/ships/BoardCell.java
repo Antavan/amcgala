@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2011 Cologne University of Applied Sciences Licensed under the
  * Educational Community License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may
@@ -17,37 +17,37 @@ package cga.example.ships;
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
+import cga.framework.shape.Rectangle2d;
 import cga.framework.shape.Shape;
+import cga.framework.shape.Text;
 
 /**
- * Ein Schiffsendstück, das zum Zusammensetzen eines Schiffs benutzt werden kann.
- * Es besitzt folgende Form:
- *            _____  
- *           / 
- *          /
- *          \
- *           \_____
- * 
+ *
  * @author Robert Giacinto
  */
-public class ShipEnd extends Shape {
+public class BoardCell extends Shape {
 
-    private double width;
-    private double height;
     private double x;
     private double y;
-    private Orientation orientation;
+    private double width;
+    private double height;
+    protected Shape ship;
+    protected Rectangle2d bounds;
 
-    public ShipEnd(double width, double height, double x, double y, Orientation orientation) {
-        this.width = width;
-        this.height = height;
+    public BoardCell(double x, double y, double width, double height) {
         this.x = x;
         this.y = y;
-        this.orientation = orientation;
+        this.width = width;
+        this.height = height;
+        this.bounds = new Rectangle2d(x, y, width, height);
+        ship = new Text("A", 20);
     }
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        bounds.render(transformation, camera, renderer);
+        if (ship != null) {
+            ship.render(transformation, camera, renderer);
+        }
     }
 }

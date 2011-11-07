@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2011 Cologne University of Applied Sciences Licensed under the
  * Educational Community License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may
@@ -12,42 +12,36 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package cga.example.ships;
+package cga.framework.shape;
 
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
-import cga.framework.shape.Shape;
 
 /**
- * Ein Schiffsendstück, das zum Zusammensetzen eines Schiffs benutzt werden kann.
- * Es besitzt folgende Form:
- *            _____  
- *           / 
- *          /
- *          \
- *           \_____
- * 
+ * Eine Klasse, die Text darstellen kann. Die grundlegenden Zeichen werden
+ * unterstützt und als Vektorbuchstaben ausgegeben.
+ *
  * @author Robert Giacinto
  */
-public class ShipEnd extends Shape {
+public class Text extends Shape {
 
-    private double width;
+    private String text;
     private double height;
-    private double x;
-    private double y;
-    private Orientation orientation;
+    private Shape[] letters;
 
-    public ShipEnd(double width, double height, double x, double y, Orientation orientation) {
-        this.width = width;
+    public Text(String text, double height) {
+        this.text = text;
         this.height = height;
-        this.x = x;
-        this.y = y;
-        this.orientation = orientation;
+        this.letters = new Shape[text.length()];
+        letters[0] = Letter.getA(height);
+        
     }
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (Shape s : letters) {
+            s.render(transformation, camera, renderer);
+        }
     }
 }

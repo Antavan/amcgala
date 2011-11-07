@@ -20,34 +20,35 @@ import cga.framework.renderer.Renderer;
 import cga.framework.shape.Shape;
 
 /**
- * Ein Schiffsendstück, das zum Zusammensetzen eines Schiffs benutzt werden kann.
- * Es besitzt folgende Form:
- *            _____  
- *           / 
- *          /
- *          \
- *           \_____
+ * Das Spielbrett.
  * 
  * @author Robert Giacinto
  */
-public class ShipEnd extends Shape {
+public class ShipsBoard extends Shape {
 
-    private double width;
-    private double height;
-    private double x;
-    private double y;
-    private Orientation orientation;
+    private int size;
+    private int width;
+    private BoardCell[][] boardArray;
 
-    public ShipEnd(double width, double height, double x, double y, Orientation orientation) {
-        this.width = width;
-        this.height = height;
-        this.x = x;
-        this.y = y;
-        this.orientation = orientation;
+    public ShipsBoard() {
+        size = 6;
+        width = 35;
+        boardArray = new BoardCell[size][size];
+
+        for (int i = 0; i < boardArray.length; i++) {
+            for (int k = 0; k < boardArray[0].length; k++) {
+                boardArray[i][k] = new BoardCell(i * (width + width / 8), k * (width + width / 8), width, width);
+            }
+        }
+
     }
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (int i = 0; i < boardArray.length; i++) {
+            for (int k = 0; k < boardArray[0].length; k++) {
+                boardArray[i][k].render(transformation, camera, renderer);
+            }
+        }
     }
 }

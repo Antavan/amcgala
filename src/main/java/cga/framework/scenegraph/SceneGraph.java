@@ -25,15 +25,27 @@ public class SceneGraph {
     private Node root = new Node("root");
 
     public void addNode(Node node) {
-        root.addChild(node);
+        if (node != null) {
+            root.addChild(node);
+        } else {
+            throw new IllegalArgumentException("Node darf nicht null sein!");
+        }
     }
 
     public void addNode(Node node, String label) {
-        root.findNode(label).addChild(node);
+        if (node == null || label == null) {
+            throw new IllegalArgumentException("node oder label dürfen nicht null sein!");
+        } else {
+            root.findNode(label).addChild(node);
+        }
     }
 
     public void removeNode(Node node) {
-        root.removeNode(node.label);
+       if(node != null){
+            root.removeNode(node.label);
+       }else{
+           throw new IllegalArgumentException("node darf nicht null sein!");
+       }
     }
 
     public Node findNode(String label) {

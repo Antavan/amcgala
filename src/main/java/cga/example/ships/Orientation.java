@@ -14,25 +14,15 @@
  */
 package cga.example.ships;
 
-import cga.Framework;
-
 /**
- *
- * @author Robert Giacinto
+ * Die Ausrichtung des Schiffs.
+ * 
+ * @author Robert Giacinto 
  */
-public class ShipsMain extends Framework {
-    
-    public ShipsMain(int width, int height) {
-        super(width, height);
-    }
-    
-    @Override
-    public void initGraph() {
-        add(new ShipsBoard());
-    }
-    
-    public static void main(String[] args) {
-        Framework ships = new ShipsMain(800, 600);
-        ships.start();
-    }
+public enum Orientation {
+
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN
 }
