@@ -15,7 +15,7 @@
 package cga.example.ships;
 
 import cga.Framework;
-import cga.framework.shape.Text;
+import cga.framework.shape.Letter;
 
 /**
  *
@@ -29,7 +29,7 @@ public class ShipsMain extends Framework {
 
     @Override
     public void initGraph() {
-        add(new Text("A", 40));
+        add(Letter.getK(50));
     }
 
     public static void main(String[] args) {
