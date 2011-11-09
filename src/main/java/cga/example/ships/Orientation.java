@@ -20,9 +20,6 @@ package cga.example.ships;
  * @author Robert Giacinto 
  */
 public enum Orientation {
-
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN
+    VERTICAL,
+    HORIZONTAL
 }

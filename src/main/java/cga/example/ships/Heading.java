@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2011 Cologne University of Applied Sciences Licensed under the
  * Educational Community License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may
@@ -14,25 +14,14 @@
  */
 package cga.example.ships;
 
-import cga.Framework;
-
 /**
- *
+ * Eine Enumeration mit Ausrichtungen.
+ * 
  * @author Robert Giacinto
  */
-public class ShipsMain extends Framework {
-
-    public ShipsMain(int width, int height) {
-        super(width, height);
-    }
-
-    @Override
-    public void initGraph() {
-        add(new ShipEnd(40, 50, 0, 0, Heading.TOP));
-    }
-
-    public static void main(String[] args) {
-        Framework ships = new ShipsMain(800, 600);
-        ships.start();
-    }
+public enum Heading {
+   LEFT,
+   RIGHT,
+   TOP, 
+   BOTTOM
 }

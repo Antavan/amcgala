@@ -19,10 +19,11 @@ import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 import cga.framework.shape.Rectangle2d;
 import cga.framework.shape.Shape;
-import cga.framework.shape.Text;
 
 /**
- *
+ * Ein Feld auf dem Spielbrett.
+ * Es speichert den aktuellen Zustand für diese Position auf dem Feld.
+ * 
  * @author Robert Giacinto
  */
 public class BoardCell extends Shape {
@@ -31,6 +32,9 @@ public class BoardCell extends Shape {
     private double y;
     private double width;
     private double height;
+    /**
+     * Speichert das Schiff, das sich auf diesem Feld befinden kann.
+     */
     protected Shape ship;
     protected Rectangle2d bounds;
 

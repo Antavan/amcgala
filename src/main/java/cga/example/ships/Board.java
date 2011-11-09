@@ -20,27 +20,36 @@ import cga.framework.renderer.Renderer;
 import cga.framework.shape.Shape;
 
 /**
- * Das Spielbrett.
- * 
- * @author Robert Giacinto
+ * Das
+ * Spielbrett.
+ *
+ * @author
+ * Robert
+ * Giacinto
  */
 public class Board extends Shape {
 
     private int size;
-    private int width;
+    private double width;
+    private double distance;
     private BoardCell[][] boardArray;
 
     public Board() {
-        size = 6;
-        width = 35;
+        this(6, 35, 2);
+    }
+
+    public Board(int size, double width, double distance) {
+        this.size = size;
+        this.width = width;
+        this.distance = distance;
+
         boardArray = new BoardCell[size][size];
 
         for (int i = 0; i < boardArray.length; i++) {
             for (int k = 0; k < boardArray[0].length; k++) {
-                boardArray[i][k] = new BoardCell(i * (width + width / 8), k * (width + width / 8), width, width);
+                boardArray[i][k] = new BoardCell(i * (width + distance), k * (width + distance), width, width);
             }
         }
-
     }
 
     @Override

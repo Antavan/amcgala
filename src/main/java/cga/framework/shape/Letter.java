@@ -232,18 +232,5 @@ public class Letter extends Shape {
         }
     }
 
-    private static class Line {
-
-        private Point2d start;
-        private Point2d end;
-
-        public Line(Point2d start, Point2d end) {
-            this.start = start;
-            this.end = end;
-        }
-
-        public BresenhamLine2d getLine(double width, double height) {
-            return new BresenhamLine2d(start.x * width, start.y * height, end.x * width, end.y * height);
-        }
-    }
+    
 }
