@@ -40,7 +40,6 @@ public class BoardCell extends Shape {
         this.width = width;
         this.height = height;
         this.bounds = new Rectangle2d(x, y, width, height);
-        ship = new Text("A", width);
     }
 
     @Override
