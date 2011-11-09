@@ -24,13 +24,13 @@ import cga.framework.shape.Shape;
  * 
  * @author Robert Giacinto
  */
-public class ShipsBoard extends Shape {
+public class Board extends Shape {
 
     private int size;
     private int width;
     private BoardCell[][] boardArray;
 
-    public ShipsBoard() {
+    public Board() {
         size = 6;
         width = 35;
         boardArray = new BoardCell[size][size];

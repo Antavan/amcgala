@@ -14,6 +14,7 @@
  */
 package cga.framework.scenegraph;
 
+import cga.framework.scenegraph.transform.Transformation;
 import cga.framework.scenegraph.transform.Translation;
 import cga.framework.scenegraph.visitor.Visitor;
 import cga.framework.math.Matrix;

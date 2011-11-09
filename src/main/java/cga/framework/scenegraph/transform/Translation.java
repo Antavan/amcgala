@@ -16,7 +16,6 @@ package cga.framework.scenegraph.transform;
 
 import cga.framework.animation.interpolation.Interpolation;
 import cga.framework.math.Matrix;
-import cga.framework.scenegraph.Transformation;
 
 /**
  * Eine Translation entlang der x-, y- und z-Achse.
