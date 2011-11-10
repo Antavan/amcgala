@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2011 Cologne University of Applied Sciences Licensed under the
  * Educational Community License, Version 2.0 (the "License"); you may
  * not use this file except in compliance with the License. You may
@@ -20,36 +20,89 @@ import cga.framework.renderer.Renderer;
 import cga.framework.shape.Shape;
 
 /**
- * Das
- * Spielbrett.
+ * Das Spielbrett.
  *
- * @author
- * Robert
- * Giacinto
+ * @author Robert Giacinto
  */
 public class Board extends Shape {
 
     private int size;
+    private double x;
+    private double y;
     private double width;
+    private double height;
     private double distance;
     private BoardCell[][] boardArray;
 
+    /**
+     * Erstellt ein Standardboard für das Spiel Schiffe Versenken. Größe 6,
+     * Feldbreite 35 und Feldabstand von 2 Pixel.
+     */
     public Board() {
-        this(6, 35, 2);
+        this(0, 0, 6, 35, 35, 2);
     }
 
-    public Board(int size, double width, double distance) {
+    /**
+     * Erstellt ein Standardboard an der Position (x,y)
+     * @param x die x-Position des Spielfeldes
+     * @param y die y-Position des Spielfeldes
+     */
+    public Board(double x, double y) {
+        this(x, y, 6, 35, 35, 2);
+    }
+
+    /**
+     * Erstellt ein Spielfeld für das Spiel Schiffe Versenken.
+     *
+     * @param x die x-Koordinate der Spielfeldposition
+     * @param y die y-Koordinate der Spielfeldposition
+     * @param size die Größe des quadratischen Spielfelds
+     * @param width die Breite einer Zelle
+     * @param height die Höhe einer Zelle
+     * @param distance der Abstand zwischen den Zellen
+     */
+    public Board(double x, double y, int size, double width, double height, double distance) {
+        this.x = x;
+        this.y = y;
         this.size = size;
         this.width = width;
+        this.height = height;
         this.distance = distance;
+        initBoard(size, x, width, distance, y, height);
+        placeShips(width, height);
+    }
 
+    /**
+     *  /**
+     * Initialisiert das Spielfeld.
+     *
+     * @param size die Anzahl der Zellen in einer Reihe des quadratischen
+     * Spielfeldes
+     * @param x die x-Position des Spielfeldes
+     * @param width die Breite einer Spielfeldzelle
+     * @param distance der Abstand zwischen den Zellen
+     * @param y die y-Position des Spielfeldes
+     * @param height die Höhe einer Spielfeldzelle
+     */
+    private void initBoard(int size, double x, double width, double distance, double y, double height) {
         boardArray = new BoardCell[size][size];
-
         for (int i = 0; i < boardArray.length; i++) {
             for (int k = 0; k < boardArray[0].length; k++) {
-                boardArray[i][k] = new BoardCell(i * (width + distance), k * (width + distance), width, width);
+                boardArray[i][k] = new BoardCell(x + i * (width + distance), y + k * (height + distance), width, height);
             }
         }
+    }
+
+    /**
+     * Platziert Schiffe auf dem Spielfeld.
+     *
+     * @param width die Breite einer Zelle
+     * @param height die Höhe einer Zelle
+     */
+    private void placeShips(double width, double height) {
+        Ship[] ship = ShipFactory.createShip2(width - 10, height, Orientation.VERTICAL);
+        boardArray[2][1].setShip(ship[0]);
+        boardArray[2][0].setShip(ship[1]);
     }
 
     @Override

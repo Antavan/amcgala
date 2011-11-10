@@ -28,7 +28,10 @@ public class ShipsMain extends Framework {
 
     @Override
     public void initGraph() {
-        add(new ShipEnd(40, 50, 0, 0, Heading.TOP));
+        // Spielerboard
+        add(new Board());
+        // Board des Gegners
+        add(new Board(-250, 0));
     }
 
     public static void main(String[] args) {

@@ -21,9 +21,9 @@ import cga.framework.shape.Rectangle2d;
 import cga.framework.shape.Shape;
 
 /**
- * Ein Feld auf dem Spielbrett.
- * Es speichert den aktuellen Zustand für diese Position auf dem Feld.
- * 
+ * Ein Feld auf dem Spielbrett. Es speichert den aktuellen Zustand für diese
+ * Position auf dem Feld.
+ *
  * @author Robert Giacinto
  */
 public class BoardCell extends Shape {
@@ -35,15 +35,33 @@ public class BoardCell extends Shape {
     /**
      * Speichert das Schiff, das sich auf diesem Feld befinden kann.
      */
-    protected Shape ship;
+    private Ship ship;
     protected Rectangle2d bounds;
 
+    /**
+     * Ein Feld auf dem Spielbrett.
+     * @param x die x-Koordinate dieses Feldes
+     * @param y die y-Koordinate dieses Feldes
+     * @param width die Breite des Feldes
+     * @param height die Höhe des Feldes
+     */
     public BoardCell(double x, double y, double width, double height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.bounds = new Rectangle2d(x, y, width, height);
+    }
+
+    /**
+     * Setzt ein Schiffsteil auf dieses Feld.
+     * @param ship das Schiffsteil
+     */
+    public void setShip(Ship ship) {
+        this.ship = ship;
+        double diff = (width - ship.width) / 2;
+        this.ship.setX(x + diff);
+        this.ship.setY(y);
     }
 
     @Override
