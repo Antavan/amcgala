@@ -17,7 +17,12 @@ package cga.example.ships;
 import cga.Framework;
 
 /**
- *
+ * Das Spiel Schiffe Versenken in einer einfachen Fassung.
+ * Es werden zwei Spielfelder auf dem Bildschirm ausgegeben (eins vom Gegner, eins
+ * vom Spieler).
+ * Diese erste Fassung demonstriert nur die Ausgabe und die Datenstruktur, die für
+ * die Speicherung benutzt wird.
+ * 
  * @author Robert Giacinto
  */
 public class ShipsMain extends Framework {
