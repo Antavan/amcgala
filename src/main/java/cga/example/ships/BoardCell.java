@@ -59,6 +59,7 @@ public class BoardCell extends Shape {
      */
     public void setShip(Ship ship) {
         this.ship = ship;
+        // Zentrieren des Schiffs, falls es kleiner als die Breite einer Zelle sein sollte.
         double diff = (width - ship.width) / 2;
         this.ship.setX(x + diff);
         this.ship.setY(y);

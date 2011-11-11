@@ -19,7 +19,8 @@ import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 
 /**
- *
+ * Ein Vektorbuchstabe, der für Textausgaben auf dem Bildschirm verwendet werden kann.
+ * 
  * @author Robert Giacinto
  */
 public class Letter extends Shape {
@@ -232,5 +233,5 @@ public class Letter extends Shape {
         }
     }
 
-    
+
 }

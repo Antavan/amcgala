@@ -14,8 +14,6 @@
  */
 package cga.example.ships;
 
-import cga.framework.shape.Shape;
-
 /**
  * Ein Schiff auf dem Spielfeld. Im Spiel sind Schiffe der Größe 2,3,4 und 5
  * vorgesehen.
