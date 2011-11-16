@@ -185,6 +185,7 @@ public class Letter extends Shape {
         new Line(new Point2d(0.0, 0.0), new Point2d(1.0, 1.0)),
         new Line(new Point2d(1.0, 1.0), new Point2d(0.0, 1.0))
     };
+    private static final Line[] BLANK = {};
 
     /**
      * Gibt ein Vektor-A zurück.
@@ -447,6 +448,16 @@ public class Letter extends Shape {
     }
 
     /**
+     * Gibt ein Leerzeichen zurück.
+     *
+     * @param width die Breite des Buchstaben
+     * @return das Leerzeichen
+     */
+    public static Letter getBlank(double width) {
+        return new Letter(width, BLANK);
+    }
+
+    /**
      * Gibt ein Vektor-A zurück.
      *
      * @param width die Breite des Buchstaben
@@ -706,6 +717,16 @@ public class Letter extends Shape {
         return new Letter(x, y, width, Z);
     }
 
+    /**
+     * Gibt ein Leerzeichen zurück.
+     *
+     * @param width die Breite des Buchstaben
+     * @return das Leerzeichen
+     */
+    public static Letter getBlank(double x, double y, double width) {
+        return new Letter(x, y, width, BLANK);
+    }
+
     private Letter() {
     }
 
@@ -728,7 +749,6 @@ public class Letter extends Shape {
 
         for (int i = 0; i < lines.length; i++) {
             letterLines[i] = lines[i].getLine(x, y, width, height);
-            System.out.println(letterLines[i]);
         }
     }
 

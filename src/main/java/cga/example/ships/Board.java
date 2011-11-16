@@ -33,6 +33,7 @@ public class Board extends Shape {
     private double height;
     private double distance;
     private BoardCell[][] boardArray;
+    private int cursorX, cursorY;
 
     /**
      * Erstellt ein Standardboard für das Spiel Schiffe Versenken. Größe 6,
@@ -44,6 +45,7 @@ public class Board extends Shape {
 
     /**
      * Erstellt ein Standardboard an der Position (x,y)
+     *
      * @param x die x-Position des Spielfeldes
      * @param y die y-Position des Spielfeldes
      */
@@ -111,6 +113,26 @@ public class Board extends Shape {
             for (int k = 0; k < boardArray[0].length; k++) {
                 boardArray[i][k].render(transformation, camera, renderer);
             }
+        }
+    }
+
+    public void moveRight() {
+        if (cursorX + 1 < size) {
+            cursorX++;
+        }
+        boardArray[cursorX][cursorY].setState(BoardCell.State.SELECTED);
+        if (cursorX > 0) {
+            boardArray[cursorX - 1][cursorY].recoverPreviousState();
+        }
+    }
+
+    public void moveLeft() {
+        if (cursorX - 1 > -1) {
+            cursorX--;
+        }
+        boardArray[cursorX][cursorY].setState(BoardCell.State.SELECTED);
+        if (cursorX < size - 1) {
+            boardArray[cursorX + 1][cursorY].recoverPreviousState();
         }
     }
 }

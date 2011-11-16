@@ -25,7 +25,8 @@ import cga.framework.renderer.Renderer;
  * @author Robert Giacinto
  */
 public class Text extends Shape {
-    private static final double SPACING =50;
+
+    private static final double SPACING = 15;
     private String text;
     private double width;
     private double x;
@@ -33,7 +34,9 @@ public class Text extends Shape {
     private Letter[] letters;
 
     /**
-     * Erzeugt ein Text-Shape, das den Text an der Position (x,y) mit der Gesamtbreite width darstellt.
+     * Erzeugt ein Text-Shape, das den Text an der Position (x,y) mit der
+     * Gesamtbreite width darstellt.
+     *
      * @param text der Text
      * @param x die x-Koordinate der Position
      * @param y die y-Kootdinate der Position
@@ -125,6 +128,7 @@ public class Text extends Shape {
                     letters[i] = Letter.getZ(x + (i * (this.width + SPACING)), y, this.width);
                     break;
                 default:
+                    letters[i] = Letter.getBlank(x + (i * (this.width + SPACING)), y, this.width);
                     break;
 
             }

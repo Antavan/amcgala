@@ -25,6 +25,7 @@ import cga.framework.renderer.Renderer;
  *
  * @author Anne Hofmeister
  * @author Hubert Grzeskowiak
+ * @author Robert Giacinto
  */
 public class BresenhamLine2d extends Shape {
 
@@ -85,7 +86,7 @@ public class BresenhamLine2d extends Shape {
         double y = startPixel.y;
         double x = startPixel.x;
         int i = 1;
-        renderer.putPixel(new Pixel(x, y));
+        renderer.putPixel(new Pixel(x, y), color);
 
         //1.+8. Oktant
         if (dy <= dx && -dy <= dx) {

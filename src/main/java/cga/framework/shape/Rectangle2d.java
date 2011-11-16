@@ -20,7 +20,7 @@ import cga.framework.renderer.Renderer;
 
 /**
  * Ein 2d-Rechteck.
- * 
+ *
  * @author Robert Giacinto
  */
 public class Rectangle2d extends Shape {
@@ -30,7 +30,7 @@ public class Rectangle2d extends Shape {
     public BresenhamLine2d bottom, top, left, right;
 
     /**
-     * 
+     *
      * @param x die x-Koordinate der Ecke links unten.
      * @param y die y-Koordinate der Ecke links unten.
      * @param width die Breite des Rechtecks
@@ -45,6 +45,11 @@ public class Rectangle2d extends Shape {
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
+        bottom.color = color;
+        top.color = color;
+        left.color = color;
+        right.color = color;
+
         bottom.render(transformation, camera, renderer);
         top.render(transformation, camera, renderer);
         left.render(transformation, camera, renderer);

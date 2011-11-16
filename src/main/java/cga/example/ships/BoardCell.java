@@ -16,6 +16,7 @@ package cga.example.ships;
 
 import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
+import cga.framework.renderer.Color;
 import cga.framework.renderer.Renderer;
 import cga.framework.shape.Rectangle2d;
 import cga.framework.shape.Shape;
@@ -28,18 +29,33 @@ import cga.framework.shape.Shape;
  */
 public class BoardCell extends Shape {
 
+    /**
+     * Enum mit Zuständen, die eine Zelle annehmen kann.
+     */
+    public static enum State {
+
+        SELECTED,
+        MISS,
+        HIT,
+        NOTHING
+    }
     private double x;
     private double y;
     private double width;
     private double height;
+    private State state, previousState;
     /**
      * Speichert das Schiff, das sich auf diesem Feld befinden kann.
      */
     private Ship ship;
+    /**
+     * Die Grenzen einer Zelle, die gezeichnet werden sollen.
+     */
     protected Rectangle2d bounds;
 
     /**
      * Ein Feld auf dem Spielbrett.
+     *
      * @param x die x-Koordinate dieses Feldes
      * @param y die y-Koordinate dieses Feldes
      * @param width die Breite des Feldes
@@ -51,10 +67,13 @@ public class BoardCell extends Shape {
         this.width = width;
         this.height = height;
         this.bounds = new Rectangle2d(x, y, width, height);
+        this.state = State.NOTHING;
+        this.previousState = State.NOTHING;
     }
 
     /**
      * Setzt ein Schiffsteil auf dieses Feld.
+     *
      * @param ship das Schiffsteil
      */
     public void setShip(Ship ship) {
@@ -63,6 +82,42 @@ public class BoardCell extends Shape {
         double diff = (width - ship.width) / 2;
         this.ship.setX(x + diff);
         this.ship.setY(y);
+    }
+
+    /**
+     * Ändert den Zustand der Zelle. Eine Zelle kann folgende Zustände
+     * einnehmen: Miss, Hit, Selected und Nothing. Die Zustände kommen aus dem
+     * enum BoardCell.State
+     *
+     * @param state der neue Zustand
+     */
+    public void setState(State state) {
+        previousState = this.state;
+        
+        this.state = state;
+        if (state == State.HIT) {
+            bounds.color = Color.RED;
+        } else if (state == State.MISS) {
+            bounds.color = Color.BLUE;
+        } else if (state == State.SELECTED) {
+            bounds.color = Color.GREEN;
+        } else if (state == State.NOTHING) {
+            bounds.color = Color.BLACK;
+        }
+    }
+
+    public void recoverPreviousState() {
+        this.state = previousState;
+        
+        if (state == State.HIT) {
+            bounds.color = Color.RED;
+        } else if (state == State.MISS) {
+            bounds.color = Color.BLUE;
+        } else if (state == State.SELECTED) {
+            bounds.color = Color.GREEN;
+        } else if (state == State.NOTHING) {
+            bounds.color = Color.BLACK;
+        }
     }
 
     @Override
