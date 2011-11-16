@@ -32,6 +32,13 @@ public class Text extends Shape {
     private double y;
     private Letter[] letters;
 
+    /**
+     * Erzeugt ein Text-Shape, das den Text an der Position (x,y) mit der Gesamtbreite width darstellt.
+     * @param text der Text
+     * @param x die x-Koordinate der Position
+     * @param y die y-Kootdinate der Position
+     * @param width die Breite des Texts
+     */
     public Text(String text, double x, double y, double width) {
         this.width = width / text.length();
         this.text = text;
