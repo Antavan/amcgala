@@ -18,35 +18,37 @@ import cga.Framework;
 import cga.framework.renderer.RendererJ2d;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * Ein simples Pongspiel, das mit der Maus gesteuert werden kann.
+ *
+ * TODO irgendwas stimmt seit den letzten Änderungen am Framework nicht mehr.
+ * Der Ball wird an den falschen Stellen reflektiert.
+ *
  * @author Robert Giacinto
  */
 public class PongMain extends Framework {
-    
+
     private PongBoard board;
-    
+
     public PongMain(int width, int height) {
         super(width, height);
         ((RendererJ2d) renderer).addKeyListener(new MyKeyListener());
     }
-    
+
     @Override
     public void initGraph() {
-        board = new PongBoard(0, 0, 480, 240);
+        board = new PongBoard(-getScreenWidth() / 5, 0, 480, 240, 0.25, 0.9);
         add(board);
     }
-    
+
     public static void main(String[] args) {
         PongMain game = new PongMain(800, 600);
         game.start();
     }
-    
+
     private class MyKeyListener extends KeyAdapter {
-        
+
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {

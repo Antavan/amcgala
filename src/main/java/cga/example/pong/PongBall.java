@@ -24,7 +24,7 @@ import cga.framework.shape.Shape;
 
 /**
  * Der Ball, der vom Spieler getroffen werden muss.
- * 
+ *
  * @author Robert Giacinto
  */
 public class PongBall extends Shape {
@@ -37,16 +37,17 @@ public class PongBall extends Shape {
     private Arrow2d arrow;
 
     /**
-     * Ein Ball, der sich auf dem Pong Spielfeld bewegen kann, und von einem Paddle abgewehrt werden kann.
+     * Ein Ball, der sich auf dem Pong Spielfeld bewegen kann, und von einem
+     * Paddle abgewehrt werden kann.
+     *
      * @param board das Board, auf dem sich der Ball bewegt
      */
     public PongBall(PongBoard board) {
         this.board = board;
         velocity = .11;
         direction = getRandomDirection().times(velocity);
-        System.out.println(direction);
-        System.out.println(direction.length());
-        position = new Vector3d(0, 0, -1);
+
+        position = new Vector3d(board.getXmin() + board.getWidth() * board.getBallStart(), board.getHeight() / 2, -1);
         cross = new Cross2d(position, 5);
         arrow = new Arrow2d(position, direction, velocity * 50);
     }
@@ -62,6 +63,7 @@ public class PongBall extends Shape {
 
     /**
      * Gibt die Bewegungsrichtung des Balls zurück.
+     *
      * @return die aktuelle Bewegungsrichtung des Balls
      */
     public Vector3d getDirection() {
@@ -70,6 +72,7 @@ public class PongBall extends Shape {
 
     /**
      * Ändert die Bewegungsrichtung des Balls.
+     *
      * @param direction die neue Richtung
      */
     public void setDirection(Vector3d direction) {
@@ -78,6 +81,7 @@ public class PongBall extends Shape {
 
     /**
      * Gibt die aktuelle Geschwindigkeit des Balls zurück.
+     *
      * @return die aktuelle Geschwindigkeit des Balls
      */
     public double getVelocity() {
@@ -86,6 +90,7 @@ public class PongBall extends Shape {
 
     /**
      * Ändert die Geschwindigkeit des Balls.
+     *
      * @param velocity die Geschwindigkeit des Balls
      */
     public void setVelocity(double velocity) {
@@ -94,6 +99,7 @@ public class PongBall extends Shape {
 
     /**
      * Gibt die Position des Balls zurück.
+     *
      * @return die aktuelle Position des Balls
      */
     public Vector3d getPosition() {
@@ -102,6 +108,7 @@ public class PongBall extends Shape {
 
     /**
      * Ändert die Position des Balls.
+     *
      * @param position die neue Position des Balls.
      */
     public void setPosition(Vector3d position) {
@@ -123,8 +130,8 @@ public class PongBall extends Shape {
             direction.y = -direction.y;
         } else if (board.getLeft().isNearPlane(position)) {
             direction.x = -direction.x;
-        } else if (board.getXmax() / 2 < position.x) {
-            position = new Vector3d(0, 0, -1);
+        } else if (board.getXmax() < position.x) {
+           position = new Vector3d(board.getXmin() + board.getWidth() * board.getBallStart(), board.getHeight() / 2, -1);
         }
     }
 }

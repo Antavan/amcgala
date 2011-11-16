@@ -15,14 +15,15 @@
 package cga.example.ships;
 
 import cga.Framework;
+import cga.framework.shape.Letter;
+import cga.framework.shape.Text;
 
 /**
- * Das Spiel Schiffe Versenken in einer einfachen Fassung.
- * Es werden zwei Spielfelder auf dem Bildschirm ausgegeben (eins vom Gegner, eins
- * vom Spieler).
- * Diese erste Fassung demonstriert nur die Ausgabe und die Datenstruktur, die für
- * die Speicherung benutzt wird.
- * 
+ * Das Spiel Schiffe Versenken in einer einfachen Fassung. Es werden zwei
+ * Spielfelder auf dem Bildschirm ausgegeben (eins vom Gegner, eins vom
+ * Spieler). Diese erste Fassung demonstriert nur die Ausgabe und die
+ * Datenstruktur, die für die Speicherung benutzt wird.
+ *
  * @author Robert Giacinto
  */
 public class ShipsMain extends Framework {
@@ -34,9 +35,10 @@ public class ShipsMain extends Framework {
     @Override
     public void initGraph() {
         // Spielerboard
-        add(new Board());
+//        add(new Board());
         // Board des Gegners
-        add(new Board(-250, 0));
+//        add(new Board(-250, 0));
+        add(new Text("CGA", 0, 0, 200));
     }
 
     public static void main(String[] args) {

@@ -17,12 +17,12 @@ package cga.example.pong;
 import cga.framework.math.Plane;
 import cga.framework.math.Vector3d;
 import cga.framework.scenegraph.Node;
-import cga.framework.shape.BresenhamLine2d;
 import cga.framework.shape.Rectangle2d;
 
 /**
- * Das Board, in dem das Spiel stattfindet. Es definiert die Grenzen, in denen der Ball und der Spieler sich bewegen können.
- * 
+ * Das Board, in dem das Spiel stattfindet. Es definiert die Grenzen, in denen
+ * der Ball und der Spieler sich bewegen können.
+ *
  * @author Robert Giacinto
  */
 public class PongBoard extends Node {
@@ -36,30 +36,52 @@ public class PongBoard extends Node {
     private int width;
     private int height;
     private int xmin, xmax, ymin, ymax;
+    private double ballStart;
+    private double paddlePosition;
 
-    public PongBoard(int x, int y, int width, int height) {
+    public PongBoard(int x, int y, int width, int height, double ballStart, double paddlePosition) {
         super("Pongboard");
         this.width = width;
         this.height = height;
-        xmin = x - width;
+        this.ballStart = ballStart;
+        this.paddlePosition = paddlePosition;
+
+        xmin = x;
         xmax = x + width;
-        ymin = y - height;
+        ymin = y;
         ymax = y + height;
 
-        top = new Plane(Vector3d.UNIT_Y, y - height / 2);
-        bottom = new Plane(Vector3d.UNIT_Y, y + height / 2);
-        left = new Plane(Vector3d.UNIT_X, x - width / 2);
 
-        width = width >> 1;
-        height = height >> 1;
+
+        top = new Plane(Vector3d.UNIT_Y, y + height);
+        bottom = new Plane(Vector3d.UNIT_Y, y);
+        left = new Plane(Vector3d.UNIT_X, x);
+
         // Die äußeren Grenzen des Spielfeldes.
         boundaries = new Rectangle2d(x, y, width, height); // rechts
 
         addShape(boundaries);
         ball = new PongBall(this);
         addShape(ball);
-        paddle = new PongPaddle(5, 20, new Vector3d(( width / 4 ) * 3, 0, -1), ball, this);
+        // TODO scheiße
+        paddle = new PongPaddle(5, 20, ball, this);
         addShape(paddle);
+    }
+
+    public double getBallStart() {
+        return ballStart;
+    }
+
+    public void setBallStart(double ballStart) {
+        this.ballStart = ballStart;
+    }
+
+    public double getPaddlePosition() {
+        return paddlePosition;
+    }
+
+    public void setPaddlePosition(double paddlePosition) {
+        this.paddlePosition = paddlePosition;
     }
 
     public int getXmax() {
@@ -140,5 +162,21 @@ public class PongBoard extends Node {
 
     public void setLeft(Plane left) {
         this.left = left;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 }

@@ -21,8 +21,7 @@ import cga.framework.renderer.Pixel;
 import cga.framework.renderer.Renderer;
 
 /**
- * Eine 2d Linie, die mithilfe des Bresenham 
- * Algorithmus gezeichnet wird.
+ * Eine 2d Linie, die mithilfe des Bresenham Algorithmus gezeichnet wird.
  *
  * @author Anne Hofmeister
  * @author Hubert Grzeskowiak
@@ -55,7 +54,6 @@ public class BresenhamLine2d extends Shape {
         end = new Vector3d(x2, y2, -1);
     }
 
-    
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
         // Einbeziehen der Transformationsgruppen. Um Animationen zu beruecksichtigen, die auf die einzelnen Felder zugegriffen
@@ -93,7 +91,9 @@ public class BresenhamLine2d extends Shape {
         if (dy <= dx && -dy <= dx) {
             e = Math.abs(dy2) - dx;
             while (i <= dx) {
-                if (e >= 0) { /*Diagonalschritt*/
+                if (e >= 0) { /*
+                     * Diagonalschritt
+                     */
                     if (dy <= 0) {
                         y--;
                     } else {
@@ -126,7 +126,7 @@ public class BresenhamLine2d extends Shape {
                 renderer.putPixel(new Pixel(x, y), color);
             }
         }
-        
+
         /*
          * Ende Bresenham Algorithmus
          */
@@ -134,11 +134,6 @@ public class BresenhamLine2d extends Shape {
 
     @Override
     public String toString() {
-        return "Line2d{"
-                + "x1=" + x1
-                + ", y1=" + y1
-                + ", x2=" + x2
-                + ", y2=" + y2
-                + '}';
+        return "BresenhamLine2d{" + "x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", start=" + start + ", end=" + end + '}';
     }
 }

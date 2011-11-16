@@ -25,17 +25,105 @@ import cga.framework.renderer.Renderer;
  * @author Robert Giacinto
  */
 public class Text extends Shape {
-
+    private static final double SPACING =50;
     private String text;
-    private double height;
-    private Shape[] letters;
+    private double width;
+    private double x;
+    private double y;
+    private Letter[] letters;
 
-    public Text(String text, double height) {
+    public Text(String text, double x, double y, double width) {
+        this.width = width / text.length();
         this.text = text;
-        this.height = height;
-        this.letters = new Shape[text.length()];
-        letters[0] = Letter.getC(100);
+        this.letters = new Letter[text.length()];
+        for (int i = 0; i < letters.length; i++) {
+            char c = text.toUpperCase().charAt(i);
+            switch (c) {
+                case 'A':
+                    letters[i] = Letter.getA(x + (i * (this.width + SPACING)), y, this.width);
+                    break;
+                case 'B':
+                    letters[i] = Letter.getB(x + (i * (this.width + SPACING)), y, this.width);
+                    break;
+                case 'C':
+                    letters[i] = Letter.getC(x + ((i * this.width + SPACING)), y, this.width);
+                    break;
+                case 'D':
+                    letters[i] = Letter.getD(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'E':
+                    letters[i] = Letter.getE(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'F':
+                    letters[i] = Letter.getF(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'G':
+                    letters[i] = Letter.getG(x + (i * (this.width + SPACING)), y, this.width);
+                    break;
+                case 'H':
+                    letters[i] = Letter.getH(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'I':
+                    letters[i] = Letter.getI(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'J':
+                    letters[i] = Letter.getJ(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'K':
+                    letters[i] = Letter.getK(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'L':
+                    letters[i] = Letter.getL(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'M':
+                    letters[i] = Letter.getM(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'N':
+                    letters[i] = Letter.getN(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'O':
+                    letters[i] = Letter.getO(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'P':
+                    letters[i] = Letter.getP(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'Q':
+                    letters[i] = Letter.getQ(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'R':
+                    letters[i] = Letter.getR(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'S':
+                    letters[i] = Letter.getS(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'T':
+                    letters[i] = Letter.getT(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'U':
+                    letters[i] = Letter.getU(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'V':
+                    letters[i] = Letter.getV(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'W':
+                    letters[i] = Letter.getW(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'X':
+                    letters[i] = Letter.getX(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'Y':
+                    letters[i] = Letter.getY(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                case 'Z':
+                    letters[i] = Letter.getZ(x + (i * this.width + SPACING), y, this.width);
+                    break;
+                default:
+                    break;
 
+            }
+
+
+        }
     }
 
     @Override

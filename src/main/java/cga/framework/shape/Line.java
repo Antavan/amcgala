@@ -16,30 +16,34 @@ package cga.framework.shape;
 
 /**
  * Eine Linienhilfsklasse.
+ *
  * @author Robert Giacinto
  */
 public class Line {
 
-        private Point2d start;
-        private Point2d end;
+    private Point2d start;
+    private Point2d end;
 
-        public Line(Point2d start, Point2d end) {
-            this.start = start;
-            this.end = end;
-        }
+    public Line(Point2d start, Point2d end) {
+        this.start = start;
+        this.end = end;
+    }
 
-        public BresenhamLine2d getLine(double width, double height) {
-            return new BresenhamLine2d(start.x * width, start.y * height, end.x * width, end.y * height);
-        }
-        
-        public BresenhamLine2d getLine(double x, double y, double width, double height) {
-            return new BresenhamLine2d(x + start.x * width, y + start.y * height, x + end.x * width, y + end.y * height);
-        }
+    public BresenhamLine2d getLine(double width, double height) {
+        return new BresenhamLine2d(start.x * width, start.y * height, end.x * width, end.y * height);
+    }
+
+    public BresenhamLine2d getLine(double x, double y, double width, double height) {
+        double xs = start.x * width + x;
+        double ys = start.y * height + y;
+        double xe = end.x * width + x;
+        double ye = end.y * height + y;
+
+        return new BresenhamLine2d(xs, ys, xe, ye);
+    }
 
     @Override
     public String toString() {
         return "Line{" + "start=" + start + ", end=" + end + '}';
     }
-        
-        
-    }
+}
