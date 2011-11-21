@@ -15,7 +15,6 @@
 package cga.example.pong;
 
 import cga.Framework;
-import cga.framework.renderer.RendererJ2d;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -33,7 +32,7 @@ public class PongMain extends Framework {
 
     public PongMain(int width, int height) {
         super(width, height);
-        ((RendererJ2d) renderer).addKeyListener(new MyKeyListener());
+        getRenderer().addKeyListener(new MyKeyListener());
     }
 
     @Override

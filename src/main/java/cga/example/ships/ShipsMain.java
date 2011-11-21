@@ -15,7 +15,6 @@
 package cga.example.ships;
 
 import cga.Framework;
-import cga.framework.renderer.RendererJ2d;
 import cga.framework.shape.Text;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -37,9 +36,7 @@ public class ShipsMain extends Framework {
         super(width, height);
 
 
-        // TODO in Version 1.0.5 sollte der Cast nach RendererJ2d unnötig sein.
-        RendererJ2d rj2d = (RendererJ2d) renderer;
-        rj2d.addKeyListener(new KeyAdapter() {
+        getRenderer().addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyPressed(KeyEvent e) {
@@ -57,12 +54,12 @@ public class ShipsMain extends Framework {
     public void initGraph() {
         playerBoard = new Board();
         aiBoard = new Board(-250, 0);
-        
+
         // Spielerboard
         add(playerBoard);
         // Board des Gegners
         add(aiBoard);
-        
+
         add(new Text("Schiffe Versenken", -250, 245, 245));
     }
 

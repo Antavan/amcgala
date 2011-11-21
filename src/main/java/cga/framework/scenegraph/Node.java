@@ -14,12 +14,11 @@
  */
 package cga.framework.scenegraph;
 
+import cga.framework.math.Matrix;
 import cga.framework.scenegraph.transform.Transformation;
 import cga.framework.scenegraph.transform.Translation;
 import cga.framework.scenegraph.visitor.Visitor;
-import cga.framework.math.Matrix;
 import cga.framework.shape.Shape;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -41,12 +40,12 @@ public class Node {
     /**
      * Die Kindsknoten, die an diesem Knoten hängen.
      */
-    private Collection<Node> children;
+    private final Collection<Node> children;
     /**
      * Die Geometrieobjekte, die an diesem Knoten hängen und von dem Renderer
      * dargestellt werden.
      */
-    private Collection<Shape> geometry;
+    private final Collection<Shape> geometry;
     /**
      * Ein Transformationsobjekt, das sich auf die Geometrie dieses Knotens und
      * der Kindsknoten auswirkt.
@@ -54,21 +53,23 @@ public class Node {
     private Transformation transformation;
 
     /**
-     * Erstellt eine neue Node mit einem Label, über das die Node innerhalb des Graphens gefunden werden kann.
+     * Erstellt eine neue Node mit einem Label, über das die Node innerhalb des
+     * Graphens gefunden werden kann.
      *
      * @param label das Label des Knotens
      */
     public Node(String label) {
         this.label = label;
         transformation = new Translation(0, 0, 0);
-        geometry = new ArrayList<Shape>();
-        children = new ArrayList<Node>();
+        geometry = Collections.synchronizedList(new ArrayList<Shape>());
+        children = Collections.synchronizedList(new ArrayList<Node>());
     }
 
     /**
-     * Erzeugt eine neue Node mit einem Label und einem zugewiesenen Elternknoten.
+     * Erzeugt eine neue Node mit einem Label und einem zugewiesenen
+     * Elternknoten.
      *
-     * @param label  das Label des Knotens
+     * @param label das Label des Knotens
      * @param parent der Elternknoten
      */
     public Node(String label, Node parent) {
@@ -81,11 +82,14 @@ public class Node {
      * Fügt dem Knoten einen neuen Kindsknoten hinzu.
      *
      * @param childNode der neue Knoten
-     * @return gibt Referenz auf sich selbst zurück um verschachtelte Aufrufe zu ermöglichen
+     * @return gibt Referenz auf sich selbst zurück um verschachtelte Aufrufe zu
+     * ermöglichen
      */
     public Node addChild(Node childNode) {
         childNode.parent = this;
-        children.add(childNode);
+        synchronized (children) {
+            children.add(childNode);
+        }
         return this;
     }
 
@@ -96,34 +100,40 @@ public class Node {
      * @return true, wenn Knoten gefunden und entfernt wurde
      */
     public boolean removeNode(String label) {
-        for (Node n : children) {
-            if (n.label.equalsIgnoreCase(label)) {
-                children.remove(n);
-                return true;
+        synchronized (children) {
+            for (Node n : children) {
+                if (n.label.equalsIgnoreCase(label)) {
+                    children.remove(n);
+                    return true;
+                }
             }
-        }
 
-        for (Node n : children) {
-            return n.removeNode(label);
+            for (Node n : children) {
+                return n.removeNode(label);
+            }
         }
 
         return false;
     }
 
     /**
-     * Fügt einem Knoten mit einem bestimmten Label ein neues Geometrieobjekt hinzu.
+     * Fügt einem Knoten mit einem bestimmten Label ein neues Geometrieobjekt
+     * hinzu.
      *
-     * @param label    das Label des Knoten, dem das neue Objekt hinzugefügt werden soll
+     * @param label das Label des Knoten, dem das neue Objekt hinzugefügt werden
+     * soll
      * @param newShape das neue Geometrieobjekt
      * @return true, wenn es hinzugefügt werden konnte
      */
     public boolean addShape(String label, Shape newShape) {
-        if (this.label.equalsIgnoreCase(label)) {
-            geometry.add(newShape);
-            return true;
-        } else {
-            for (Node n : children) {
-                n.addShape(label, newShape);
+        synchronized (geometry) {
+            if (this.label.equalsIgnoreCase(label)) {
+                geometry.add(newShape);
+                return true;
+            } else {
+                for (Node n : children) {
+                    n.addShape(label, newShape);
+                }
             }
         }
         return false;
@@ -131,11 +141,14 @@ public class Node {
 
     /**
      * Fügt ein neues Geometrieobjekt dieser Node hinzu.
+     *
      * @param shape das neue Objekt
-     * @return true,  wenn es erfolgreich hinzugefügt wurde
+     * @return true, wenn es erfolgreich hinzugefügt wurde
      */
     public boolean addShape(Shape shape) {
-        geometry.add(shape);
+        synchronized (geometry) {
+            geometry.add(shape);
+        }
         return true;
     }
 
@@ -146,11 +159,13 @@ public class Node {
      * @return true, wenn Knoten gefunden wurde
      */
     public Node findNode(String label) {
-        if (this.label.equalsIgnoreCase(label)) {
-            return this;
-        } else {
-            for (Node n : children) {
-                return n.findNode(label);
+        synchronized (children) {
+            if (this.label.equalsIgnoreCase(label)) {
+                return this;
+            } else {
+                for (Node n : children) {
+                    return n.findNode(label);
+                }
             }
         }
         return null;
@@ -162,11 +177,11 @@ public class Node {
      * @param visitor der Visitor, der den Knoten besuchen soll
      */
     public void accept(Visitor visitor) {
-//        String names[] = {visitor.getClass().getName(), label};
-//        logger.log(Level.INFO, "Visitor {0} visiting node {1}", names);
-        visitor.visit(this);
-        for (Node n : children) {
-            n.accept(visitor);
+        synchronized (children) {
+            visitor.visit(this);
+            for (Node n : children) {
+                n.accept(visitor);
+            }
         }
     }
 
@@ -203,21 +218,23 @@ public class Node {
      * @return die Geometrieobjekte
      */
     public Collection<Shape> getGeometry() {
-        return Collections.unmodifiableCollection(geometry);
+        return geometry;
     }
 
     /**
      * Gibt die Transformationsmatrix dieses Knotens zurück.
-     * 
-     * @return  die Transformationsmatrix
+     *
+     * @return die Transformationsmatrix
      */
     public Transformation getTransformation() {
         return transformation;
     }
 
     /**
-     * Setzt die aktuelle Transformationsmatrix dieses Knotens.
-     * TODO Die Reihenfolge der Transformation spielt eine Rolle - ist es sinnvoll, das so zu gestalten, dass man nur eine Transformation pro Node zulässt?
+     * Setzt die aktuelle Transformationsmatrix dieses Knotens. TODO Die
+     * Reihenfolge der Transformation spielt eine Rolle - ist es sinnvoll, das
+     * so zu gestalten, dass man nur eine Transformation pro Node zulässt?
+     *
      * @param transformation die neue Transformationsmatrix
      */
     public void setTransformation(Transformation transformation) {
@@ -226,7 +243,8 @@ public class Node {
 
     /**
      * Gibt die gesamte Transformationsmatrix zurück.
-     * @return 
+     *
+     * @return
      */
     public Matrix getTransformMatrix() {
         Matrix b = transformation.getTransformMatrix();

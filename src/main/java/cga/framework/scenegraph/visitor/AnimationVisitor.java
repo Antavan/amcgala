@@ -19,13 +19,16 @@ import cga.framework.shape.Shape;
 import java.util.logging.Logger;
 
 public class AnimationVisitor implements Visitor {
+
     private static final Logger logger = Logger.getLogger(AnimationVisitor.class.getName());
 
     @Override
     public void visit(Node node) {
-        for (Shape shape : node.getGeometry()) {
-            if (shape.getAnimation() != null) {
-                shape.getAnimation().animate();
+        synchronized (node.getGeometry()) {
+            for (Shape shape : node.getGeometry()) {
+                if (shape.getAnimation() != null) {
+                    shape.getAnimation().animate();
+                }
             }
         }
     }

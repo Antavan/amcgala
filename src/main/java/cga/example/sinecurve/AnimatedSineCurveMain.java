@@ -28,7 +28,7 @@ public final class AnimatedSineCurveMain extends Framework {
     @Override
     public void initGraph() {
         translation = new Translation(-400, 0, 0);
-        scenegraph.addTransformation(translation);
+        getScenegraph().addTransformation(translation);
         add(new AnimatedSineCurve(2000, 0, 0));
     }
 

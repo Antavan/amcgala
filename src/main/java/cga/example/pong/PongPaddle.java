@@ -47,8 +47,8 @@ public class PongPaddle extends Shape {
      *
      * @param lengthH horizontale Länge des Paddles
      * @param lengthV vertikale Länge des Paddles
-     * @param position die Startposition des Paddles
      * @param ball der Ball, der von dem Paddle gespielt werden kann
+     * @param board das Spielfeld
      */
     public PongPaddle(int lengthH, int lengthV, PongBall ball, PongBoard board) {
         moveStep = 15;

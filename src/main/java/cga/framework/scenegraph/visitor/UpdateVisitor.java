@@ -18,16 +18,19 @@ import cga.framework.scenegraph.Node;
 import cga.framework.shape.Shape;
 
 /**
- * Der UpdateVisitor traversiert den Szenengraph und ruft die update Methode aller Objekte auf, die das Interface Updatable implementieren.
- * 
+ * Der UpdateVisitor traversiert den Szenengraph und ruft die update Methode
+ * aller Objekte auf, die das Interface Updatable implementieren.
+ *
  * @author Robert Giacinto
  */
 public class UpdateVisitor implements Visitor {
 
     @Override
     public void visit(Node node) {
-        for (Shape shape : node.getGeometry()) {
-            shape.update();
+        synchronized (node.getGeometry()) {
+            for (Shape shape : node.getGeometry()) {
+                shape.update();
+            }
         }
     }
 }

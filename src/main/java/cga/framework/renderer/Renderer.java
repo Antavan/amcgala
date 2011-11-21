@@ -14,10 +14,17 @@
  */
 package cga.framework.renderer;
 
+import java.awt.Graphics;
+import java.awt.event.KeyAdapter;
+import java.awt.event.MouseAdapter;
+import java.awt.image.BufferStrategy;
+import javax.swing.JFrame;
+
 /**
- * Wird von jedem Renderer erweitert und stellt die Funktionen putPixel und show zur Verfügung.
+ * Wird von jedem Renderer erweitert und stellt die Funktionen putPixel und show
+ * zur Verfügung.
  */
-public abstract class Renderer {
+public class Renderer {
 
     /**
      * Die Breite der Ausgabe des Renderers
@@ -27,20 +34,34 @@ public abstract class Renderer {
      * Die Höhe der Ausgabe des Renderers
      */
     private int height;
+    private BufferStrategy bs;
+    private int offsetX;
+    private int offsetY;
+    private JFrame frame;
 
     /**
-     * Erzeugt einen neuen Renderer und initialisiert die gemeinsamen Felder aller Renderer. 
-     * 
+     * Erzeugt einen neuen Renderer und initialisiert die gemeinsamen Felder
+     * aller Renderer.
+     *
      * @param width die Breite der Ausgabe des Renderers
      * @param height die Höhe der Ausgabe des Renderers
      */
-    protected Renderer(int width, int height) {
+    public Renderer(int width, int height, JFrame frame) {
         this.width = width;
         this.height = height;
+        this.width = width;
+        this.height = height;
+        this.offsetX = width >> 1;
+        this.offsetY = height >> 1;
+        this.frame = frame;
+
+        frame.createBufferStrategy(2);
+        bs = frame.getBufferStrategy();
     }
 
     /**
      * Gibt die Breite der Ausgabe zurück.
+     *
      * @return die Breite der Ausgabe
      */
     public int getWidth() {
@@ -49,6 +70,7 @@ public abstract class Renderer {
 
     /**
      * Gibt die Höhe der Ausgabe zurück.
+     *
      * @return die Höhe der Ausgabe
      */
     public int getHeight() {
@@ -56,23 +78,62 @@ public abstract class Renderer {
     }
 
     /**
-     * Diese Methode stellt einen Pixel über den Renderer auf der Ausgabe dar. 
-     * Die genaue Art und Weise wie der Pixel dargestellt wird, hängt von der jeweiligen Implementierung ab.
+     * Diese Methode stellt einen Pixel über den Renderer auf der Ausgabe dar.
+     * Die genaue Art und Weise wie der Pixel dargestellt wird, hängt von der
+     * jeweiligen Implementierung ab.
+     *
      * @param pixel der Pixel, der dargestellt werden soll
      */
-    public abstract void putPixel(Pixel pixel);
+    public void putPixel(Pixel pixel) {
+        Graphics g = bs.getDrawGraphics();
+        g.setColor(java.awt.Color.BLACK);
+        g.fillRect(offsetX + pixel.x, -pixel.y + offsetY, 1, 1);
+        g.dispose();
+    }
 
     /**
-     * Diese Methode stellt einen Pixel in einer bestimmten Farbe über den Renderer auf der Ausgabe dar. 
-     * Die genaue Art und Weise wie der Pixel dargestellt wird, hängt von der jeweiligen Implementierung ab.
-     * 
+     * Diese Methode stellt einen Pixel in einer bestimmten Farbe über den
+     * Renderer auf der Ausgabe dar. Die genaue Art und Weise wie der Pixel
+     * dargestellt wird, hängt von der jeweiligen Implementierung ab.
+     *
      * @param pixel der Pixel, der dargestellt werden soll
      * @param color die Farbe des Pixels
      */
-    public abstract void putPixel(Pixel pixel, Color color);
+    public void putPixel(Pixel pixel, cga.framework.renderer.Color color) {
+        Graphics g = bs.getDrawGraphics();
+        g.setColor(color.color);
+        g.fillRect(offsetX + pixel.x, -pixel.y + offsetY, 1, 1);
+        g.dispose();
+    }
 
     /**
      * Weist den Renderer an, den Buffer auszugeben.
      */
-    public abstract void show();
+    public void show() {
+        bs.show();
+        bs.getDrawGraphics().clearRect(0, 0, frame.getWidth(), frame.getHeight());
+    }
+
+    /**
+     * Fügt dem JFrame der Ausgabe einen MouseListener hinzu, mit dem
+     * Interaktionen implementiert werden können.
+     *
+     * @param mouseAdapter der MouseListener
+     */
+    public void addMouseListener(MouseAdapter mouseAdapter) {
+        frame.addMouseListener(mouseAdapter);
+        frame.addMouseMotionListener(mouseAdapter);
+        frame.addMouseWheelListener(mouseAdapter);
+    }
+
+    /**
+     * Fügt dem JFrame einen KeyListener hinzu, mit dem Interaktionen über das
+     * Keyboard implementiert werden können .
+     *
+     * @param keyAdapter der KeyListener
+     *
+     */
+    public void addKeyListener(KeyAdapter keyAdapter) {
+        frame.addKeyListener(keyAdapter);
+    }
 }

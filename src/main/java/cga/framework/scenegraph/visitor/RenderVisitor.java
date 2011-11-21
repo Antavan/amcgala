@@ -15,11 +15,17 @@
 package cga.framework.scenegraph.visitor;
 
 import cga.framework.camera.Camera;
-import cga.framework.scenegraph.Node;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
+import cga.framework.scenegraph.Node;
 import cga.framework.shape.Shape;
 
+/**
+ * Der RenderVisitor traversiert einmal pro Frame über den Szenengraph und
+ * zeichnet jedes Shape, das gefunden wird, auf den Canvas des Fensters.
+ *
+ * @author Robert Giacinto
+ */
 public class RenderVisitor implements Visitor {
 
     private Renderer renderer;
@@ -43,9 +49,11 @@ public class RenderVisitor implements Visitor {
 
     @Override
     public void visit(Node node) {
-        Matrix transform = node.getTransformMatrix();
-        for (Shape shape : node.getGeometry()) {
-            shape.render(transform, getCamera(), getRenderer());
+        synchronized (node.getGeometry()) {
+            Matrix transform = node.getTransformMatrix();
+            for (Shape shape : node.getGeometry()) {
+                shape.render(transform, getCamera(), getRenderer());
+            }
         }
     }
 }

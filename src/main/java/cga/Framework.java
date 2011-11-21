@@ -17,35 +17,31 @@ package cga;
 import cga.framework.animation.Animator;
 import cga.framework.camera.Camera;
 import cga.framework.camera.OrthographicalCamera;
-import cga.framework.scenegraph.SceneGraph;
-import cga.framework.scenegraph.visitor.AnimationVisitor;
-import cga.framework.scenegraph.visitor.RenderVisitor;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
-import cga.framework.renderer.RendererJ2d;
 import cga.framework.scenegraph.Node;
-import cga.framework.scenegraph.visitor.InterpolationVisitor;
-import cga.framework.scenegraph.visitor.UpdateVisitor;
-import cga.framework.scenegraph.visitor.Visitor;
+import cga.framework.scenegraph.SceneGraph;
+import cga.framework.scenegraph.visitor.*;
 import cga.framework.shape.Shape;
+import java.awt.event.KeyAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.event.MouseInputAdapter;
 
 /**
- * Die Hauptklasse des Frameworks, die die Hauptaufgaben übernimmt.
- * Sie initialisiert die wichtigsten Datenstrukturen und ermöglicht ihren Zugriff.
- * Der Aufbau des Frameworks folgt der Computer Graphics Pipeline, wie sie zum Beispiel 
- * in xxx beschrieben ist.
- * 
+ * Die Hauptklasse des Frameworks, die die Hauptaufgaben übernimmt. Sie
+ * initialisiert die wichtigsten Datenstrukturen und ermöglicht ihren Zugriff.
+ *
  * @author Robert Giacinto
  */
 public abstract class Framework {
 
     private static final Logger logger = Logger.getLogger(Framework.class.getName());
-    public SceneGraph scenegraph;
-    public Renderer renderer;
+    private SceneGraph scenegraph;
+    private Renderer renderer;
     private Camera camera;
     private Animator animator;
     private List<Visitor> visitors;
@@ -53,9 +49,12 @@ public abstract class Framework {
     private double fieldOfView;
     private int screenWidth;
     private int screenHeight;
+    private JFrame frame;
 
     /**
-     * Erstellt ein neues Framework, das eine grafische Ausgabe in der Auflösung width x height hat.
+     * Erstellt ein neues Framework, das eine grafische Ausgabe in der Auflösung
+     * width x height hat.
+     *
      * @param width die Breite der Auflösung
      * @param height die Höhe der Auflösung
      */
@@ -70,12 +69,19 @@ public abstract class Framework {
         aspectRatio = width / height;
         fieldOfView = Math.toRadians(76);
 
+        frame = new JFrame("Java2D Renderer");
+        frame.setSize(width, height);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setBackground(java.awt.Color.WHITE);
+        frame.setVisible(true);
+
 
         camera = new OrthographicalCamera(Vector3d.UNIT_Y, Vector3d.UNIT_Z, Vector3d.ZERO);
 
 
         logger.log(Level.INFO, "Erstelle Java2D Renderoutput.");
-        renderer = new RendererJ2d(width, height);
+        renderer = new Renderer(width, height, frame);
 
         logger.log(Level.INFO, "Füge InterpolationVisitor hinzu.");
         visitors.add(new InterpolationVisitor());
@@ -100,23 +106,26 @@ public abstract class Framework {
     }
 
     /**
-     * Jedes Programm, das auf das Framework zurückgreift implementiert diese Methode. 
-     * Hier findet die spezifische Initialisierung des Szenengraphs statt. Hier können zum Beispiel
-     * Objekte an den Szenengraph gehängt werden.
+     * Jedes Programm, das auf das Framework zurückgreift implementiert diese
+     * Methode. Hier findet die spezifische Initialisierung des Szenengraphs
+     * statt. Hier können zum Beispiel Objekte an den Szenengraph gehängt
+     * werden.
      */
     public abstract void initGraph();
 
     /**
-     * Fügt der Szene ein neues zeichenbares Objekt hinzu. Dieses wird an den Root-Knoten
-     * angehängt. 
-     * @param shape das Grafikobjekt, das der Szene hinzugefügt wird 
+     * Fügt der Szene ein neues zeichenbares Objekt hinzu. Dieses wird an den
+     * Root-Knoten angehängt.
+     *
+     * @param shape das Grafikobjekt, das der Szene hinzugefügt wird
      */
     public void add(Shape shape) {
-        scenegraph.addGeometry(shape);
+        scenegraph.addShape(shape);
     }
 
     /**
-     * Fügt dem Szenengraph einen neuen Knoten hinzu. 
+     * Fügt dem Szenengraph einen neuen Knoten hinzu.
+     *
      * @param node der neue Knoten
      */
     public void add(Node node) {
@@ -125,6 +134,7 @@ public abstract class Framework {
 
     /**
      * Ändert die Kamera, die verwendet wird.
+     *
      * @param camera die neue Kamera, die das Framework verwenden soll
      */
     public void setCamera(Camera camera) {
@@ -132,9 +142,9 @@ public abstract class Framework {
     }
 
     /**
-     * Ändert den Renderer des Frameworks. 
-     * Damit ist es möglich die Ausgabe des Frameworks zu verändern. Abhängig von der
-     * Implementierung des Renderers.
+     * Ändert den Renderer des Frameworks. Damit ist es möglich die Ausgabe des
+     * Frameworks zu verändern. Abhängig von der Implementierung des Renderers.
+     *
      * @param renderer der neue Renderer
      */
     public void setRenderer(Renderer renderer) {
@@ -143,6 +153,7 @@ public abstract class Framework {
 
     /**
      * Ändert den Szenengraph, der vom Framework verwendet wird.
+     *
      * @param scenegraph der neue Szenengraph
      */
     public void setScenegraph(SceneGraph scenegraph) {
@@ -150,7 +161,9 @@ public abstract class Framework {
     }
 
     /**
-     * Das Seitenverhältnis der Ausgabe. Diese wird innerhalb der Kamera benötigt.
+     * Das Seitenverhältnis der Ausgabe. Diese wird innerhalb der Kamera
+     * benötigt.
+     *
      * @return das Seitenverhältnis der Ausgabe
      */
     public double getAspectRatio() {
@@ -163,6 +176,7 @@ public abstract class Framework {
 
     /**
      * Gibt die Höhe der Ausgabe zurück.
+     *
      * @return die Höhe in Pixeln
      */
     public int getScreenHeight() {
@@ -171,6 +185,7 @@ public abstract class Framework {
 
     /**
      * Ändert die Höhe der Bildschirmausgabe.
+     *
      * @param screenHeight die Höhe der Bildschirmausgabe in Pixeln
      */
     public void setScreenHeight(int screenHeight) {
@@ -180,8 +195,8 @@ public abstract class Framework {
 
     /**
      * Gibt die Breite der Bildschirmausgabe in Pixeln zurück.
-     * 
-     * @return  die Breite der Bildschirmausgabe in Pixeln
+     *
+     * @return die Breite der Bildschirmausgabe in Pixeln
      */
     public int getScreenWidth() {
         return screenWidth;
@@ -189,6 +204,7 @@ public abstract class Framework {
 
     /**
      * Ändert die Breite der Bildschirmausgabe.
+     *
      * @param screenWidth die neue Breite der Bildschirmausgabe in Pixeln
      */
     public void setScreenWidth(int screenWidth) {
@@ -197,8 +213,53 @@ public abstract class Framework {
     }
 
     /**
-     * Aktualisiert den Szenengraphen, in dem die einzelnen, registrierten Visitor den 
-     * Szenengraphen besuchen.
+     * Gibt den Animator zurück.
+     *
+     * @return der Animator des Frameworks
+     */
+    public Animator getAnimator() {
+        return animator;
+    }
+
+    /**
+     * Gibt die Kamera zurück.
+     *
+     * @return die Kamera des Frameworks
+     */
+    public Camera getCamera() {
+        return camera;
+    }
+
+    /**
+     * Gibt den Renderer zurück.
+     *
+     * @return der Renderer des Frameworks
+     */
+    public Renderer getRenderer() {
+        return renderer;
+    }
+
+    /**
+     * Gibt den Szenengraphen zurück.
+     *
+     * @return der Szenengraph des Frameworks
+     */
+    public SceneGraph getScenegraph() {
+        return scenegraph;
+    }
+
+    /**
+     * Gibt die Liste der registrierten Visitor zurück.
+     *
+     * @return die registrierten Visitor
+     */
+    public List<Visitor> getVisitors() {
+        return visitors;
+    }
+
+    /**
+     * Aktualisiert den Szenengraphen, in dem die einzelnen, registrierten
+     * Visitor den Szenengraphen besuchen.
      */
     public void update() {
         if (camera != null) {
@@ -218,7 +279,8 @@ public abstract class Framework {
     }
 
     /**
-     * Startet das Framework und aktualisiert den Szenengraphen mithilfe eines Animators.
+     * Startet das Framework und aktualisiert den Szenengraphen mithilfe eines
+     * Animators.
      */
     public void start() {
         if (animator == null) {
@@ -228,5 +290,15 @@ public abstract class Framework {
             animator.setFramework(this);
             animator.start();
         }
+    }
+
+    public void addKeyAdapter(KeyAdapter keyAdapter) {
+        frame.addKeyListener(keyAdapter);
+    }
+
+    public void addMouseAdapter(MouseInputAdapter mouseAdapter) {
+        frame.addMouseListener(mouseAdapter);
+        frame.addMouseMotionListener(mouseAdapter);
+        frame.addMouseWheelListener(mouseAdapter);
     }
 }
