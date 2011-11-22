@@ -21,9 +21,6 @@ import java.awt.event.KeyEvent;
 /**
  * Ein simples Pongspiel, das mit der Maus gesteuert werden kann.
  *
- * TODO irgendwas stimmt seit den letzten Änderungen am Framework nicht mehr.
- * Der Ball wird an den falschen Stellen reflektiert.
- *
  * @author Robert Giacinto
  */
 public class PongMain extends Framework {

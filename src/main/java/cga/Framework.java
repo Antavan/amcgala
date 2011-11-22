@@ -292,10 +292,18 @@ public abstract class Framework {
         }
     }
 
+    /**
+     * Fügt dem Framework einen neuen KeyAdapter hinzu, der KeyEvents abfängt und behandelt.
+     * @param keyAdapter der KeyAdapter, der dem Framework hinzugefügt werden soll
+     */
     public void addKeyAdapter(KeyAdapter keyAdapter) {
         frame.addKeyListener(keyAdapter);
     }
 
+    /**
+     * Fügt dem Framework einen neuen MouseAdapter hinzu, der die MouseEvents abfängt und behandelt.
+     * @param mouseAdapter der MouseAdapter, der dem Framework hinzugefügt werden soll
+     */
     public void addMouseAdapter(MouseInputAdapter mouseAdapter) {
         frame.addMouseListener(mouseAdapter);
         frame.addMouseMotionListener(mouseAdapter);

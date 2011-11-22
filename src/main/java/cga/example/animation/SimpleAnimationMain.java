@@ -32,6 +32,11 @@ public class SimpleAnimationMain extends Framework {
     private BresenhamLine2d[] lines;
     private Random random;
 
+    /**
+     * Erzeugt ein SimpleAnimation Beispiel mit einer bestimmten Größe.
+     * @param widt die Breite des Beispielfensters
+     * @param height die Höhe des Beispielfensters
+     */
     public SimpleAnimationMain(int width, int height) {
         super(width, height);
     }
@@ -55,6 +60,10 @@ public class SimpleAnimationMain extends Framework {
 
     }
 
+    /**
+     * Einstiegspunkt für das Beispiel.
+     * @param args mögliche Parameter, die über die Konsole übergeben werden
+     */
     public static void main(String[] args) {
         Framework framework = new SimpleAnimationMain(800, 600);
         framework.start();

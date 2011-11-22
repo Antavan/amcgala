@@ -1,3 +1,7 @@
+/*
+ * Code von http://math.nist.gov/javanumerics/jama/.
+ * Keine Lizenz, Code wurde der Public Domain überlassen.
+ */
 package cga.framework.math;
 
 import cga.framework.math.util.Maths;
@@ -5,24 +9,23 @@ import cga.framework.math.util.Maths;
 /**
  * Eigenvalues and eigenvectors of a real matrix.
  * <p/>
- * If A is symmetric, then A = V*D*V' where the eigenvalue matrix D is
- * diagonal and the eigenvector matrix V is orthogonal.
- * I.e. A = V.times(D.times(V.transpose())) and
- * V.times(V.transpose()) equals the identity matrix.
+ * If A is symmetric, then A = V*D*V' where the eigenvalue matrix D is diagonal
+ * and the eigenvector matrix V is orthogonal. I.e. A =
+ * V.times(D.times(V.transpose())) and V.times(V.transpose()) equals the
+ * identity matrix.
  * <p/>
- * If A is not symmetric, then the eigenvalue matrix D is block diagonal
- * with the real eigenvalues in 1-by-1 blocks and any complex eigenvalues,
- * lambda + i*mu, in 2-by-2 blocks, [lambda, mu; -mu, lambda].  The
- * columns of V represent the eigenvectors in the sense that A*V = V*D,
- * i.e. A.times(V) equals V.times(D).  The matrix V may be badly
- * conditioned, or even singular, so the validity of the equation
- * A = V*D*inverse(V) depends upon V.cond().
+ * If A is not symmetric, then the eigenvalue matrix D is block diagonal with
+ * the real eigenvalues in 1-by-1 blocks and any complex eigenvalues, lambda +
+ * i*mu, in 2-by-2 blocks, [lambda, mu; -mu, lambda]. The columns of V represent
+ * the eigenvectors in the sense that A*V = V*D, i.e. A.times(V) equals
+ * V.times(D). The matrix V may be badly conditioned, or even singular, so the
+ * validity of the equation A = V*D*inverse(V) depends upon V.cond().
  */
 public class EigenvalueDecomposition implements java.io.Serializable {
 
-    /* ------------------------
-    Class variables
-     * ------------------------ */
+    /*
+     * ------------------------ Class variables ------------------------
+     */
     /**
      * Row and column dimension (square matrix).
      *
@@ -60,9 +63,9 @@ public class EigenvalueDecomposition implements java.io.Serializable {
      */
     private double[] ort;
 
-    /* ------------------------
-    Private Methods
-     * ------------------------ */
+    /*
+     * ------------------------ Private Methods ------------------------
+     */
     // Symmetric Householder reduction to tridiagonal form.
     private void tred2() {
 
@@ -849,9 +852,9 @@ public class EigenvalueDecomposition implements java.io.Serializable {
     }
 
 
-    /* ------------------------
-    Constructor
-     * ------------------------ */
+    /*
+     * ------------------------ Constructor ------------------------
+     */
     /**
      * Check for symmetry, then construct the eigenvalue decomposition
      *
@@ -903,9 +906,9 @@ public class EigenvalueDecomposition implements java.io.Serializable {
         }
     }
 
-    /* ------------------------
-    Public Methods
-     * ------------------------ */
+    /*
+     * ------------------------ Public Methods ------------------------
+     */
     /**
      * Return the eigenvector matrix
      *

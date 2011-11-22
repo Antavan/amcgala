@@ -1,23 +1,26 @@
+/*
+ * Code von http://math.nist.gov/javanumerics/jama/.
+ * Keine Lizenz, Code wurde der Public Domain überlassen.
+ */
 package cga.framework.math;
 
 /**
  * LU Decomposition.
  * <p/>
- * For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n
- * unit lower triangular matrix L, an n-by-n upper triangular matrix U,
- * and a permutation vector piv of length m so that A(piv,:) = L*U.
- * If m < n, then L is m-by-m and U is m-by-n.
- * <p/>
+ * For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n unit
+ * lower triangular matrix L, an n-by-n upper triangular matrix U, and a
+ * permutation vector piv of length m so that A(piv,:) = L*U. If m < n, then L
+ * is m-by-m and U is m-by-n. <p/>
  * The LU decompostion with pivoting always exists, even if the matrix is
- * singular, so the constructor will never fail.  The primary use of the
- * LU decomposition is in the solution of square systems of simultaneous
- * linear equations.  This will fail if isNonsingular() returns false.
+ * singular, so the constructor will never fail. The primary use of the LU
+ * decomposition is in the solution of square systems of simultaneous linear
+ * equations. This will fail if isNonsingular() returns false.
  */
 public class LUDecomposition implements java.io.Serializable {
 
-    /* ------------------------
-    Class variables
-     * ------------------------ */
+    /*
+     * ------------------------ Class variables ------------------------
+     */
     /**
      * Array for internal storage of decomposition.
      *
@@ -39,9 +42,9 @@ public class LUDecomposition implements java.io.Serializable {
      */
     private int[] piv;
 
-    /* ------------------------
-    Constructor
-     * ------------------------ */
+    /*
+     * ------------------------ Constructor ------------------------
+     */
     /**
      * LU Decomposition
      *
@@ -119,68 +122,37 @@ public class LUDecomposition implements java.io.Serializable {
         }
     }
 
-    /* ------------------------
-    Temporary, experimental code.
-    ------------------------ *\
-    
-    \** LU Decomposition, computed by Gaussian elimination.
-    <P>
-    This constructor computes L and U with the "daxpy"-based elimination
-    algorithm used in LINPACK and MATLAB.  In Java, we suspect the dot-product,
-    Crout algorithm will be faster.  We have temporarily included this
-    constructor until timing experiments confirm this suspicion.
-    <P>
-    @param  A             Rectangular matrix
-    @param  linpackflag   Use Gaussian elimination.  Actual value ignored.
-    @return               Structure to access L, U and piv.
-     *\
-    
-    public LUDecomposition (Matrix A, int linpackflag) {
-    // Initialize.
-    LU = A.getArrayCopy();
-    m = A.getRowDimension();
-    n = A.getColumnDimension();
-    piv = new int[m];
-    for (int i = 0; i < m; i++) {
-    piv[i] = i;
-    }
-    pivsign = 1;
-    // Main loop.
-    for (int k = 0; k < n; k++) {
-    // Find pivot.
-    int p = k;
-    for (int i = k+1; i < m; i++) {
-    if (Math.abs(LU[i][k]) > Math.abs(LU[p][k])) {
-    p = i;
-    }
-    }
-    // Exchange if necessary.
-    if (p != k) {
-    for (int j = 0; j < n; j++) {
-    double t = LU[p][j]; LU[p][j] = LU[k][j]; LU[k][j] = t;
-    }
-    int t = piv[p]; piv[p] = piv[k]; piv[k] = t;
-    pivsign = -pivsign;
-    }
-    // Compute multipliers and eliminate k-th column.
-    if (LU[k][k] != 0.0) {
-    for (int i = k+1; i < m; i++) {
-    LU[i][k] /= LU[k][k];
-    for (int j = k+1; j < n; j++) {
-    LU[i][j] -= LU[i][k]*LU[k][j];
-    }
-    }
-    }
-    }
-    }
-    
-    \* ------------------------
-    End of temporary code.
-     * ------------------------ */
+    /*
+     * ------------------------ Temporary, experimental code.
+     * ------------------------ *\
+     *
+     * \** LU Decomposition, computed by Gaussian elimination. <P> This
+     * constructor computes L and U with the "daxpy"-based elimination algorithm
+     * used in LINPACK and MATLAB. In Java, we suspect the dot-product, Crout
+     * algorithm will be faster. We have temporarily included this constructor
+     * until timing experiments confirm this suspicion. <P> @param A Rectangular
+     * matrix @param linpackflag Use Gaussian elimination. Actual value ignored.
+     * @return Structure to access L, U and piv. \
+     *
+     * public LUDecomposition (Matrix A, int linpackflag) { // Initialize. LU =
+     * A.getArrayCopy(); m = A.getRowDimension(); n = A.getColumnDimension();
+     * piv = new int[m]; for (int i = 0; i < m; i++) { piv[i] = i; } pivsign =
+     * 1; // Main loop. for (int k = 0; k < n; k++) { // Find pivot. int p = k;
+     * for (int i = k+1; i < m; i++) { if (Math.abs(LU[i][k]) >
+     * Math.abs(LU[p][k])) { p = i; } } // Exchange if necessary. if (p != k) {
+     * for (int j = 0; j < n; j++) { double t = LU[p][j]; LU[p][j] = LU[k][j];
+     * LU[k][j] = t; } int t = piv[p]; piv[p] = piv[k]; piv[k] = t; pivsign =
+     * -pivsign; } // Compute multipliers and eliminate k-th column. if
+     * (LU[k][k] != 0.0) { for (int i = k+1; i < m; i++) { LU[i][k] /= LU[k][k];
+     * for (int j = k+1; j < n; j++) { LU[i][j] -= LU[i][k]*LU[k][j]; } } } } }
+     *
+     * \* ------------------------ End of temporary code.
+     * ------------------------
+     */
 
-    /* ------------------------
-    Public Methods
-     * ------------------------ */
+    /*
+     * ------------------------ Public Methods ------------------------
+     */
     /**
      * Is the matrix nonsingular?
      *
@@ -286,7 +258,7 @@ public class LUDecomposition implements java.io.Serializable {
      * @param B A Matrix with as many rows as A and any number of columns.
      * @return X so that L*U*X = B(piv,:)
      * @throws IllegalArgumentException Matrix row dimensions must agree.
-     * @throws RuntimeException         Matrix is singular.
+     * @throws RuntimeException Matrix is singular.
      */
     public Matrix solve(Matrix B) {
         if (B.getRowDimension() != m) {
