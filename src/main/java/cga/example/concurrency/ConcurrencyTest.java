@@ -15,6 +15,7 @@
 package cga.example.concurrency;
 
 import cga.Framework;
+import cga.framework.renderer.Color;
 import cga.framework.shape.BresenhamLine2d;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -37,11 +38,13 @@ public class ConcurrencyTest extends Framework {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    add(new BresenhamLine2d(
+                    BresenhamLine2d line = new BresenhamLine2d(
                             Math.pow(-1, random.nextInt(2)) * random.nextInt(getScreenWidth() / 2),
                             Math.pow(-1, random.nextInt(2)) * random.nextInt(getScreenHeight() / 2),
                             Math.pow(-1, random.nextInt(2)) * random.nextInt(getScreenWidth() / 2),
-                            Math.pow(-1, random.nextInt(2)) * random.nextInt(getScreenWidth() / 2)));
+                            Math.pow(-1, random.nextInt(2)) * random.nextInt(getScreenWidth() / 2));
+                    line.color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
+                    add(line);
                 }
             }
         });

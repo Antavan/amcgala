@@ -23,15 +23,16 @@ import cga.framework.renderer.Renderer;
 
 /**
  * Eine Linie im 3d Raum.
+ *
  * @author Robert Giacinto
  */
-public class Line3d extends Shape {
+public class BresenhamLine3d extends Shape {
 
     public double x1, y1, z1;
     public double x2, y2, z2;
     private Vector3d start, end;
 
-    public Line3d(Vector3d start, Vector3d end) {
+    public BresenhamLine3d(Vector3d start, Vector3d end) {
         this.x1 = start.x;
         this.y1 = start.y;
         this.z1 = start.z;
@@ -42,13 +43,13 @@ public class Line3d extends Shape {
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
-        // Einbeziehen der Transformationsgruppen.
+        // Einbeziehen der Transformationsgruppen. Um Animationen zu beruecksichtigen, die auf die einzelnen Felder zugegriffen
+        // haben, werden die start und end Vektoren aktualisiert, bevor sie mit der Transformationsmatrix multipliziert werden.
         start = new Vector3d(x1, y1, z1).transform(transformation);
         end = new Vector3d(x2, y2, z2).transform(transformation);
 
 
-
-        // Start- und Endpunkt der Linie in Pixeln, mit denen die Linienalgorithmen durchgeführt werden.
+        // Start- und Endpunkt der Linie in Pixeln, mit denen die Linienalgorithmen durchgefuehrt werden.
         Pixel startPixel = camera.getImageSpaceCoordinates(start);
         Pixel endPixel = camera.getImageSpaceCoordinates(end);
 
@@ -60,25 +61,63 @@ public class Line3d extends Shape {
         }
 
         /*
-         * Simpler Linienalgorithmus, der vom Startpixel mit einer konstanten Steigung zum Endpixel geht.
-         * TODO Eine Verbesserung hier wäre der Bresenhamalgorithmus.
+         * Beginn des Bresenham Algorithmus
          */
         double dx = endPixel.x - startPixel.x;
         double dy = endPixel.y - startPixel.y;
-        double m = dy / dx;
-        double y = startPixel.y;
+        double dx2 = 2 * dx;
+        double dy2 = 2 * dy;
 
-        if (dx > 0) {
-            for (int x = startPixel.x; x <= endPixel.x; x++) {
-                Pixel pixel = new Pixel(x, (int) y);
-                renderer.putPixel(pixel, color);
-                y += m;
-            }
-        } else if (dx == 0) {
-            for (int yi = startPixel.y; yi < endPixel.y; yi++) {
-                Pixel pixel = new Pixel(startPixel.x, yi);
-                renderer.putPixel(pixel, color);
+        double e;
+        double y = startPixel.y;
+        double x = startPixel.x;
+        int i = 1;
+        renderer.putPixel(new Pixel(x, y), color);
+
+        //1.+8. Oktant
+        if (dy <= dx && -dy <= dx) {
+            e = Math.abs(dy2) - dx;
+            while (i <= dx) {
+                if (e >= 0) { /*
+                     * Diagonalschritt
+                     */
+                    if (dy <= 0) {
+                        y--;
+                    } else {
+                        y++;
+                    }
+                    e -= dx2;
+                }
+                x++;
+                i++;
+                e += Math.abs(dy2);
+                renderer.putPixel(new Pixel(x, y), color);
             }
         }
+
+        //2.+7. Oktant
+        if (Math.abs(dy) > dx) {
+            e = dx2 - Math.abs(dy);
+            while (i <= Math.abs(dy)) {
+                if (e >= 0) {
+                    x++;
+                    e -= Math.abs(dy2);
+                }
+                if (dy > 0) {
+                    y++;
+                } else {
+                    y--;
+                }
+                i++;
+                e += dx2;
+                renderer.putPixel(new Pixel(x, y), color);
+            }
+        }
+
+        /*
+         * Ende Bresenham Algorithmus
+         */
+
+
     }
 }

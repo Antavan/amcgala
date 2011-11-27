@@ -17,6 +17,7 @@ package cga.framework.camera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Pixel;
+import java.util.logging.Logger;
 
 /**
  * Implementierung einer orthographischen Projektion. Es gehen jegliche
@@ -26,7 +27,7 @@ import cga.framework.renderer.Pixel;
  *
  * @author Robert Giacinto
  */
-public class OrthographicalCamera implements Camera {
+public class OrthographicCamera implements Camera {
 
     /**
      * "oben" Vektor
@@ -43,24 +44,23 @@ public class OrthographicalCamera implements Camera {
     private Vector3d u;
     private Vector3d v;
     private Vector3d n;
-    private Vector3d p;
     private Matrix projection;
 
     /**
-     * Erzeugt eine neue Kamera an einer Position mit einem bestimmten Blickpunkt.
-     * 
+     * Erzeugt eine neue Kamera an einer Position mit einem bestimmten
+     * Blickpunkt.
+     *
      * @param vup Das Oben der Kamera
      * @param position Die Position der Kamera
      * @param direction Der Punkt, zu dem die Kamera blickt
      */
-    public OrthographicalCamera(Vector3d vup, Vector3d position, Vector3d direction) {
+    public OrthographicCamera(Vector3d vup, Vector3d position, Vector3d direction) {
         this.vup = vup;
         this.position = position;
         this.direction = direction;
 
 
-        this.p = direction.sub(position);
-        this.n = p.times(-1);
+        this.n = direction.sub(position).times(-1);
         this.u = this.vup.cross(n).normalize();
         this.v = n.cross(u);
 
@@ -106,4 +106,5 @@ public class OrthographicalCamera implements Camera {
         Pixel pixel = new Pixel(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
         return pixel;
     }
+    private static final Logger LOG = Logger.getLogger(OrthographicCamera.class.getName());
 }

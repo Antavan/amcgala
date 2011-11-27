@@ -117,7 +117,8 @@ public class Renderer {
     /**
      * Fügt dem JFrame der Ausgabe einen MouseListener hinzu, mit dem
      * Interaktionen implementiert werden können.
-     *
+     * 
+     * @deprecated 
      * @param mouseAdapter der MouseListener
      */
     public void addMouseListener(MouseAdapter mouseAdapter) {
@@ -129,7 +130,7 @@ public class Renderer {
     /**
      * Fügt dem JFrame einen KeyListener hinzu, mit dem Interaktionen über das
      * Keyboard implementiert werden können .
-     *
+     * @deprecated 
      * @param keyAdapter der KeyListener
      *
      */

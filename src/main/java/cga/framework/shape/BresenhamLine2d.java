@@ -19,6 +19,7 @@ import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Pixel;
 import cga.framework.renderer.Renderer;
+import java.util.logging.Logger;
 
 /**
  * Eine 2d Linie, die mithilfe des Bresenham Algorithmus gezeichnet wird.
@@ -137,4 +138,5 @@ public class BresenhamLine2d extends Shape {
     public String toString() {
         return "BresenhamLine2d{" + "x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", start=" + start + ", end=" + end + '}';
     }
+    private static final Logger LOG = Logger.getLogger(BresenhamLine2d.class.getName());
 }

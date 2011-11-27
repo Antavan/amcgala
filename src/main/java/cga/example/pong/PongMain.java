@@ -29,7 +29,7 @@ public class PongMain extends Framework {
 
     public PongMain(int width, int height) {
         super(width, height);
-        getRenderer().addKeyListener(new MyKeyListener());
+       addKeyAdapter(new MyKeyListener());
     }
 
     @Override

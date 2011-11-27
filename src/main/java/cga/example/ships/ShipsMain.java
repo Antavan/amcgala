@@ -36,7 +36,7 @@ public class ShipsMain extends Framework {
         super(width, height);
 
 
-        getRenderer().addKeyListener(new KeyAdapter() {
+        addKeyAdapter(new KeyAdapter() {
 
             @Override
             public void keyPressed(KeyEvent e) {

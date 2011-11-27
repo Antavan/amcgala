@@ -16,7 +16,7 @@ package cga;
 
 import cga.framework.animation.Animator;
 import cga.framework.camera.Camera;
-import cga.framework.camera.OrthographicalCamera;
+import cga.framework.camera.OrthographicCamera;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
 import cga.framework.scenegraph.Node;
@@ -77,7 +77,7 @@ public abstract class Framework {
         frame.setVisible(true);
 
 
-        camera = new OrthographicalCamera(Vector3d.UNIT_Y, Vector3d.UNIT_Z, Vector3d.ZERO);
+        camera = new OrthographicCamera(Vector3d.UNIT_Y, Vector3d.UNIT_Z, Vector3d.ZERO);
 
 
         logger.log(Level.INFO, "Erstelle Java2D Renderoutput.");
