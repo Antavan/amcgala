@@ -18,9 +18,10 @@ import cga.Framework;
 import java.util.logging.Logger;
 
 /**
- * Diese Klasse kümmert sich um das Timing der Animation. Sie ruft in regelmäßigen Abständen die 
- * Methoden update und show der Klasse Framework auf und ermöglicht so die Realisation von Animationen.
- * 
+ * Diese Klasse kümmert sich um das Timing der Animation. Sie ruft in
+ * regelmäßigen Abständen die Methoden update und show der Klasse Framework auf
+ * und ermöglicht so die Realisation von Animationen.
+ *
  * @author Robert Giacinto
  */
 public class Animator {
@@ -29,11 +30,13 @@ public class Animator {
     private Timer timer;
     private Framework framework;
     private int framesPerSecond;
+    private Thread animation;
+    private boolean running;
 
     /**
      * Erzeugt einen neuen Animator, der das Framework aktualisiert.
-     * 
-     * @param framesPerSecond  die Anzahl der Aktualisierungen pro Sekunde
+     *
+     * @param framesPerSecond die Anzahl der Aktualisierungen pro Sekunde
      */
     public Animator(int framesPerSecond) {
         this.framesPerSecond = framesPerSecond;
@@ -42,8 +45,8 @@ public class Animator {
 
     /**
      * Ändert das Framework, das von dem Animator aktualisiert wird.
-     * 
-     * @param framework  das neue Framework
+     *
+     * @param framework das neue Framework
      */
     public void setFramework(Framework framework) {
         this.framework = framework;
@@ -51,7 +54,7 @@ public class Animator {
 
     /**
      * GIbt die Anzahl der Aktualisierungen zurück.
-     * 
+     *
      * @return die Anzahl der Aktualsierungen pro Sekunde
      */
     public int getFramesPerSecond() {
@@ -60,6 +63,7 @@ public class Animator {
 
     /**
      * Ändert die Anzahl der Aktualisierungen pro Sekunde.
+     *
      * @param framesPerSecond die neue Anzahl von Aktualisierungen pro Sekunde
      */
     public void setFramesPerSecond(int framesPerSecond) {
@@ -71,13 +75,13 @@ public class Animator {
      * Startet den Animator.
      */
     public void start() {
-
+        running = true;
         if (framework != null) {
-            Thread animation = new Thread(new Runnable() {
+            animation = new Thread(new Runnable() {
 
                 @Override
                 public void run() {
-                    while (true) {
+                    while (running) {
                         timer.start();
                         framework.update();
                         framework.show();
@@ -91,5 +95,14 @@ public class Animator {
             });
             animation.start();
         }
+    }
+
+    /**
+     * Hält das Framework an und zeigt das letzte gerenderte Bild an.
+     */
+    public void stop() {
+        running = false;
+        framework.update();
+        framework.show();
     }
 }

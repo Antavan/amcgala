@@ -24,6 +24,7 @@ import cga.framework.scenegraph.SceneGraph;
 import cga.framework.scenegraph.visitor.*;
 import cga.framework.shape.Shape;
 import java.awt.event.KeyAdapter;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -293,16 +294,51 @@ public abstract class Framework {
     }
 
     /**
-     * Fügt dem Framework einen neuen KeyAdapter hinzu, der KeyEvents abfängt und behandelt.
-     * @param keyAdapter der KeyAdapter, der dem Framework hinzugefügt werden soll
+     * Pausiert die Aktualisierung des Frameworks.
+     */
+    public void pause() {
+        if (animator != null) {
+            animator.stop();
+        }
+    }
+
+    /**
+     * Fügt dem Framework einen neuen KeyAdapter hinzu, der KeyEvents abfängt
+     * und behandelt.
+     *
+     * @param keyAdapter der KeyAdapter, der dem Framework hinzugefügt werden
+     * soll
      */
     public void addKeyAdapter(KeyAdapter keyAdapter) {
         frame.addKeyListener(keyAdapter);
     }
 
     /**
-     * Fügt dem Framework einen neuen MouseAdapter hinzu, der die MouseEvents abfängt und behandelt.
-     * @param mouseAdapter der MouseAdapter, der dem Framework hinzugefügt werden soll
+     * Entfernt einen KeyListener aus dem Framework.
+     *
+     * @param keyAdapter der KeyListener, der entfernt werden soll
+     */
+    public void removeKeyAdapter(KeyAdapter keyAdapter) {
+        frame.removeKeyListener(keyAdapter);
+    }
+
+    /**
+     * Entfernt einen MouseAdapter aus dem Framework.
+     *
+     * @param mouseAdapter der MouseAdapter, der entfernt werden soll
+     */
+    public void removeMouseAdapter(MouseAdapter mouseAdapter) {
+        frame.removeMouseListener(mouseAdapter);
+        frame.removeMouseMotionListener(mouseAdapter);
+        frame.removeMouseWheelListener(mouseAdapter);
+    }
+
+    /**
+     * Fügt dem Framework einen neuen MouseAdapter hinzu, der die MouseEvents
+     * abfängt und behandelt.
+     *
+     * @param mouseAdapter der MouseAdapter, der dem Framework hinzugefügt
+     * werden soll
      */
     public void addMouseAdapter(MouseInputAdapter mouseAdapter) {
         frame.addMouseListener(mouseAdapter);
