@@ -35,6 +35,10 @@ public class RenderVisitor implements Visitor {
         this.renderer = renderer;
     }
 
+    /**
+     * 
+     * @param camera
+     */
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
@@ -46,6 +50,8 @@ public class RenderVisitor implements Visitor {
     public Camera getCamera() {
         return camera;
     }
+
+   
 
     @Override
     public void visit(Node node) {

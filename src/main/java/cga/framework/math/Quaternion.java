@@ -176,14 +176,18 @@ public final class Quaternion {
     return this;
   }
 
+  /**
+   * Gibt das konjugierte Quaternion zurück.
+   * @return das konjugierte Quaternion
+   */
   public Quaternion conjugate() {
     return new Quaternion(-x, -y, -z, w);
   }
   
   /**
-   * TODO kommentare fehlen!
-   * @param i
-   * @return 
+   * Gibt eine Komponente des Quaternions zurück. 
+   * @param i der Index der Komponente, die zurückgegeben werden soll. i sollte zwischen 0 und 2 liegen
+   * @return die i. Komponente 
    */
   public Vector3d getRotationColumn(int i) {
        

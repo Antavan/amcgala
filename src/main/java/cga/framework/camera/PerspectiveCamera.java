@@ -37,7 +37,7 @@ public final class PerspectiveCamera implements Camera {
     private static final int PLANE_TOP = 3;
     private static final int PLANE_FAR = 4;
     private static final int PLANE_NEAR = 5;
-    private static final int FRUSTUM_PLANES = 6;
+    private static final int FRUSTUM_PLANES_COUNT = 6;
     private static final int MAX_WORLD_PLANES = 6;
     /**
      * "oben" Vektor
@@ -71,6 +71,9 @@ public final class PerspectiveCamera implements Camera {
      * Bildverhältnis
      */
     private double aspectRatio;
+    /**
+     * Der Sichtwinkel der Kamera
+     */
     private double fieldOfView;
     private double viewportLeft;
     private double viewportRight;
@@ -123,7 +126,7 @@ public final class PerspectiveCamera implements Camera {
     private Quaternion rotation;
 
     private PerspectiveCamera() {
-        cullingPlanes = new Plane[FRUSTUM_PLANES];
+        cullingPlanes = new Plane[FRUSTUM_PLANES_COUNT];
         for (int i = 0; i < cullingPlanes.length; i++) {
             cullingPlanes[i] = new Plane();
         }

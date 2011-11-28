@@ -21,11 +21,16 @@ import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
 import cga.framework.scenegraph.Node;
 import cga.framework.scenegraph.SceneGraph;
-import cga.framework.scenegraph.visitor.*;
+import cga.framework.scenegraph.visitor.AnimationVisitor;
+import cga.framework.scenegraph.visitor.InterpolationVisitor;
+import cga.framework.scenegraph.visitor.RenderVisitor;
+import cga.framework.scenegraph.visitor.UpdateVisitor;
+import cga.framework.scenegraph.visitor.Visitor;
 import cga.framework.shape.Shape;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,6 +51,7 @@ public abstract class Framework {
     private Camera camera;
     private Animator animator;
     private List<Visitor> visitors;
+    private RenderVisitor rv;
     private double aspectRatio;
     private double fieldOfView;
     private int screenWidth;
@@ -65,7 +71,7 @@ public abstract class Framework {
         screenHeight = height;
         logger.log(Level.INFO, "Initialisiere Framework.");
         logger.log(Level.INFO, "Erstelle Scenegraph.");
-        visitors = new ArrayList<Visitor>();
+        visitors = new ArrayList<Visitor>(10);
         scenegraph = new SceneGraph();
         aspectRatio = width / height;
         fieldOfView = Math.toRadians(76);
@@ -97,10 +103,10 @@ public abstract class Framework {
         visitors.add(updateVisitor);
 
         logger.log(Level.INFO, "Erstelle RenderVisitor.");
-        RenderVisitor renderVisitor = new RenderVisitor();
-        renderVisitor.setCamera(camera);
-        renderVisitor.setRenderer(renderer);
-        visitors.add(renderVisitor);
+        rv = new RenderVisitor();
+        rv.setCamera(camera);
+        rv.setRenderer(renderer);
+        visitors.add(rv);
 
         initGraph();
 
@@ -133,14 +139,6 @@ public abstract class Framework {
         scenegraph.addNode(node);
     }
 
-    /**
-     * Ändert die Kamera, die verwendet wird.
-     *
-     * @param camera die neue Kamera, die das Framework verwenden soll
-     */
-    public void setCamera(Camera camera) {
-        this.camera = camera;
-    }
 
     /**
      * Ändert den Renderer des Frameworks. Damit ist es möglich die Ausgabe des
@@ -255,7 +253,7 @@ public abstract class Framework {
      * @return die registrierten Visitor
      */
     public List<Visitor> getVisitors() {
-        return visitors;
+        return Collections.unmodifiableList(visitors);
     }
 
     /**
@@ -344,5 +342,14 @@ public abstract class Framework {
         frame.addMouseListener(mouseAdapter);
         frame.addMouseMotionListener(mouseAdapter);
         frame.addMouseWheelListener(mouseAdapter);
+    }
+
+    /**
+     * Ändert die Kamera.
+     * @param camera die neue Kamera
+     */
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+        rv.setCamera(camera);
     }
 }
