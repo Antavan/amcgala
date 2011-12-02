@@ -18,17 +18,18 @@ import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
+import java.util.logging.Logger;
 
 /**
  * Ein Kreuz, das einen Punkt markiert.
- * 
+ *
  * @author Robert Giacinto
  */
 public class Cross2d extends Shape {
 
     private Vector3d position;
     private int size;
-    private Line2d l1, l2;
+    private BresenhamLine2d l1, l2;
 
     public Cross2d(Vector3d position, int size) {
         this.position = position;
@@ -61,13 +62,16 @@ public class Cross2d extends Shape {
     }
 
     private void init() {
-        l1 = new Line2d(position.x - size, position.y - size, position.x + size, position.y + size);
-        l2 = new Line2d(position.x - size, position.y + size, position.x + size, position.y - size);
+        l1 = new BresenhamLine2d(position.x - size, position.y - size, position.x + size, position.y + size);
+        l2 = new BresenhamLine2d(position.x - size, position.y + size, position.x + size, position.y - size);
     }
 
     @Override
     public void render(Matrix transformation, Camera camera, Renderer renderer) {
+        l1.color = color;
+        l2.color = color;
         l1.render(transformation, camera, renderer);
         l2.render(transformation, camera, renderer);
     }
+    private static final Logger LOG = Logger.getLogger(Cross2d.class.getName());
 }

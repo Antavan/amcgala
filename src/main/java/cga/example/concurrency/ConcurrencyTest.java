@@ -16,10 +16,11 @@ package cga.example.concurrency;
 
 import cga.Framework;
 import cga.framework.renderer.Color;
-import cga.framework.shape.BresenhamLine2d;
+import cga.framework.shape.Cross2d;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import java.util.logging.Logger;
 
 /**
  * Ein Testbeispiel, um mögliche Probleme bei nicht-synchronisierten Zugriffen
@@ -38,13 +39,9 @@ public class ConcurrencyTest extends Framework {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    BresenhamLine2d line = new BresenhamLine2d(
-                            Math.pow(-1, random.nextInt(2)) * random.nextInt(getScreenWidth() / 2),
-                            Math.pow(-1, random.nextInt(2)) * random.nextInt(getScreenHeight() / 2),
-                            Math.pow(-1, random.nextInt(2)) * random.nextInt(getScreenWidth() / 2),
-                            Math.pow(-1, random.nextInt(2)) * random.nextInt(getScreenWidth() / 2));
-                    line.color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
-                    add(line);
+                    Cross2d c2d = new Cross2d(random.nextInt(getScreenWidth()), random.nextInt(getScreenHeight()), random.nextInt(50));
+                    c2d.color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
+                    add(c2d);
                 }
             }
         });
@@ -60,4 +57,5 @@ public class ConcurrencyTest extends Framework {
         test.start();
 
     }
+    private static final Logger LOG = Logger.getLogger(ConcurrencyTest.class.getName());
 }
