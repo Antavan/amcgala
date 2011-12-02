@@ -25,6 +25,7 @@ import cga.framework.renderer.Renderer;
  *
  * <p/>
  * @author Robert Giacinto
+ * @deprecated Alte Beispielklasse, die nicht mehr benötigt wird. Bitte BresenhamLine verwenden.
  */
 public class Line2d extends Shape {
 

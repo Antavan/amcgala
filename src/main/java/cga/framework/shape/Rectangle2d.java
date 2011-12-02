@@ -27,9 +27,14 @@ public class Rectangle2d extends Shape {
 
     public double width;
     public double height;
-    public BresenhamLine2d bottom, top, left, right;
+    public BresenhamLine2d bottom;
+    public BresenhamLine2d top;
+    public BresenhamLine2d left;
+    public BresenhamLine2d right;
 
     /**
+     * Erzeugt ein neues Rechteck, über die Position der linken unteren Ecke und
+     * der Höhe und Breite des Rechtecks.
      *
      * @param x die x-Koordinate der Ecke links unten.
      * @param y die y-Koordinate der Ecke links unten.
@@ -41,6 +46,21 @@ public class Rectangle2d extends Shape {
         top = new BresenhamLine2d(x, y + height, x + width, y + height);
         left = new BresenhamLine2d(x, y, x, y + height);
         right = new BresenhamLine2d(x + width, y, x + width, y + height);
+    }
+
+    /**
+     * Erzeugt ein neues Rechteck, das über die Kanten definiert wird.
+     *
+     * @param bottom die untere Seite des Rechtecks
+     * @param left die linke Seite des Rechtecks
+     * @param top die obere Seite des Rechtecks
+     * @param right die rechte Seite des Rechtecks
+     */
+    public Rectangle2d(BresenhamLine2d bottom, BresenhamLine2d left, BresenhamLine2d top, BresenhamLine2d right) {
+        this.top = top;
+        this.bottom = bottom;
+        this.left = left;
+        this.right = right;
     }
 
     @Override
