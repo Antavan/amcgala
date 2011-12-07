@@ -55,6 +55,7 @@ public class Rectangle2d extends Shape {
      * @param left die linke Seite des Rechtecks
      * @param top die obere Seite des Rechtecks
      * @param right die rechte Seite des Rechtecks
+     * @deprecated 
      */
     public Rectangle2d(BresenhamLine2d bottom, BresenhamLine2d left, BresenhamLine2d top, BresenhamLine2d right) {
         this.top = top;
