@@ -31,6 +31,23 @@ public abstract class Shape implements Updatable {
     private static final Logger logger = Logger.getLogger(Shape.class.getName());
     private Animation animation;
     public Color color = Color.BLACK;
+    private boolean rendering;
+
+    /**
+     * Gibt den Renderstatus des Shapes zurück.
+     * @return <code>true</code> wenn Shape gerade gerendert wird
+     */
+    public boolean isRendering() {
+        return rendering;
+    }
+
+    /**
+     * Wird vom Framework verwendet, um anzuzeigen, dass dieses Shape gerade gerendert wird.
+     * @param rendering der Renderstatus dieses Shapes
+     */
+    public void setRendering(boolean rendering) {
+        this.rendering = rendering;
+    }
 
     /**
      * Diese Methode gibt das Shapeobjekt aus. Es wird von allen Unterklassen implementiert.
@@ -40,15 +57,25 @@ public abstract class Shape implements Updatable {
      */
     public abstract void render(Matrix transformation, Camera camera, Renderer renderer);
 
+    /**
+     * Setzt die Animation, die auf das Shape angewendet werden soll.
+     * @param animation die Animation
+     */
     public void setAnimation(Animation animation) {
         this.animation = animation;
         this.animation.setShape(this);
     }
 
+    /**
+     * Gibt die Animation zurück, die in dem Shape registriert ist. Animation kann <code>null</code> sein, wenn das Shape keine Animation besitzt.
+     * TODO Sollte vielleicht eine leere Animation statt <code>null</code> zurückgegeben werden?
+     * @return die aktuelle Animation
+     */
     public Animation getAnimation() {
         return animation;
     }
 
     @Override
-    public void update() { }
+    public void update() {
+    }
 }

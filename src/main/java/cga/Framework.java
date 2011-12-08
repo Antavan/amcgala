@@ -17,6 +17,7 @@ package cga;
 import cga.framework.animation.Animator;
 import cga.framework.camera.Camera;
 import cga.framework.camera.OrthographicCamera;
+import cga.framework.event.InputHandler;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
 import cga.framework.scenegraph.Node;
@@ -27,8 +28,17 @@ import cga.framework.scenegraph.visitor.RenderVisitor;
 import cga.framework.scenegraph.visitor.UpdateVisitor;
 import cga.framework.scenegraph.visitor.Visitor;
 import cga.framework.shape.Shape;
+import com.google.common.eventbus.EventBus;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -46,6 +56,7 @@ import javax.swing.event.MouseInputAdapter;
 public abstract class Framework {
 
     private static final Logger logger = Logger.getLogger(Framework.class.getName());
+    private static Framework instance;
     private SceneGraph scenegraph;
     private Renderer renderer;
     private Camera camera;
@@ -57,6 +68,8 @@ public abstract class Framework {
     private int screenWidth;
     private int screenHeight;
     private JFrame frame;
+    private EventBus inputEventBus;
+    private String id;
 
     /**
      * Erstellt ein neues Framework, das eine grafische Ausgabe in der Auflösung
@@ -66,7 +79,10 @@ public abstract class Framework {
      * @param height die Höhe der Auflösung
      */
     public Framework(int width, int height) {
+        id = getClass().getCanonicalName();
+        instance = this;
 
+        inputEventBus = new EventBus("Input");
         screenWidth = width;
         screenHeight = height;
         logger.log(Level.INFO, "Initialisiere Framework.");
@@ -78,7 +94,16 @@ public abstract class Framework {
 
         frame = new JFrame("Java2D Renderer");
         frame.setSize(width, height);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                logger.log(Level.INFO, "Shutting down {0}", id);
+                shutdown();
+            }
+        });
 
         frame.setBackground(java.awt.Color.WHITE);
         frame.setVisible(true);
@@ -94,7 +119,7 @@ public abstract class Framework {
         visitors.add(new InterpolationVisitor());
 
         logger.log(Level.INFO, "Erstelle Animator.");
-        animator = new Animator(50);
+        animator = new Animator(20);
         AnimationVisitor animationVisitor = new AnimationVisitor();
         visitors.add(animationVisitor);
 
@@ -108,6 +133,65 @@ public abstract class Framework {
         rv.setRenderer(renderer);
         visitors.add(rv);
 
+        frame.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                inputEventBus.post(e);
+            }
+        });
+
+        frame.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                inputEventBus.post(e);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                inputEventBus.post(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                inputEventBus.post(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                inputEventBus.post(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                inputEventBus.post(e);
+            }
+        });
+
+        frame.addMouseMotionListener(new MouseMotionListener() {
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                inputEventBus.post(e);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                inputEventBus.post(e);
+            }
+        });
+
+        frame.addMouseWheelListener(new MouseWheelListener() {
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                inputEventBus.post(e);
+            }
+        });
+
+
+        // TODO eigentlich unschön. Besser wäre es, würde man das Framework final deklarieren und man übergibt eine Szene, die vom Framework gerendet wird.
         initGraph();
 
     }
@@ -138,7 +222,6 @@ public abstract class Framework {
     public void add(Node node) {
         scenegraph.addNode(node);
     }
-
 
     /**
      * Ändert den Renderer des Frameworks. Damit ist es möglich die Ausgabe des
@@ -301,11 +384,19 @@ public abstract class Framework {
     }
 
     /**
+     * Beendet ein laufendes Framework. Falls es etwas aufzuräumen gibt, dann passiert das hier.
+     */
+    public void shutdown() {
+        System.exit(0);
+    }
+
+    /**
      * Fügt dem Framework einen neuen KeyAdapter hinzu, der KeyEvents abfängt
      * und behandelt.
      *
      * @param keyAdapter der KeyAdapter, der dem Framework hinzugefügt werden
      * soll
+     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus zurückgegriffen wird.
      */
     public void addKeyAdapter(KeyAdapter keyAdapter) {
         frame.addKeyListener(keyAdapter);
@@ -315,6 +406,7 @@ public abstract class Framework {
      * Entfernt einen KeyListener aus dem Framework.
      *
      * @param keyAdapter der KeyListener, der entfernt werden soll
+     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus zurückgegriffen wird.
      */
     public void removeKeyAdapter(KeyAdapter keyAdapter) {
         frame.removeKeyListener(keyAdapter);
@@ -324,6 +416,7 @@ public abstract class Framework {
      * Entfernt einen MouseAdapter aus dem Framework.
      *
      * @param mouseAdapter der MouseAdapter, der entfernt werden soll
+     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus zurückgegriffen wird.
      */
     public void removeMouseAdapter(MouseAdapter mouseAdapter) {
         frame.removeMouseListener(mouseAdapter);
@@ -337,6 +430,7 @@ public abstract class Framework {
      *
      * @param mouseAdapter der MouseAdapter, der dem Framework hinzugefügt
      * werden soll
+     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus zurückgegriffen wird.
      */
     public void addMouseAdapter(MouseInputAdapter mouseAdapter) {
         frame.addMouseListener(mouseAdapter);
@@ -351,5 +445,31 @@ public abstract class Framework {
     public void setCamera(Camera camera) {
         this.camera = camera;
         rv.setCamera(camera);
+    }
+
+    /**
+     * Registriert einen neuen Eventhandler bei der EventQueue. 
+     * @param handler der neue Inputhandler
+     */
+    public void registerInputEventHandler(InputHandler handler) {
+        inputEventBus.register(handler);
+    }
+
+    /**
+     * Entfernt einen Eventhandler aus der Liste der Subscriber.
+     * @param handler der Inputhandler, der entfernt werden soll
+     */
+    public void unregisterInputEventHandler(InputHandler handler) {
+        inputEventBus.unregister(handler);
+    }
+
+    /**
+     * Gibt die laufende Instanz zurück. 
+     * Die Methode kann dazu verwendet werden, von extern auf die Methoden des Frameworks zuzugreifen.
+     * FIXME schlechter Stil, eigentlich sollte man auf sowas wie Singletons verzichten. Wird eigentlich auch nur benötigt, um von Shapes auf die Größe des Framework etc. zugreifen zu können. Das könnte man eigentlich über den Eventbus lösen. Ich möchte eigentlich nicht, dass die Shapes etc. das Framework übergeben bekommen müssen.
+     * @return 
+     */
+    public static Framework getInstance() {
+        return instance;
     }
 }

@@ -31,34 +31,30 @@ public class RenderVisitor implements Visitor {
     private Renderer renderer;
     private Camera camera;
 
+    /**
+     * Setzt den Renderer, der von diesem <code>RenderVisitor</code> verwendet werden soll.
+     * @param renderer der neue Renderer
+     */
     public void setRenderer(Renderer renderer) {
         this.renderer = renderer;
     }
 
     /**
-     * 
-     * @param camera
+     * Setzt die Kamera, die vom Renderer verwendet werden soll.
+     * @param camera die neue Kamera
      */
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
-
-    public Renderer getRenderer() {
-        return renderer;
-    }
-
-    public Camera getCamera() {
-        return camera;
-    }
-
-   
 
     @Override
     public void visit(Node node) {
         synchronized (node.getGeometry()) {
             Matrix transform = node.getTransformMatrix();
             for (Shape shape : node.getGeometry()) {
-                shape.render(transform, getCamera(), getRenderer());
+                shape.setRendering(true);
+                shape.render(transform, camera, renderer);
+                shape.setRendering(false);
             }
         }
     }

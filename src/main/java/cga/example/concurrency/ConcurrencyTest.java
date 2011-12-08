@@ -15,11 +15,6 @@
 package cga.example.concurrency;
 
 import cga.Framework;
-import cga.framework.renderer.Color;
-import cga.framework.shape.Cross2d;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Random;
 import java.util.logging.Logger;
 
 /**
@@ -30,26 +25,18 @@ import java.util.logging.Logger;
  */
 public class ConcurrencyTest extends Framework {
 
+    private RandomCrossArray crosses;
+
     public ConcurrencyTest(int width, int height) {
         super(width, height);
-        addKeyAdapter(new KeyAdapter() {
-
-            Random random = new Random(System.nanoTime());
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    Cross2d c2d = new Cross2d(random.nextInt(getScreenWidth()), random.nextInt(getScreenHeight()), random.nextInt(50));
-                    c2d.color = new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
-                    add(c2d);
-                }
-            }
-        });
 
     }
 
     @Override
     public void initGraph() {
+        crosses = new RandomCrossArray();
+        registerInputEventHandler(crosses);
+        add(crosses);
     }
 
     public static void main(String[] args) {
