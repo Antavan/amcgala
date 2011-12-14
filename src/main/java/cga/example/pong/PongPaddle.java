@@ -15,6 +15,7 @@
 package cga.example.pong;
 
 import cga.framework.camera.AbstractCamera;
+import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Plane;
 import cga.framework.math.Vector3d;
@@ -98,7 +99,7 @@ public class PongPaddle extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
+    public void render(Matrix transformation, Camera camera, Renderer renderer) {
         paddle.render(transformation, camera, renderer);
 //        c1.render(transformation, camera, renderer);
 //        c2.render(transformation, camera, renderer);

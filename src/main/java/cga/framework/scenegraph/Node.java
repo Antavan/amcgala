@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 public class Node {
 
     private static final Logger logger = Logger.getLogger(Node.class.getName());
-    protected String label = "none";
+    private String label = "none";
     /**
      * Der übergeordnete Knoten, an dem dieser Knoten hängt. Null, wenn es sich
      * um den Rootknoten handelt.
@@ -256,6 +256,7 @@ public class Node {
 
         return b;
     }
+    
 
     @Override
     public String toString() {

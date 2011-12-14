@@ -15,6 +15,7 @@
 package cga.framework.shape;
 
 import cga.framework.camera.AbstractCamera;
+import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 
@@ -753,7 +754,7 @@ public class Letter extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
+    public void render(Matrix transformation, Camera camera, Renderer renderer) {
         for (BresenhamLine2d bl : letterLines) {
             bl.render(transformation, camera, renderer);
         }

@@ -15,6 +15,7 @@
 package cga.framework.shape;
 
 import cga.framework.camera.AbstractCamera;
+import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Pixel;
@@ -36,7 +37,7 @@ public class Point2d extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
+    public void render(Matrix transformation, Camera camera, Renderer renderer) {
         Vector3d point = new Vector3d(x, y, -1).transform(transformation);
 
         Pixel pixel = camera.getImageSpaceCoordinates(point);

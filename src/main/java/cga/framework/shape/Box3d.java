@@ -15,10 +15,12 @@
 package cga.framework.shape;
 
 import cga.framework.camera.AbstractCamera;
+import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Eine Box im 3d Raum.
@@ -54,12 +56,12 @@ public class Box3d extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
+    public void render(Matrix transformation, Camera camera, Renderer renderer) {
         for (BresenhamLine3d line : lines) {
             if (line != null) {
                 line.render(transformation, camera, renderer);
             }
         }
     }
-    private static final Logger LOG = Logger.getLogger(Box3d.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(Box3d.class);
 }

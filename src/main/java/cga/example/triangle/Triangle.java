@@ -15,6 +15,7 @@
 package cga.example.triangle;
 
 import cga.framework.camera.AbstractCamera;
+import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Color;
 import cga.framework.renderer.Renderer;
@@ -41,7 +42,7 @@ public class Triangle extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
+    public void render(Matrix transformation, Camera camera, Renderer renderer) {
         l1.render(transformation, camera, renderer);
         l2.render(transformation, camera, renderer);
         l3.render(transformation, camera, renderer);

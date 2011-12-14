@@ -15,6 +15,7 @@
 package cga.example.ships;
 
 import cga.framework.camera.AbstractCamera;
+import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 import cga.framework.shape.Shape;
@@ -108,7 +109,7 @@ public class Board extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
+    public void render(Matrix transformation, Camera camera, Renderer renderer) {
         for (int i = 0; i < boardArray.length; i++) {
             for (int k = 0; k < boardArray[0].length; k++) {
                 boardArray[i][k].render(transformation, camera, renderer);

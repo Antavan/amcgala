@@ -16,7 +16,7 @@ package cga.framework.shape;
 
 import cga.framework.animation.Animation;
 import cga.framework.animation.Updatable;
-import cga.framework.camera.AbstractCamera;
+import cga.framework.camera.Camera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Color;
 import cga.framework.renderer.Renderer;
@@ -55,7 +55,7 @@ public abstract class Shape implements Updatable {
      * @param camera die Kamera der Szene
      * @param renderer der Renderer
      */
-    public abstract void render(Matrix transformation, AbstractCamera camera, Renderer renderer);
+    public abstract void render(Matrix transformation, Camera camera, Renderer renderer);
 
     /**
      * Setzt die Animation, die auf das Shape angewendet werden soll.

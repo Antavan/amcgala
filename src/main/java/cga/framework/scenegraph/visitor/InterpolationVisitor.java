@@ -15,15 +15,17 @@
 package cga.framework.scenegraph.visitor;
 
 import cga.framework.scenegraph.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Ein AlphaVisitor besucht in der Updatephase des Scenegraphs jeden Knoten und
  * aktualisiert die dort verwendeten Alphaobjekte.
- * <p/>
+ *
  * @author Robert Giacinto
  */
 public class InterpolationVisitor implements Visitor {
-
+    private static Logger log = LoggerFactory.getLogger(InterpolationVisitor.class);
     @Override
     public void visit(Node node) {
         if (node.getTransformation() != null) {

@@ -57,7 +57,7 @@ public class SceneGraph {
      */
     public void removeNode(Node node) {
        if(node != null){
-            root.removeNode(node.label);
+            root.removeNode(node.getLabel());
        }else{
            throw new IllegalArgumentException("node darf nicht null sein!");
        }

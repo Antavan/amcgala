@@ -15,8 +15,13 @@
 package cga.example.movingCamera;
 
 import cga.Framework;
+import cga.framework.animation.interpolation.EaseInInterpolation;
+import cga.framework.animation.interpolation.LinearInterpolation;
+import cga.framework.camera.SimplePerspectiveCamera;
 import cga.framework.event.InputHandler;
 import cga.framework.math.Vector3d;
+import cga.framework.scenegraph.Node;
+import cga.framework.scenegraph.transform.RotationY;
 import cga.framework.shape.Box3d;
 import com.google.common.eventbus.Subscribe;
 import java.awt.event.KeyEvent;
@@ -31,7 +36,6 @@ import org.slf4j.LoggerFactory;
 public class MovingCamera extends Framework implements InputHandler {
 
     private static final Logger log = LoggerFactory.getLogger(MovingCamera.class);
-    private Box3d box;
 
     /**
      * Neues Framework, das eine Java2D Ausgabe der Größe width x height hat.
@@ -46,8 +50,17 @@ public class MovingCamera extends Framework implements InputHandler {
     @Override
     public void initGraph() {
         registerInputEventHandler(this);
-        box = new Box3d(new Vector3d(-200, -200, -400), 400, 400, 400);
-        add(box);
+        setCamera(new SimplePerspectiveCamera(Vector3d.UNIT_Y, new Vector3d(0, 25, 150), Vector3d.ZERO, 10900));
+        
+        Node n = new Node("rotating box");
+        RotationY rotY = new RotationY();
+        rotY.setInterpolationPhi(new LinearInterpolation(0, 4 * Math.PI, 250, true));
+        n.setTransformation(rotY);
+//        n.addShape(new Box3d(new Vector3d(0, 0, 0), 40, 40, 40));
+//        n.addShape(new Box3d(new Vector3d(0, 100, 0), 40, 40, 40));
+        n.addShape(new Box3d(new Vector3d(0, 200, 0), 40, 40, 40));
+        
+        add(n);
     }
 
     @Subscribe
@@ -66,7 +79,7 @@ public class MovingCamera extends Framework implements InputHandler {
             old.x += 0.01;
             getCamera().update();
         }
-        log.info("{}", old);
+//        log.info("{}", old);
     }
 
     public static void main(String[] args) {

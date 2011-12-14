@@ -15,6 +15,7 @@
 package cga.example.concurrency;
 
 import cga.framework.camera.AbstractCamera;
+import cga.framework.camera.Camera;
 import cga.framework.event.InputHandler;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Color;
@@ -48,7 +49,7 @@ public class RandomCrossArray extends Shape implements InputHandler {
     }
 
     @Override
-    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
+    public void render(Matrix transformation, Camera camera, Renderer renderer) {
         for (Cross2d cross : crosses) {
             cross.render(transformation, camera, renderer);
         }
