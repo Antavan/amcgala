@@ -15,7 +15,6 @@
 package cga.example.movingCamera;
 
 import cga.Framework;
-import cga.framework.animation.interpolation.EaseInInterpolation;
 import cga.framework.animation.interpolation.LinearInterpolation;
 import cga.framework.camera.SimplePerspectiveCamera;
 import cga.framework.event.InputHandler;
@@ -51,32 +50,32 @@ public class MovingCamera extends Framework implements InputHandler {
     public void initGraph() {
         registerInputEventHandler(this);
         setCamera(new SimplePerspectiveCamera(Vector3d.UNIT_Y, new Vector3d(0, 25, 150), Vector3d.ZERO, 10900));
-        
+
         Node n = new Node("rotating box");
         RotationY rotY = new RotationY();
         rotY.setInterpolationPhi(new LinearInterpolation(0, 4 * Math.PI, 250, true));
         n.setTransformation(rotY);
-//        n.addShape(new Box3d(new Vector3d(0, 0, 0), 40, 40, 40));
-//        n.addShape(new Box3d(new Vector3d(0, 100, 0), 40, 40, 40));
+        n.addShape(new Box3d(new Vector3d(0, 0, 0), 40, 40, 40));
+        n.addShape(new Box3d(new Vector3d(0, 100, 0), 40, 40, 40));
         n.addShape(new Box3d(new Vector3d(0, 200, 0), 40, 40, 40));
-        
+
         add(n);
     }
 
     @Subscribe
     public void handleKeys(KeyEvent event) {
-        Vector3d old = getCamera().getPosition();
+        Vector3d position = getCamera().getPosition();
         if (event.getKeyCode() == KeyEvent.VK_UP) {
-            old.z += 0.1;
+            position.z += 0.1;
             getCamera().update();
         } else if (event.getKeyCode() == KeyEvent.VK_DOWN) {
-            old.z -= 0.1;
+            position.z -= 0.1;
             getCamera().update();
         } else if (event.getKeyCode() == KeyEvent.VK_LEFT) {
-            old.x -= 0.01;
+            position.x -= 0.01;
             getCamera().update();
         } else if (event.getKeyCode() == KeyEvent.VK_RIGHT) {
-            old.x += 0.01;
+            position.x += 0.01;
             getCamera().update();
         }
 //        log.info("{}", old);

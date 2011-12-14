@@ -51,8 +51,6 @@ public class PongBoard extends Node {
         ymin = y;
         ymax = y + height;
 
-
-
         top = new Plane(Vector3d.UNIT_Y, y + height);
         bottom = new Plane(Vector3d.UNIT_Y, y);
         left = new Plane(Vector3d.UNIT_X, x);
@@ -63,7 +61,6 @@ public class PongBoard extends Node {
         addShape(boundaries);
         ball = new PongBall(this);
         addShape(ball);
-        // TODO scheiße
         paddle = new PongPaddle(5, 20, ball, this);
         addShape(paddle);
     }

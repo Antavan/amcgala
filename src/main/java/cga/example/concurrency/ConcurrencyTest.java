@@ -15,7 +15,8 @@
 package cga.example.concurrency;
 
 import cga.Framework;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Ein Testbeispiel, um mögliche Probleme bei nicht-synchronisierten Zugriffen
@@ -44,5 +45,5 @@ public class ConcurrencyTest extends Framework {
         test.start();
 
     }
-    private static final Logger LOG = Logger.getLogger(ConcurrencyTest.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(ConcurrencyTest.class);
 }

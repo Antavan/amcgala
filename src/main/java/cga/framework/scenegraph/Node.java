@@ -22,6 +22,7 @@ import cga.framework.shape.Shape;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -33,7 +34,7 @@ public class Node {
     private static final Logger logger = Logger.getLogger(Node.class.getName());
     private String label = "none";
     /**
-     * Der übergeordnete Knoten, an dem dieser Knoten hängt. Null, wenn es sich
+     * Der übergeordnete Knoten, an dem dieser Knoten hängt. {@code null}, wenn es sich
      * um den Rootknoten handelt.
      */
     private Node parent;
@@ -61,8 +62,8 @@ public class Node {
     public Node(String label) {
         this.label = label;
         transformation = new Translation(0, 0, 0);
-        geometry = Collections.synchronizedList(new ArrayList<Shape>());
-        children = Collections.synchronizedList(new ArrayList<Node>());
+        geometry = new CopyOnWriteArrayList<Shape>();
+        children = new CopyOnWriteArrayList<Node>();
     }
 
     /**
@@ -205,6 +206,7 @@ public class Node {
 
     /**
      * Gibt die Kindsknoten zurück.
+     * Die zurückgegebene ist read-only. Um einen neuen Kindsknoten hinzuzufügen sollte die entsprochende Methode {@code addChild} verwendet werden.
      *
      * @return die Kindsknoten
      */
@@ -218,7 +220,7 @@ public class Node {
      * @return die Geometrieobjekte
      */
     public Collection<Shape> getGeometry() {
-        return geometry;
+        return Collections.unmodifiableCollection(geometry);
     }
 
     /**

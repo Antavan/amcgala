@@ -14,7 +14,6 @@
  */
 package cga.example.concurrency;
 
-import cga.framework.camera.AbstractCamera;
 import cga.framework.camera.Camera;
 import cga.framework.event.InputHandler;
 import cga.framework.math.Matrix;
@@ -24,12 +23,14 @@ import cga.framework.shape.Cross2d;
 import cga.framework.shape.Shape;
 import com.google.common.eventbus.Subscribe;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Dieses Shape fügt einer internen, nichtsynchronisierten Liste Instanzen von Cross2d hinzu, um neue Synchronisierungsstrategien testen zu können.
+ * Dieses Shape fügt einer internen, nichtsynchronisierten Liste Instanzen von
+ * Cross2d hinzu, um neue Synchronisierungsstrategien testen zu können.
+ *
  * @author Robert Giacinto
  */
 public class RandomCrossArray extends Shape implements InputHandler {
@@ -38,14 +39,12 @@ public class RandomCrossArray extends Shape implements InputHandler {
     private Random random;
 
     public RandomCrossArray() {
-        crosses = new ArrayList<Cross2d>(500);
+        crosses = new CopyOnWriteArrayList<Cross2d>();
         random = new Random(System.nanoTime());
     }
 
     public void addCross(Cross2d cross) {
-        if (!isRendering()) {
-            crosses.add(cross);
-        }
+        crosses.add(cross);
     }
 
     @Override
@@ -63,5 +62,4 @@ public class RandomCrossArray extends Shape implements InputHandler {
             addCross(c2d);
         }
     }
-
 }

@@ -52,13 +52,6 @@ public final class OrthographicCamera extends AbstractCamera {
     }
 
     @Override
-    public CVPoint getClippingSpaceCoordinates(Vector3d vector3d) {
-        Matrix point = projection.times(vector3d.toMatrix());
-        CVPoint cvPoint = new CVPoint(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
-        return cvPoint;
-    }
-
-    @Override
     public void update() {
         this.n = direction.sub(position).times(-1);
         this.u = vup.cross(n).normalize();
@@ -83,6 +76,13 @@ public final class OrthographicCamera extends AbstractCamera {
         };
         Matrix kt = Matrix.constructWithCopy(viewValues);
         projection = vd.times(kt);
+    }
+
+    @Override
+    public CVPoint getClippingSpaceCoordinates(Vector3d vector3d) {
+        Matrix point = projection.times(vector3d.toMatrix());
+        CVPoint cvPoint = new CVPoint(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
+        return cvPoint;
     }
 
     @Override

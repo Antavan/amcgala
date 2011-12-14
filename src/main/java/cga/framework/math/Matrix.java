@@ -12,6 +12,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Jama = Java Matrix class.
@@ -198,6 +200,11 @@ public class Matrix implements Cloneable, java.io.Serializable {
      * Clone the Matrix object.
      */
     public Object clone() {
+        try {
+            super.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Matrix.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return this.copy();
     }
 

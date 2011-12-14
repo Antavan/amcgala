@@ -43,9 +43,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.event.MouseInputAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Die Hauptklasse des Frameworks, die die Hauptaufgaben übernimmt. Sie
@@ -55,8 +56,7 @@ import javax.swing.event.MouseInputAdapter;
  */
 public abstract class Framework {
 
-    private static final Logger logger = Logger.getLogger(Framework.class.getName());
-    private static Framework instance;
+    private static final Logger log = LoggerFactory.getLogger(Framework.class);
     private SceneGraph scenegraph;
     private Renderer renderer;
     private AbstractCamera camera;
@@ -79,12 +79,11 @@ public abstract class Framework {
      * @param height die Höhe der Auflösung
      */
     public Framework(int width, int height) {
-
+        log.info("Initialising framework");
         inputEventBus = new EventBus("Input");
         screenWidth = width;
         screenHeight = height;
-        logger.log(Level.INFO, "Initialisiere Framework.");
-        logger.log(Level.INFO, "Erstelle Scenegraph.");
+
         visitors = new ArrayList<Visitor>(10);
         scenegraph = new SceneGraph();
         aspectRatio = width / height;
@@ -98,7 +97,7 @@ public abstract class Framework {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
-                logger.log(Level.INFO, "Shutting down {0}", id);
+                log.info("Shutting down...");
                 shutdown();
             }
         });
@@ -109,23 +108,17 @@ public abstract class Framework {
 
         camera = new OrthographicCamera(Vector3d.UNIT_Y, Vector3d.UNIT_Z, Vector3d.ZERO);
 
-
-        logger.log(Level.INFO, "Erstelle Java2D Renderoutput.");
         renderer = new Renderer(width, height, frame);
 
-        logger.log(Level.INFO, "Füge InterpolationVisitor hinzu.");
         visitors.add(new InterpolationVisitor());
 
-        logger.log(Level.INFO, "Erstelle Animator.");
         animator = new Animator(20);
         AnimationVisitor animationVisitor = new AnimationVisitor();
         visitors.add(animationVisitor);
 
-        logger.log(Level.INFO, "UpdateVisitor.");
         UpdateVisitor updateVisitor = new UpdateVisitor();
         visitors.add(updateVisitor);
 
-        logger.log(Level.INFO, "Erstelle RenderVisitor.");
         rv = new RenderVisitor();
         rv.setCamera(camera);
         rv.setRenderer(renderer);
@@ -382,7 +375,8 @@ public abstract class Framework {
     }
 
     /**
-     * Beendet ein laufendes Framework. Falls es etwas aufzuräumen gibt, dann passiert das hier.
+     * Beendet ein laufendes Framework. Falls es etwas aufzuräumen gibt, dann
+     * passiert das hier.
      */
     public void shutdown() {
         System.exit(0);
@@ -394,7 +388,8 @@ public abstract class Framework {
      *
      * @param keyAdapter der KeyAdapter, der dem Framework hinzugefügt werden
      * soll
-     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus zurückgegriffen wird.
+     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus
+     * zurückgegriffen wird.
      */
     public void addKeyAdapter(KeyAdapter keyAdapter) {
         frame.addKeyListener(keyAdapter);
@@ -404,7 +399,8 @@ public abstract class Framework {
      * Entfernt einen KeyListener aus dem Framework.
      *
      * @param keyAdapter der KeyListener, der entfernt werden soll
-     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus zurückgegriffen wird.
+     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus
+     * zurückgegriffen wird.
      */
     public void removeKeyAdapter(KeyAdapter keyAdapter) {
         frame.removeKeyListener(keyAdapter);
@@ -414,7 +410,8 @@ public abstract class Framework {
      * Entfernt einen MouseAdapter aus dem Framework.
      *
      * @param mouseAdapter der MouseAdapter, der entfernt werden soll
-     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus zurückgegriffen wird.
+     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus
+     * zurückgegriffen wird.
      */
     public void removeMouseAdapter(MouseAdapter mouseAdapter) {
         frame.removeMouseListener(mouseAdapter);
@@ -428,7 +425,8 @@ public abstract class Framework {
      *
      * @param mouseAdapter der MouseAdapter, der dem Framework hinzugefügt
      * werden soll
-     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus zurückgegriffen wird.
+     * @deprecated wird zum Ende des Semesters entfernt, da auf den Eventbus
+     * zurückgegriffen wird.
      */
     public void addMouseAdapter(MouseInputAdapter mouseAdapter) {
         frame.addMouseListener(mouseAdapter);
@@ -438,6 +436,7 @@ public abstract class Framework {
 
     /**
      * Ändert die Kamera.
+     *
      * @param camera die neue Kamera
      */
     public void setCamera(AbstractCamera camera) {
@@ -446,7 +445,8 @@ public abstract class Framework {
     }
 
     /**
-     * Registriert einen neuen Eventhandler bei der EventQueue. 
+     * Registriert einen neuen Eventhandler bei der EventQueue.
+     *
      * @param handler der neue Inputhandler
      */
     public void registerInputEventHandler(InputHandler handler) {
@@ -455,19 +455,10 @@ public abstract class Framework {
 
     /**
      * Entfernt einen Eventhandler aus der Liste der Subscriber.
+     *
      * @param handler der Inputhandler, der entfernt werden soll
      */
     public void unregisterInputEventHandler(InputHandler handler) {
         inputEventBus.unregister(handler);
-    }
-
-    /**
-     * Gibt die laufende Instanz zurück. 
-     * Die Methode kann dazu verwendet werden, von extern auf die Methoden des Frameworks zuzugreifen.
-     * FIXME schlechter Stil, eigentlich sollte man auf sowas wie Singletons verzichten. Wird eigentlich auch nur benötigt, um von Shapes auf die Größe des Framework etc. zugreifen zu können. Das könnte man eigentlich über den Eventbus lösen. Ich möchte eigentlich nicht, dass die Shapes etc. das Framework übergeben bekommen müssen.
-     * @return 
-     */
-    public static Framework getInstance() {
-        return instance;
     }
 }
