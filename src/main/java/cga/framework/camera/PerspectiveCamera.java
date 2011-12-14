@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  *
  * @author Robert Giacinto
  */
-public final class PerspectiveCamera implements Camera {
+public final class PerspectiveCamera extends AbstractCamera {
 
     private static final Logger logger = Logger.getLogger(PerspectiveCamera.class.getName());
     private static final int PLANE_LEFT = 0;
@@ -39,30 +39,7 @@ public final class PerspectiveCamera implements Camera {
     private static final int PLANE_NEAR = 5;
     private static final int FRUSTUM_PLANES_COUNT = 6;
     private static final int MAX_WORLD_PLANES = 6;
-    /**
-     * "oben" Vektor
-     */
-    private Vector3d vup;
-    /**
-     * Position der Kamera
-     */
-    private Vector3d location;
-    /**
-     * Punkt, zu dem die Kamera blickt
-     */
-    private Vector3d direction;
-    /**
-     * u-Achse des Kamerakoordinatensystems (lokale x-Achse)
-     */
-    private Vector3d u;
-    /**
-     * v-Achse des Kamerakoordinatensystems (lokale y-Achse)
-     */
-    private Vector3d v;
-    /**
-     * n-Achse des Kamerakoordinatensystems (lokale z-Achse)
-     */
-    private Vector3d n;
+   
     /**
      * Abstand zur near plane
      */
@@ -112,10 +89,6 @@ public final class PerspectiveCamera implements Camera {
      */
     private int height;
     /**
-     * Projektionsmatrix für Transformation in das Einheitssichtvolumen
-     */
-    private Matrix projection;
-    /**
      * Projektionsmatrix für die Transformation in das Kamerakoordinatensystem
      */
     private Matrix view;
@@ -131,7 +104,7 @@ public final class PerspectiveCamera implements Camera {
             cullingPlanes[i] = new Plane();
         }
 
-        location = new Vector3d(0, 0, 0);
+        position = new Vector3d(0, 0, 0);
 
         frustumNear = 1.0;
         frustumFar = 2.0;
@@ -169,15 +142,15 @@ public final class PerspectiveCamera implements Camera {
      * Erzeugt eine neue Kamera an einer Position mit einem bestimmten Blickpunkt.
      * 
      * @param vup Das Oben der Kamera
-     * @param location Die Position der Kamera
+     * @param position Die Position der Kamera
      * @param direction Der Punkt, zu dem die Kamera blickt
      * @param fov Der Öffnungswinkel der Kamera
      * @param width die Breite der Bildschirmausgabe
      * @param height die Höhe der Bildschirmausgabe
      */
-    public PerspectiveCamera(Vector3d location, Vector3d direction, Vector3d vup, double fov, int width, int height) {
+    public PerspectiveCamera(Vector3d position, Vector3d direction, Vector3d vup, double fov, int width, int height) {
         this();
-        this.location = location;
+        this.position = position;
         this.direction = direction;
         this.vup = vup;
         this.fieldOfView = fov;
@@ -204,11 +177,11 @@ public final class PerspectiveCamera implements Camera {
         /*
          * Erste Transformation: Weltkoordinaten -> Kamerakoordinaten.
          */
-        n = direction.sub(location).times(-1).normalize();
+        n = direction.sub(position).times(-1);
         u = vup.cross(n).normalize();
         v = n.cross(u);
 
-        Vector3d d = new Vector3d(location.dot(u), location.dot(v), location.dot(n)).times(-1);
+        Vector3d d = new Vector3d(position.dot(u), position.dot(v), position.dot(n)).times(-1);
 
         double[][] viewValues = {
             {u.x, u.y, u.z, d.x},

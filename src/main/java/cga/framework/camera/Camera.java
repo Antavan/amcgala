@@ -14,15 +14,74 @@
  */
 package cga.framework.camera;
 
-import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Pixel;
 
 /**
+ * Das {@code Camera} Interface muss von allen virtuellen Kameras des Frameworks
+ * implementiert werden.
  *
  * @author Robert Giacinto
  */
 public interface Camera {
+
+    /**
+     * Gibt die Koordinaten im kanonischen Sichtvolumen zurück.
+     *
+     * @param vector3d der zu projezierende Vektor
+     * @return der transformierte Vektor in den Clipping Raum
+     */
+    CVPoint getClippingSpaceCoordinates(Vector3d vector3d);
+
+    /**
+     * Gibt die Blickrichtung der Kamera zurück.
+     *
+     * @return die aktuelle Blickrichtung der Kamera
+     */
+    Vector3d getDirection();
+
+    /**
+     * Gibt die Koordinaten des Vektors im Bildraum zurück.
+     *
+     * @param vector3d der zu projezierende Vektor
+     * @return die Koordinaten des Vektors im Bildraum
+     */
+    Pixel getImageSpaceCoordinates(Vector3d vector3d);
+
+    /**
+     * Gibt die Position der Kamera zurück.
+     *
+     * @return die Position der Kamera
+     */
+    Vector3d getPosition();
+
+    /**
+     * Gibt den Oben-Vektor der Kamera zurück.
+     *
+     * @return der Oben-Vektor
+     */
+    Vector3d getVup();
+
+    /**
+     * Ändert die Blickrichtung der Kamera.
+     *
+     * @param direction die neue Blickrichtung
+     */
+    void setDirection(Vector3d direction);
+
+    /**
+     * Ändert die Position der Kamera.
+     *
+     * @param position die neue Position
+     */
+    void setPosition(Vector3d position);
+
+    /**
+     * Ändert den Oben-Vektor der Kamera.
+     *
+     * @param vup der neue Oben-Vektor
+     */
+    void setVup(Vector3d vup);
 
     /**
      * Aktualisiert die Projektionsmatrix des Kameraobjekts. Diese Methode
@@ -30,26 +89,4 @@ public interface Camera {
      * wurde.
      */
     void update();
-
-    /**
-     * Gibt die Projektionsmatrix der Kamera zurück.
-     * 
-     * @return die aktuelle Projektionsmatrix
-     */
-    Matrix getProjection();
-
-    /**
-     * Gibt die Koordinaten im kanonischen Sichtvolumen zurück.
-     * 
-     * @param vector3d der zu projezierende Vektor
-     * @return der transformierte Vektor in den Clipping Raum
-     */
-    CVPoint getClippingSpaceCoordinates(Vector3d vector3d);
-
-    /**
-     * Gibt die Koordinaten des Vektors im Bildraum zurück.
-     * @param vector3d der zu projezierende Vektor
-     * @return die Koordinaten des Vektors im Bildraum
-     */
-    Pixel getImageSpaceCoordinates(Vector3d vector3d);
 }

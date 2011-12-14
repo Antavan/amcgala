@@ -14,7 +14,7 @@
  */
 package cga.framework.scenegraph.visitor;
 
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 import cga.framework.scenegraph.Node;
@@ -29,7 +29,7 @@ import cga.framework.shape.Shape;
 public class RenderVisitor implements Visitor {
 
     private Renderer renderer;
-    private Camera camera;
+    private AbstractCamera camera;
 
     /**
      * Setzt den Renderer, der von diesem <code>RenderVisitor</code> verwendet werden soll.
@@ -43,7 +43,7 @@ public class RenderVisitor implements Visitor {
      * Setzt die Kamera, die vom Renderer verwendet werden soll.
      * @param camera die neue Kamera
      */
-    public void setCamera(Camera camera) {
+    public void setCamera(AbstractCamera camera) {
         this.camera = camera;
     }
 

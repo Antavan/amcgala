@@ -17,7 +17,8 @@ package cga.framework.camera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Pixel;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implementierung einer orthographischen Projektion. Es gehen jegliche
@@ -27,24 +28,7 @@ import java.util.logging.Logger;
  *
  * @author Robert Giacinto
  */
-public class OrthographicCamera implements Camera {
-
-    /**
-     * "oben" Vektor
-     */
-    private Vector3d vup;
-    /**
-     * Position der Kamera
-     */
-    private Vector3d position;
-    /**
-     * Punkt, zu dem die Kamera blickt
-     */
-    private Vector3d direction;
-    private Vector3d u;
-    private Vector3d v;
-    private Vector3d n;
-    private Matrix projection;
+public final class OrthographicCamera extends AbstractCamera {
 
     /**
      * Erzeugt eine neue Kamera an einer Position mit einem bestimmten
@@ -59,28 +43,7 @@ public class OrthographicCamera implements Camera {
         this.position = position;
         this.direction = direction;
 
-
-        this.n = direction.sub(position).times(-1);
-        this.u = this.vup.cross(n).normalize();
-        this.v = n.cross(u);
-
-        double[][] vdValues = {
-            {1, 0, 0, 0},
-            {0, 1, 0, 0},
-            {0, 0, 0, 0},
-            {0, 0, 0, 1}
-        };
-
-        Matrix vd = Matrix.constructWithCopy(vdValues);
-
-        double[][] kValues = {
-            {u.x, u.y, u.z, 0},
-            {v.x, v.y, v.z, 0},
-            {n.x, n.y, n.z, 0},
-            {0, 0, 0, 1}
-        };
-        Matrix kt = Matrix.constructWithCopy(kValues);
-        projection = vd.times(kt);
+        update();
     }
 
     @Override
@@ -97,7 +60,29 @@ public class OrthographicCamera implements Camera {
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.n = direction.sub(position).times(-1);
+        this.u = vup.cross(n).normalize();
+        this.v = n.cross(u).normalize();
+
+        double[][] vdValues = {
+            {1, 0, 0, 0},
+            {0, 1, 0, 0},
+            {0, 0, 0, 0},
+            {0, 0, 0, 1}
+        };
+
+        Matrix vd = Matrix.constructWithCopy(vdValues);
+
+        Vector3d d = new Vector3d(position.dot(u), position.dot(v), position.dot(n));
+
+        double[][] viewValues = {
+            {u.x, u.y, u.z, d.x},
+            {v.x, v.y, v.z, d.y},
+            {n.x, n.y, n.z, d.z},
+            {0, 0, 0, 1}
+        };
+        Matrix kt = Matrix.constructWithCopy(viewValues);
+        projection = vd.times(kt);
     }
 
     @Override
@@ -106,5 +91,5 @@ public class OrthographicCamera implements Camera {
         Pixel pixel = new Pixel(point.get(0, 0) / point.get(3, 0), point.get(1, 0) / point.get(3, 0));
         return pixel;
     }
-    private static final Logger LOG = Logger.getLogger(OrthographicCamera.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(OrthographicCamera.class);
 }

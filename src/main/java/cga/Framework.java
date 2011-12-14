@@ -15,7 +15,7 @@
 package cga;
 
 import cga.framework.animation.Animator;
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.camera.OrthographicCamera;
 import cga.framework.event.InputHandler;
 import cga.framework.math.Vector3d;
@@ -59,7 +59,7 @@ public abstract class Framework {
     private static Framework instance;
     private SceneGraph scenegraph;
     private Renderer renderer;
-    private Camera camera;
+    private AbstractCamera camera;
     private Animator animator;
     private List<Visitor> visitors;
     private RenderVisitor rv;
@@ -79,8 +79,6 @@ public abstract class Framework {
      * @param height die Höhe der Auflösung
      */
     public Framework(int width, int height) {
-        id = getClass().getCanonicalName();
-        instance = this;
 
         inputEventBus = new EventBus("Input");
         screenWidth = width;
@@ -308,7 +306,7 @@ public abstract class Framework {
      *
      * @return die Kamera des Frameworks
      */
-    public Camera getCamera() {
+    public AbstractCamera getCamera() {
         return camera;
     }
 
@@ -442,7 +440,7 @@ public abstract class Framework {
      * Ändert die Kamera.
      * @param camera die neue Kamera
      */
-    public void setCamera(Camera camera) {
+    public void setCamera(AbstractCamera camera) {
         this.camera = camera;
         rv.setCamera(camera);
     }

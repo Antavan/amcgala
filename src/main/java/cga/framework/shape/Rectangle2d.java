@@ -14,7 +14,7 @@
  */
 package cga.framework.shape;
 
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 
@@ -65,7 +65,7 @@ public class Rectangle2d extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
         bottom.color = color;
         top.color = color;
         left.color = color;

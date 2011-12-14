@@ -17,7 +17,7 @@ package cga.example.sinecurve;
 import cga.framework.animation.Animation;
 import cga.framework.animation.interpolation.Interpolation;
 import cga.framework.animation.interpolation.LinearInterpolation;
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 import cga.framework.shape.BresenhamLine2d;
@@ -111,7 +111,7 @@ public class AnimatedSineCurve extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
         for (int i = 0; i < points.length - 1; i++) {
             BresenhamLine2d line = new BresenhamLine2d(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
             line.render(transformation, camera, renderer);

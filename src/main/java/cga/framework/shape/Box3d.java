@@ -14,7 +14,7 @@
  */
 package cga.framework.shape;
 
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Renderer;
@@ -54,7 +54,7 @@ public class Box3d extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
         for (BresenhamLine3d line : lines) {
             if (line != null) {
                 line.render(transformation, camera, renderer);

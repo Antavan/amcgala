@@ -14,7 +14,7 @@
  */
 package cga.framework.shape;
 
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Pixel;
@@ -41,7 +41,7 @@ public class BresenhamLine3d extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
         // Einbeziehen der Transformationsgruppen. Um Animationen zu beruecksichtigen, die auf die einzelnen Felder zugegriffen
         // haben, werden die start und end Vektoren aktualisiert, bevor sie mit der Transformationsmatrix multipliziert werden.
         start = new Vector3d(x1, y1, z1).transform(transformation);

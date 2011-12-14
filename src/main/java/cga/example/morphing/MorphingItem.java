@@ -17,7 +17,7 @@ package cga.example.morphing;
 import cga.framework.animation.Animation;
 import cga.framework.animation.interpolation.Interpolation;
 import cga.framework.animation.interpolation.LinearInterpolation;
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 import cga.framework.shape.Line2d;
@@ -58,7 +58,7 @@ public class MorphingItem extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
         line1.render(transformation, camera, renderer);
     }
 }

@@ -14,7 +14,7 @@
  */
 package cga.example.ships;
 
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 import cga.framework.shape.BresenhamLine2d;
@@ -72,7 +72,7 @@ public class Ship extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
         l1.render(transformation, camera, renderer);
         l2.render(transformation, camera, renderer);
     }

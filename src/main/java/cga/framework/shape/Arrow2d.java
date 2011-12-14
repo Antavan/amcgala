@@ -14,7 +14,7 @@
  */
 package cga.framework.shape;
 
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Color;
@@ -68,7 +68,7 @@ public class Arrow2d extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
         l1.render(transformation, camera, renderer);
     }
 

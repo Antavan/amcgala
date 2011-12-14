@@ -14,7 +14,7 @@
  */
 package cga.example.ships;
 
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.renderer.Renderer;
 import cga.framework.shape.Line;
@@ -76,7 +76,7 @@ public class ShipEnd extends Ship {
     }
 
     @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
         if (Heading.BOTTOM.equals(heading)) {
             for (Line line : bottom) {
                 line.getLine(x, y, width, height).render(transformation, camera, renderer);

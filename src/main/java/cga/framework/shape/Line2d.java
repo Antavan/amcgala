@@ -14,7 +14,7 @@
  */
 package cga.framework.shape;
 
-import cga.framework.camera.Camera;
+import cga.framework.camera.AbstractCamera;
 import cga.framework.math.Matrix;
 import cga.framework.math.Vector3d;
 import cga.framework.renderer.Pixel;
@@ -62,7 +62,7 @@ public class Line2d extends Shape {
     }
 
     @Override
-    public void render(Matrix transformation, Camera camera, Renderer renderer) {
+    public void render(Matrix transformation, AbstractCamera camera, Renderer renderer) {
         // Einbeziehen der Transformationsgruppen. Um Animationen zu berücksichtigen, die auf die einzelnen Felder zugegriffen haben, werden die start und end Vektoren aktualisiert, bevor sie mit der Transformationsmatrix multipliziert werden.
         start = new Vector3d(x1, y1, -1).transform(transformation);
         end = new Vector3d(x2, y2, -1).transform(transformation);
