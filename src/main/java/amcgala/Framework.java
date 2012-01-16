@@ -111,7 +111,7 @@ public abstract class Framework {
 
         visitors.add(new InterpolationVisitor());
 
-        animator = new Animator(20);
+        animator = new Animator(60, 60);
         AnimationVisitor animationVisitor = new AnimationVisitor();
         visitors.add(animationVisitor);
 

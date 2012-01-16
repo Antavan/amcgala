@@ -17,18 +17,16 @@ package amcgala.example.sinecurve;
 import amcgala.framework.animation.Animation;
 import amcgala.framework.animation.interpolation.Interpolation;
 import amcgala.framework.animation.interpolation.LinearInterpolation;
-import amcgala.framework.camera.AbstractCamera;
 import amcgala.framework.camera.Camera;
 import amcgala.framework.math.Matrix;
 import amcgala.framework.renderer.Renderer;
 import amcgala.framework.shape.BresenhamLine2d;
-import amcgala.framework.shape.Line2d;
 import amcgala.framework.shape.Point2d;
 import amcgala.framework.shape.Shape;
 
 /**
  * Eine animierte Sinuskurve.
- * <p/>
+ *
  * @author Robert Giacinto
  */
 public class AnimatedSineCurve extends Shape {
@@ -72,7 +70,7 @@ public class AnimatedSineCurve extends Shape {
     private void init() {
         int step = 0;
         while (step < steps) {
-            points[step] = new Point2d(step * ( Math.PI * 10 / steps ) * 100, 10 * amplitude * Math.sin(step * ( Math.PI * 10 / steps ) * frequency * 10));
+            points[step] = new Point2d(step * (Math.PI * 10 / steps) * 100, 10 * amplitude * Math.sin(step * (Math.PI * 10 / steps) * frequency * 10));
             step++;
         }
     }

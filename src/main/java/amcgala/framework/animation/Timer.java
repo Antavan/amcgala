@@ -14,17 +14,18 @@
  */
 package amcgala.framework.animation;
 
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Ein einfacher Timer, der einen Zeitraum messen kann. Diese
- * Klasse wird zur Animation und Aktualisierung des Frameworks benötigt.
- * 
+ * Ein einfacher Timer, der einen Zeitraum messen kann. Diese Klasse wird zur
+ * Animation und Aktualisierung des Frameworks benötigt.
+ *
  * @author Robert Giacinto
  */
 public class Timer {
 
-    private static final Logger logger = Logger.getLogger(Timer.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(Timer.class);
     private double framesPerSecond;
     private double startTime;
     private double stopTime;
@@ -33,35 +34,49 @@ public class Timer {
 
     /**
      * Erzeugt einen neuen Timer.
-     * 
-     * @param framesPerSecond die Anzahl von Frames, die pro Sekunde berechnet werden sollen.
+     *
+     * @param framesPerSecond die Anzahl von Frames, die pro Sekunde berechnet
+     *                        werden sollen.
      */
     public Timer(double framesPerSecond) {
         this.framesPerSecond = framesPerSecond;
-        timePerFrame = 1000 / framesPerSecond;
+        timePerFrame = 1000 * 1000000 / framesPerSecond;
     }
 
     /**
-     * Startet den Timer. 
+     * Startet den Timer.
      */
-    public void start() {
-        startTime = System.currentTimeMillis();
+    public double start() {
+        startTime = System.nanoTime();
+        return startTime;
     }
 
     /**
      * Stoppt den Timer.
      */
-    public void stop() {
-        stopTime = System.currentTimeMillis();
+    public double stop() {
+        stopTime = System.nanoTime();
         duration = stopTime - startTime;
+        return stopTime;
     }
 
     /**
-     * Gibt die Sleeptime des Frameworks zurück. Dies ist die Differenzzeit, die nach Abzug der benötigten Zeit zum Rendern, noch 
-     * übrig bleibt.
+     * Gibt die Sleeptime des Frameworks zurück. Dies ist die Differenzzeit, die
+     * nach Abzug der benötigten Zeit zum Rendern, noch übrig bleibt.
+     *
      * @return die Sleeptime
      */
     public double getSleepTime() {
-        return (timePerFrame - duration < 0) ? 1 : (timePerFrame - duration);
+        double sleepTime = (timePerFrame - duration < 0) ? 5 : (timePerFrame - duration) / 1000000;
+        return sleepTime;
+    }
+
+    /**
+     * Gibt die Zeit zurück, die pro Frame für die Aktion vorgesehen ist.
+     *
+     * @return die Zeit pro Frame
+     */
+    public double getTimePerFrame() {
+        return timePerFrame;
     }
 }
