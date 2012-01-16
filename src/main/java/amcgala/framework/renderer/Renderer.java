@@ -38,12 +38,13 @@ public class Renderer {
     private int offsetX;
     private int offsetY;
     private JFrame frame;
+    private Graphics g;
 
     /**
      * Erzeugt einen neuen Renderer und initialisiert die gemeinsamen Felder
      * aller Renderer.
      *
-     * @param width die Breite der Ausgabe des Renderers
+     * @param width  die Breite der Ausgabe des Renderers
      * @param height die Höhe der Ausgabe des Renderers
      */
     public Renderer(int width, int height, JFrame frame) {
@@ -57,6 +58,7 @@ public class Renderer {
 
         frame.createBufferStrategy(2);
         bs = frame.getBufferStrategy();
+        g = bs.getDrawGraphics();
     }
 
     /**
@@ -85,10 +87,8 @@ public class Renderer {
      * @param pixel der Pixel, der dargestellt werden soll
      */
     public void putPixel(Pixel pixel) {
-        Graphics g = bs.getDrawGraphics();
         g.setColor(java.awt.Color.BLACK);
         g.fillRect(offsetX + pixel.x, -pixel.y + offsetY, 1, 1);
-        g.dispose();
     }
 
     /**
@@ -100,10 +100,8 @@ public class Renderer {
      * @param color die Farbe des Pixels
      */
     public void putPixel(Pixel pixel, amcgala.framework.renderer.Color color) {
-        Graphics g = bs.getDrawGraphics();
         g.setColor(color.color);
         g.fillRect(offsetX + pixel.x, -pixel.y + offsetY, 1, 1);
-        g.dispose();
     }
 
     /**
@@ -111,14 +109,15 @@ public class Renderer {
      */
     public void show() {
         bs.show();
-        bs.getDrawGraphics().clearRect(0, 0, frame.getWidth(), frame.getHeight());
+        g = bs.getDrawGraphics();
+        g.clearRect(0, 0, frame.getWidth(), frame.getHeight());
     }
 
     /**
      * Fügt dem JFrame der Ausgabe einen MouseListener hinzu, mit dem
      * Interaktionen implementiert werden können.
-     * 
-     * @deprecated 
+     *
+     * @deprecated
      * @param mouseAdapter der MouseListener
      */
     public void addMouseListener(MouseAdapter mouseAdapter) {
@@ -130,7 +129,8 @@ public class Renderer {
     /**
      * Fügt dem JFrame einen KeyListener hinzu, mit dem Interaktionen über das
      * Keyboard implementiert werden können .
-     * @deprecated 
+     *
+     * @deprecated
      * @param keyAdapter der KeyListener
      *
      */

@@ -15,7 +15,8 @@
 package amcgala.framework.animation;
 
 import amcgala.Framework;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Diese Klasse kümmert sich um das Timing der Animation. Sie ruft in
@@ -26,21 +27,26 @@ import java.util.logging.Logger;
  */
 public class Animator {
 
-    private static final Logger logger = Logger.getLogger(Animator.class.getName());
-    private Timer timer;
+    private static final Logger log = LoggerFactory.getLogger(Animator.class);
+    private Timer fpsTimer;
+    private Timer upsTimer;
     private Framework framework;
     private int framesPerSecond;
+    private int updatesPerSecond;
     private Thread animation;
     private boolean running;
 
     /**
      * Erzeugt einen neuen Animator, der das Framework aktualisiert.
      *
-     * @param framesPerSecond die Anzahl der Aktualisierungen pro Sekunde
+     * @param framesPerSecond  die Anzahl der Bilder pro Sekunde
+     * @param updatesPerSecond die Anzahl der Aktualisierungen pro Sekunde
      */
-    public Animator(int framesPerSecond) {
+    public Animator(int framesPerSecond, int updatesPerSecond) {
         this.framesPerSecond = framesPerSecond;
-        timer = new Timer(framesPerSecond);
+        this.updatesPerSecond = updatesPerSecond;
+        fpsTimer = new Timer(framesPerSecond);
+        upsTimer = new Timer(updatesPerSecond);
     }
 
     /**
@@ -68,7 +74,7 @@ public class Animator {
      */
     public void setFramesPerSecond(int framesPerSecond) {
         this.framesPerSecond = framesPerSecond;
-        timer = new Timer(framesPerSecond);
+        fpsTimer = new Timer(framesPerSecond);
     }
 
     /**
@@ -81,14 +87,47 @@ public class Animator {
 
                 @Override
                 public void run() {
+                    double fpsLastTime = System.nanoTime();
+                    double upsLastTime = System.nanoTime();
+                    int upsCounter = 0;
+                    int fpsCounter = 0;
+                    int unprocessed = 1;
+                    double last = System.nanoTime();
+                    boolean render = true;
                     while (running) {
-                        timer.start();
-                        framework.update();
-                        framework.show();
-                        timer.stop();
+                        double now = System.nanoTime();
+                        unprocessed += (now - last) / upsTimer.getTimePerFrame();
+                        fpsTimer.start();
+                        while (unprocessed > 0) {
+                            upsCounter++;
+                            unprocessed--;
+
+                            framework.update();
+                            last = System.nanoTime();
+                            render = true;
+                        }
+
+                        fpsCounter++;
+                        if (render) {
+                            framework.show();
+                            render = false;
+                        }
+                        fpsTimer.stop();
                         try {
-                            Thread.sleep((long) timer.getSleepTime());
+                            Thread.sleep((long) fpsTimer.getSleepTime());
                         } catch (InterruptedException e) {
+                        }
+
+                        if (System.nanoTime() - fpsLastTime > 1000000000) {
+                            log.debug("FPS = {}", fpsCounter);
+                            fpsCounter = 0;
+                            fpsLastTime = System.nanoTime();
+                        }
+
+                        if (System.nanoTime() - upsLastTime > 1000000000) {
+                            log.debug("UPS = {}", upsCounter);
+                            upsCounter = 0;
+                            upsLastTime = System.nanoTime();
                         }
                     }
                 }

@@ -58,7 +58,6 @@ public class MovingCamera extends Framework implements InputHandler {
         n.addShape(new Box3d(new Vector3d(0, 0, 0), 40, 40, 40));
         n.addShape(new Box3d(new Vector3d(0, 100, 0), 40, 40, 40));
         n.addShape(new Box3d(new Vector3d(0, 200, 0), 40, 40, 40));
-
         add(n);
     }
 

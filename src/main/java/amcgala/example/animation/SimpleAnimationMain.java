@@ -34,7 +34,7 @@ public class SimpleAnimationMain extends Framework {
 
     /**
      * Erzeugt ein SimpleAnimation Beispiel mit einer bestimmten Größe.
-     * @param widt die Breite des Beispielfensters
+     * @param width die Breite des Beispielfensters
      * @param height die Höhe des Beispielfensters
      */
     public SimpleAnimationMain(int width, int height) {
