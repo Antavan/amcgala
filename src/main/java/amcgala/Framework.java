@@ -129,6 +129,11 @@ public abstract class Framework {
             public void keyPressed(KeyEvent e) {
                 inputEventBus.post(e);
             }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+            	inputEventBus.post(e);
+            }
         });
 
         frame.addMouseListener(new MouseListener() {
